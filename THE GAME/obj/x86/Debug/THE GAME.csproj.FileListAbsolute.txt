@@ -1,0 +1,11 @@
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\bin\Debug\graphics\sprites.png
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\bin\Debug\graphics\tileset.png
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\bin\Debug\THE GAME.exe
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\bin\Debug\THE GAME.pdb
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\WindowsFormsApplication1.MainWindow.resources
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\THE GAME.exe
+C:\Users\Eigenaar\Documents\Visual Studio 2010\Projects\THE GAME\THE GAME\obj\x86\Debug\THE GAME.pdb
