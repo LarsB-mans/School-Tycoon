@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "THE GAME", "THE GAME\THE GAME.csproj", "{23054785-D1AB-42BA-825E-10F94D86AC30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23054785-D1AB-42BA-825E-10F94D86AC30}.Debug|x86.ActiveCfg = Debug|x86
+		{23054785-D1AB-42BA-825E-10F94D86AC30}.Debug|x86.Build.0 = Debug|x86
+		{23054785-D1AB-42BA-825E-10F94D86AC30}.Release|x86.ActiveCfg = Release|x86
+		{23054785-D1AB-42BA-825E-10F94D86AC30}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
