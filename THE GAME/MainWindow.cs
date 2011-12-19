@@ -109,20 +109,20 @@ namespace WindowsFormsApplication1
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
             
+            byte[] buffer = File.ReadAllBytes(openFileDialog.FileName);
+            
             FileStream savefile = new FileStream(openFileDialog.FileName, FileMode.Open);
 
             BinaryReader saveread = new BinaryReader(savefile);
 
-            string identifier = saveread.ReadChars(4).ToString();
-
+            string identifier = new string(saveread.ReadChars(4));
             if (identifier != "STSF")
             {
-                MessageBox.Show("File is not a valid School Tycoon save file.", "Save file load error!");
+                MessageBox.Show("File is not a valid School Tycoon save file.", "Save file loads of error!");
                 return;
             }
 
             #region checksum check
-            byte[] buffer = File.ReadAllBytes(openFileDialog.FileName);
             MD5 MD5 = new MD5CryptoServiceProvider();
             if (MD5.ComputeHash(buffer, 0, buffer.Length - 16).SequenceEqual(buffer.Skip(buffer.Length - 16).ToArray()))
             {
