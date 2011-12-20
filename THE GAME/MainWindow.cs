@@ -17,23 +17,24 @@ namespace WindowsFormsApplication1
         public static int rowcount;
         public static int columncount;
         public static int tileSetNumber = 0;
-        Blocks blocks = new Blocks();
-        People people = new People();
-        
-        public Bitmap sprites = new Bitmap("graphics\\sprites.png");
+        Blocks Blocks = new Blocks();
+        People People = new People();
 
         int[][] personData = new int[0][];
 
         public MainWindow()
         {
-            blocks.loadGraphics();
-            people.loadGraphics();
+            Blocks.loadGraphics();
+            People.loadGraphics();
             InitializeComponent();
 
+            lockGame(true);
             fillDebugMenu();
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lockGame(true);
+
             rowcount = 16;
             columncount = 16;
             InitializeGrid(columncount, rowcount);
@@ -62,6 +63,7 @@ namespace WindowsFormsApplication1
             #endregion
 
             InitializePeople();
+            lockGame(false);
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -99,7 +101,10 @@ namespace WindowsFormsApplication1
 
             #region save checksum
             MD5 MD5 = new MD5CryptoServiceProvider();
-            savewrite.Write(MD5.ComputeHash(savefile));
+            savefile.Position = 0;
+            byte[] checksum = MD5.ComputeHash(savefile);
+            savefile.Position = savefile.Length;
+            savewrite.Write(checksum);
             #endregion
 
             savefile.Close();
@@ -108,6 +113,8 @@ namespace WindowsFormsApplication1
         {
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
+
+            lockGame(true);
             
             byte[] buffer = File.ReadAllBytes(openFileDialog.FileName);
             
@@ -119,21 +126,23 @@ namespace WindowsFormsApplication1
             if (identifier != "STSF")
             {
                 MessageBox.Show("File is not a valid School Tycoon save file.", "Save file loads of error!");
+                savefile.Close();
                 return;
             }
 
             #region checksum check
             MD5 MD5 = new MD5CryptoServiceProvider();
-            if (MD5.ComputeHash(buffer, 0, buffer.Length - 16).SequenceEqual(buffer.Skip(buffer.Length - 16).ToArray()))
+            if (!MD5.ComputeHash(buffer, 0, buffer.Length - 16).SequenceEqual(buffer.Skip(buffer.Length - 16).ToArray()))
             {
                 MessageBox.Show("Save file is corrupted.", "Save file load error!");
+                savefile.Close();
                 return;
             }
             #endregion
 
             #region load map data
-            rowcount = saveread.ReadByte() + 1;
-            columncount = saveread.ReadByte() + 1;
+            rowcount = saveread.ReadByte();
+            columncount = saveread.ReadByte();
 
             InitializeGrid(columncount, rowcount);
 
@@ -174,11 +183,12 @@ namespace WindowsFormsApplication1
             foreach (int[] data in personData)
             {
                 PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(data[2], data[3]);
-                tile.Image = people.GFX[data[0]][data[1]];
+                tile.Image = People.GFX[data[0]][data[1]];
             }
             #endregion
 
             savefile.Close();
+            lockGame(false);
         }
 
         public void InitializeGrid(int columncount, int rowcount)
@@ -196,9 +206,11 @@ namespace WindowsFormsApplication1
         }
         public void InitializePeople()
         {
-            personData = new int[2][];  // create 1 person
+            personData = new int[4][];  // create 1 person
             personData[0] = new int[4]; // generate data for person 1
             personData[1] = new int[4]; // generate data for person 2
+            personData[2] = new int[4];
+            personData[3] = new int[4];
 
             personData[0][0] = 0;       // person 1 = student
             personData[0][1] = 0;       // person 1 = male
@@ -207,20 +219,36 @@ namespace WindowsFormsApplication1
 
             personData[1][0] = 0;       // person 2 = student
             personData[1][1] = 1;       // person 2 = male
-            personData[1][2] = 4;
+            personData[1][2] = 1;
             personData[1][3] = 0;
+
+            personData[2][0] = 1;       // person 1 = teacher
+            personData[2][1] = 0;       // person 1 = male
+            personData[2][2] = 0;
+            personData[2][3] = 1;
+
+            personData[3][0] = 1;       // person 1 = teacher
+            personData[3][1] = 1;       // person 1 = female
+            personData[3][2] = 1;
+            personData[3][3] = 1;
 
             foreach (int[] data in personData)
             {
                 PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(data[2], data[3]);
-                tile.Image = people.GFX[data[0]][data[1]];
+                tile.Image = People.GFX[data[0]][data[1]];
             }
         }
 
+        private void lockGame(bool lockstatus)
+        {
+            lockstatus = !lockstatus;
+            saveToolStripMenuItem.Enabled = lockstatus;
+            splitContainer1.Enabled = lockstatus;
+        }
         private void fillDebugMenu()
         {
-            int blockCount = blocks.GFX.Count();
-            for (int i = 0; i < blocks.GFX.Count(); i++)
+            int blockCount = Blocks.GFX.Count();
+            for (int i = 0; i < Blocks.GFX.Count(); i++)
             {
                 changeTile.Items.Add(i.ToString());
                 changeTile.Items[changeTile.Items.Count - 1].Tag = i;
@@ -250,7 +278,7 @@ namespace WindowsFormsApplication1
         {
             PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(column, row);
             tile.Tag = new short[] { tiletype, tilevalue };
-            tile.BackgroundImage = blocks.GFX[tiletype][tilevalue];
+            tile.BackgroundImage = Blocks.GFX[tiletype][tilevalue];
         }
         private short[] getTileData(int column, int row)
         {
