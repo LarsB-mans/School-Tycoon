@@ -8,7 +8,7 @@
     <ProjectGuid>{23054785-D1AB-42BA-825E-10F94D86AC30}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <RootNamespace>SchoolTycoon</RootNamespace>
     <AssemblyName>THE GAME</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>

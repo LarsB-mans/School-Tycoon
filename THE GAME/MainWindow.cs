@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
-namespace WindowsFormsApplication1
+namespace SchoolTycoon
 {
     public partial class MainWindow : Form
     {
@@ -27,6 +27,8 @@ namespace WindowsFormsApplication1
             Blocks.loadGraphics();
             People.loadGraphics();
             InitializeComponent();
+            tabControl1.ItemSize = new Size(0, 0);
+            tabControl1.Region = new Region(new Rectangle(standardTab.Left, standardTab.Top, standardTab.Width, standardTab.Height));
 
             lockGame(true);
             fillDebugMenu();
@@ -232,11 +234,12 @@ namespace WindowsFormsApplication1
             personData[3][2] = 1;
             personData[3][3] = 1;
 
-            foreach (int[] data in personData)
-            {
-                PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(data[2], data[3]);
-                tile.Image = People.GFX[data[0]][data[1]];
-            }
+            //Place persons on the grid
+            //foreach (int[] data in personData)
+            //{
+            //    PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(data[2], data[3]);
+            //    tile.Image = People.GFX[data[0]][data[1]];
+            //}
         }
 
         private void lockGame(bool lockstatus)
@@ -284,6 +287,15 @@ namespace WindowsFormsApplication1
         {
             PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(column, row);
             return (short[])tile.Tag;
+        }
+
+        private void switchToStandardTab(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = standardTab;
+        }
+        private void classroomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = classroomBuilderTab;
         }
     }
 }
