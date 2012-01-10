@@ -106,7 +106,7 @@ namespace SchoolTycoon
                 LocationX = BlockLocation.X + RelativePointTable[i].X;
                 LocationY = BlockLocation.Y + RelativePointTable[i].Y;
 
-                if (LocationX > columncount || LocationX < 0 || LocationY > rowcount || LocationY < 0)
+                if (LocationX >= columncount || LocationX < 0 || LocationY >= rowcount || LocationY < 0)
                 {
                     Value += 1 << i;
                     continue;

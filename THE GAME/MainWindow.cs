@@ -315,7 +315,7 @@ namespace SchoolTycoon
                 }
             }
 
-            if (column < columncount && row > 0)
+            if (column < columncount - 1 && row > 0)
             {
                 tiledata = getTileData(column + 1, row - 1);
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
@@ -335,7 +335,7 @@ namespace SchoolTycoon
                 }
             }
 
-            if (column < columncount)
+            if (column < columncount - 1)
             {
                 tiledata = getTileData(column + 1, row);
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
@@ -345,7 +345,7 @@ namespace SchoolTycoon
                 }
             }
 
-            if (column < columncount && row < rowcount)
+            if (column > 0 && row < rowcount - 1)
             {
                 tiledata = getTileData(column - 1, row + 1);
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
@@ -355,7 +355,7 @@ namespace SchoolTycoon
                 }
             }
 
-            if (row < rowcount)
+            if (row < rowcount - 1)
             {
                 tiledata = getTileData(column, row + 1);
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
@@ -365,7 +365,7 @@ namespace SchoolTycoon
                 }
             }
 
-            if (column < columncount && row < rowcount)
+            if (column < columncount - 1 && row < rowcount - 1)
             {
                 tiledata = getTileData(column + 1, row + 1);
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
