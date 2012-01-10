@@ -17,17 +17,25 @@ namespace SchoolTycoon
         public static int rowcount;
         public static int columncount;
         public static int tileSetNumber = 0;
-        Blocks Blocks = new Blocks();
-        People People = new People();
 
-        int[][] personData = new int[0][];
+
+        int Flag = -1;
+        StreamWriter streamwriter;
+
+
+        List<Person> Persons;
+        List<Point> SpriteLocationData = new List<Point>();
+
+        public enum Sidebars { Main, ClassroomBuilder };
 
         public MainWindow()
         {
-            Blocks.loadGraphics();
-            People.loadGraphics();
+            MakeBlockTypes();
+            loadPeopleGraphics();
+            LoadSprites();
             InitializeComponent();
-            tabControl1.ItemSize = new Size(0, 0);
+
+            tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
             tabControl1.Region = new Region(new Rectangle(standardTab.Left, standardTab.Top, standardTab.Width, standardTab.Height));
 
             lockGame(true);
@@ -69,7 +77,9 @@ namespace SchoolTycoon
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            return; // dummied out
+
+            /*if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             FileStream savefile = new FileStream(saveFileDialog.FileName, FileMode.Create);
@@ -109,11 +119,13 @@ namespace SchoolTycoon
             savewrite.Write(checksum);
             #endregion
 
-            savefile.Close();
+            savefile.Close();*/
         }
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
+            return;
+
+            /*if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             lockGame(true);
@@ -190,7 +202,7 @@ namespace SchoolTycoon
             #endregion
 
             savefile.Close();
-            lockGame(false);
+            lockGame(false);*/
         }
 
         public void InitializeGrid(int columncount, int rowcount)
@@ -208,38 +220,8 @@ namespace SchoolTycoon
         }
         public void InitializePeople()
         {
-            personData = new int[4][];  // create 1 person
-            personData[0] = new int[4]; // generate data for person 1
-            personData[1] = new int[4]; // generate data for person 2
-            personData[2] = new int[4];
-            personData[3] = new int[4];
-
-            personData[0][0] = 0;       // person 1 = student
-            personData[0][1] = 0;       // person 1 = male
-            personData[0][2] = 0;
-            personData[0][3] = 0;
-
-            personData[1][0] = 0;       // person 2 = student
-            personData[1][1] = 1;       // person 2 = male
-            personData[1][2] = 1;
-            personData[1][3] = 0;
-
-            personData[2][0] = 1;       // person 1 = teacher
-            personData[2][1] = 0;       // person 1 = male
-            personData[2][2] = 0;
-            personData[2][3] = 1;
-
-            personData[3][0] = 1;       // person 1 = teacher
-            personData[3][1] = 1;       // person 1 = female
-            personData[3][2] = 1;
-            personData[3][3] = 1;
-
-            //Place persons on the grid
-            //foreach (int[] data in personData)
-            //{
-            //    PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(data[2], data[3]);
-            //    tile.Image = People.GFX[data[0]][data[1]];
-            //}
+            Persons = new List<Person>();
+            Persons.Add(new Person(Gender.Male, Type.Pupil, 100));
         }
 
         private void lockGame(bool lockstatus)
@@ -250,8 +232,8 @@ namespace SchoolTycoon
         }
         private void fillDebugMenu()
         {
-            int blockCount = Blocks.GFX.Count();
-            for (int i = 0; i < Blocks.GFX.Count(); i++)
+            int blockCount = BlockTypes.Count();
+            for (int i = 0; i < BlockTypes.Count(); i++)
             {
                 changeTile.Items.Add(i.ToString());
                 changeTile.Items[changeTile.Items.Count - 1].Tag = i;
@@ -260,7 +242,35 @@ namespace SchoolTycoon
         private void box_Click(object sender, EventArgs e)
         {
             selectedTile = theGrid.GetPositionFromControl(((Control)sender));
-            changeTile.Show(Cursor.Position);
+            short[] TileData = getTileData(selectedTile.Column, selectedTile.Row);
+            switch ((Sidebars)tabControl1.SelectedIndex)
+            {
+                case Sidebars.Main:
+                    changeTile.Show(Cursor.Position);
+                    break;
+                case Sidebars.ClassroomBuilder:
+                    clearSprites();
+                    bool CanBuild = true;
+
+                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
+                        CanBuild = false;
+
+                    TileData = getTileData(selectedTile.Column + 1, selectedTile.Row);
+                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
+                        CanBuild = false;
+
+                    TileData = getTileData(selectedTile.Column, selectedTile.Row + 1);
+                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
+                        CanBuild = false;
+
+                    Sprite sprite = CanBuild ? Sprite.BlueprintBlue : Sprite.BlueprintRed;
+                    setSprite(selectedTile.Column, selectedTile.Row, sprite);
+                    setSprite(selectedTile.Column + 1, selectedTile.Row, sprite);
+                    setSprite(selectedTile.Column, selectedTile.Row + 1, sprite);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void changeTile_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -273,15 +283,109 @@ namespace SchoolTycoon
             switch (tiletype)
             {
                 default:
+                    if (BlockTypes[tiletype][tilevalue].Walled == true)
+                        tilevalue = GetEnclosureValue(new Point(column, row));
                     changeTileImage(column, row, tiletype, tilevalue);
+                    FixWalls(column, row, tiletype);
                     break;
+            }
+        }
+        private void FixWalls(int column, int row, short tiletype)
+        {
+            short tilevalue;
+
+            if (column > 0 && row > 0)
+            {
+                if (getTileData(column - 1, row - 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column - 1, row - 1));
+                    changeTileImage(column - 1, row - 1, tiletype, tilevalue);
+                }
+            }
+
+            if (row > 0)
+            {
+                if (getTileData(column, row - 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column, row - 1));
+                    changeTileImage(column, row - 1, tiletype, tilevalue);
+                }
+            }
+
+            if (column < columncount && row > 0)
+            {
+                if (getTileData(column + 1, row - 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column + 1, row - 1));
+                    changeTileImage(column + 1, row - 1, tiletype, tilevalue);
+                }
+            }
+
+            if (column > 0)
+            {
+                if (getTileData(column - 1, row)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column - 1, row));
+                    changeTileImage(column - 1, row, tiletype, tilevalue);
+                }
+            }
+
+            if (column < columncount)
+            {
+                if (getTileData(column + 1, row)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column + 1, row));
+                    changeTileImage(column + 1, row, tiletype, tilevalue);
+                }
+            }
+
+            if (column < columncount && row < rowcount)
+            {
+                if (getTileData(column - 1, row + 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column - 1, row + 1));
+                    changeTileImage(column - 1, row + 1, tiletype, tilevalue);
+                }
+            }
+
+            if (row < rowcount)
+            {
+                if (getTileData(column, row + 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column, row + 1));
+                    changeTileImage(column, row + 1, tiletype, tilevalue);
+                }
+            }
+
+            if (column < columncount && row < rowcount)
+            {
+                if (getTileData(column + 1, row + 1)[0] == tiletype)
+                {
+                    tilevalue = GetEnclosureValue(new Point(column + 1, row + 1));
+                    changeTileImage(column + 1, row + 1, tiletype, tilevalue);
+                }
             }
         }
         private void changeTileImage(int column, int row, short tiletype, short tilevalue)
         {
             PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(column, row);
             tile.Tag = new short[] { tiletype, tilevalue };
-            tile.BackgroundImage = Blocks.GFX[tiletype][tilevalue];
+            tile.BackgroundImage = BlockTypes[tiletype][tilevalue].Tile;
+        }
+        private void clearSprites()
+        {
+            PictureBox tile;
+            foreach (Point point in SpriteLocationData)
+            {
+                tile = (PictureBox)theGrid.GetControlFromPosition(point.X, point.Y);
+                tile.Image = null;
+            }
+        }
+        private void setSprite(int column, int row, Sprite sprite)
+        {
+            PictureBox tile = (PictureBox)theGrid.GetControlFromPosition(column, row);
+            tile.Image = Sprites[(int)sprite];
+            SpriteLocationData.Add(new Point(column, row));
         }
         private short[] getTileData(int column, int row)
         {
@@ -291,11 +395,58 @@ namespace SchoolTycoon
 
         private void switchToStandardTab(object sender, EventArgs e)
         {
+            clearSprites();
             tabControl1.SelectedTab = standardTab;
         }
         private void classroomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = classroomBuilderTab;
+        }
+
+        private void advanceDayButton_Click(object sender, EventArgs e)
+        {
+            int LocationX = 5;
+            int LocationY = 5;
+
+            if (Flag == -1)
+            {
+                SaveFileDialog savetxt = new SaveFileDialog();
+
+                if (savetxt.ShowDialog() != DialogResult.OK)
+                    return;
+
+                imageList1.Images.AddStrip(Image.FromFile("graphics\\stripje.png"));
+
+                for (int x = 0; x < 47; x++)
+                    listView1.Items.Add("", x);
+
+                streamwriter = new StreamWriter(savetxt.FileName);
+                streamwriter.Write("byte[] Possibilities = new byte[] { ");
+                Flag = 0;
+            }
+            else
+            {
+                streamwriter.Write(listView1.SelectedIndices[0] + ", ");
+
+                streamwriter.Flush();
+                
+                Point[] RelativePointTable = new Point[] { new Point(-1, -1),
+                                                           new Point(0, -1),
+                                                           new Point(1, -1),
+                                                           new Point(-1, 0),
+                                                           new Point(1, 0),
+                                                           new Point(-1, 1),
+                                                           new Point(0, 1),
+                                                           new Point(1, 1) };
+
+                Flag++;
+
+                for (int x = 0; x < 8; x++)
+                    if (((1 << x) & Flag) != 0)
+                        changeTileImage(LocationX + RelativePointTable[x].X, LocationY + RelativePointTable[x].Y, 0, 0);
+                    else
+                        changeTileImage(LocationX + RelativePointTable[x].X, LocationY + RelativePointTable[x].Y, 3, 0);
+            }
         }
     }
 }
