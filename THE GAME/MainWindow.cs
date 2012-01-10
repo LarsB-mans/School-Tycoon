@@ -286,83 +286,92 @@ namespace SchoolTycoon
                     if (BlockTypes[tiletype][tilevalue].Walled == true)
                         tilevalue = GetEnclosureValue(new Point(column, row));
                     changeTileImage(column, row, tiletype, tilevalue);
-                    FixWalls(column, row, tiletype);
+                    FixWalls(column, row);
                     break;
             }
         }
-        private void FixWalls(int column, int row, short tiletype)
+        private void FixWalls(int column, int row)
         {
+            short[] tiledata;
             short tilevalue;
 
             if (column > 0 && row > 0)
             {
-                if (getTileData(column - 1, row - 1)[0] == tiletype)
+                tiledata = getTileData(column - 1, row - 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column - 1, row - 1));
-                    changeTileImage(column - 1, row - 1, tiletype, tilevalue);
+                    changeTileImage(column - 1, row - 1, tiledata[0], tilevalue);
                 }
             }
 
             if (row > 0)
             {
-                if (getTileData(column, row - 1)[0] == tiletype)
+                tiledata = getTileData(column, row - 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column, row - 1));
-                    changeTileImage(column, row - 1, tiletype, tilevalue);
+                    changeTileImage(column, row - 1, tiledata[0], tilevalue);
                 }
             }
 
             if (column < columncount && row > 0)
             {
-                if (getTileData(column + 1, row - 1)[0] == tiletype)
+                tiledata = getTileData(column + 1, row - 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column + 1, row - 1));
-                    changeTileImage(column + 1, row - 1, tiletype, tilevalue);
+                    changeTileImage(column + 1, row - 1, tiledata[0], tilevalue);
                 }
             }
 
             if (column > 0)
             {
-                if (getTileData(column - 1, row)[0] == tiletype)
+                tiledata = getTileData(column - 1, row);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column - 1, row));
-                    changeTileImage(column - 1, row, tiletype, tilevalue);
+                    changeTileImage(column - 1, row, tiledata[0], tilevalue);
                 }
             }
 
             if (column < columncount)
             {
-                if (getTileData(column + 1, row)[0] == tiletype)
+                tiledata = getTileData(column + 1, row);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column + 1, row));
-                    changeTileImage(column + 1, row, tiletype, tilevalue);
+                    changeTileImage(column +  1, row, tiledata[0], tilevalue);
                 }
             }
 
             if (column < columncount && row < rowcount)
             {
-                if (getTileData(column - 1, row + 1)[0] == tiletype)
+                tiledata = getTileData(column - 1, row + 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column - 1, row + 1));
-                    changeTileImage(column - 1, row + 1, tiletype, tilevalue);
+                    changeTileImage(column - 1, row + 1, tiledata[0], tilevalue);
                 }
             }
 
             if (row < rowcount)
             {
-                if (getTileData(column, row + 1)[0] == tiletype)
+                tiledata = getTileData(column, row + 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column, row + 1));
-                    changeTileImage(column, row + 1, tiletype, tilevalue);
+                    changeTileImage(column, row + 1, tiledata[0], tilevalue);
                 }
             }
 
             if (column < columncount && row < rowcount)
             {
-                if (getTileData(column + 1, row + 1)[0] == tiletype)
+                tiledata = getTileData(column + 1, row + 1);
+                if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column + 1, row + 1));
-                    changeTileImage(column + 1, row + 1, tiletype, tilevalue);
+                    changeTileImage(column + 1, row + 1, tiledata[0], tilevalue);
                 }
             }
         }
