@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchoolTycoon.Properties {
+namespace SchoolTycoon.Languages {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace SchoolTycoon.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Nederlands {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Nederlands() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SchoolTycoon.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolTycoon.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolTycoon.Languages.Nederlands", typeof(Nederlands).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,31 +60,48 @@ namespace SchoolTycoon.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap next {
+        /// <summary>
+        ///   Looks up a localized string similar to Kosten.
+        /// </summary>
+        internal static string ClassroomBuilderCosts {
             get {
-                object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomBuilderCosts", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap previous {
+        /// <summary>
+        ///   Looks up a localized string similar to Een verlengd klaslokaal met plek voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde &apos;eilandjes&apos;, voor een aangenamere leeromgeving..
+        /// </summary>
+        internal static string ClassroomMediumDescription {
             get {
-                object obj = ResourceManager.GetObject("previous", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomMediumDescription", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap rotateleft {
+        /// <summary>
+        ///   Looks up a localized string similar to Klaslokaal (Medium).
+        /// </summary>
+        internal static string ClassroomMediumName {
             get {
-                object obj = ResourceManager.GetObject("rotateleft", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomMediumName", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap rotateright {
+        /// <summary>
+        ///   Looks up a localized string similar to Een compact klaslokaal dat plaatsen biedt voor 24 leerlingen. Er is net genoeg ruimte voor een schoolbord en wat kasten. Kan voor alle vakken gebruikt worden, maar is niet erg geschikt voor groepsactiviteiten..
+        /// </summary>
+        internal static string ClassroomSmallDescription {
             get {
-                object obj = ResourceManager.GetObject("rotateright", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomSmallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klaslokaal (Klein).
+        /// </summary>
+        internal static string ClassroomSmallName {
+            get {
+                return ResourceManager.GetString("ClassroomSmallName", resourceCulture);
             }
         }
     }

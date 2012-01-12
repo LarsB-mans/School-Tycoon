@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -20,15 +22,17 @@ namespace SchoolTycoon
 
         List<Person> Persons;
         List<Point> SpriteLocationData = new List<Point>();
+        Point BuildLocation;
 
         public enum Sidebars { Main, ClassroomBuilder };
 
         public MainWindow()
         {
-            //MakeBlockTypes();
             loadPeopleGraphics();
             LoadSprites();
+
             InitializeComponent();
+
             PrepareBlueprint();
 
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
@@ -65,7 +69,7 @@ namespace SchoolTycoon
 
             for (int i = 0; i < rowcount; i++)              // fill tilemap with grass
                 for (int j = 0; j < columncount; j++)
-                    changeTileImage(j, i, 0, 0);
+                    changeTileImage(j, i, 1, 0);
             #endregion
 
             InitializePeople();
@@ -270,6 +274,8 @@ namespace SchoolTycoon
 
                         setSprite(selectedTile.Column + RelPoint.X, selectedTile.Row + RelPoint.Y, sprite);
                     }
+                    BuildLocation = new Point(selectedTile.Column, selectedTile.Row);
+                    CBbuildButton.Enabled = CanBuild;
                     break;
                 default:
                     break;
@@ -432,12 +438,52 @@ namespace SchoolTycoon
         private void switchToStandardTab(object sender, EventArgs e)
         {
             clearSprites();
+            CBbuildButton.Enabled = false;
             tabControl1.SelectedTab = standardTab;
         }
         private void classroomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = classroomBuilderTab;
             MakeBlueprint(SelectedBlueprint, Rotation);
+        }
+        private void LanguageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            englishToolStripMenuItem.Checked = false;
+            nederlandsToolStripMenuItem.Checked = false;
+
+            switch ((string)((ToolStripMenuItem)sender).Tag)
+            {
+                case "EN":
+                    englishToolStripMenuItem.Checked = true;
+                    Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
+                    break;
+                case "NL":
+                    nederlandsToolStripMenuItem.Checked = true;
+                    Language = new ResourceManager("SchoolTycoon.Languages.Nederlands", Assembly.GetExecutingAssembly());
+                    break;
+            }
+
+            MakeBlueprint(SelectedBlueprint, Rotation);
+        }
+
+        private void CBbuildButton_Click(object sender, EventArgs e)
+        {
+            Blueprint Plan = Blueprints[SelectedBlueprint, Rotation];
+
+            Point RelPoint;
+            int BlockCount = Plan.RelPoints.Count();
+            short[] TileData = { 0, 0 };
+
+            for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
+            {
+                RelPoint = Plan.RelPoints[BlockNumber];
+                TileData = Plan.TileData[BlockNumber];
+                PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(BuildLocation.X + RelPoint.X, BuildLocation.Y + RelPoint.Y);
+                Tile.Tag = new short[] { TileData[0], TileData[1] };
+                Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
+            }
+
+            switchToStandardTab(null, null);
         }
     }
 }

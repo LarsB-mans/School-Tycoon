@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Windows.Forms;
 
@@ -142,48 +144,74 @@ namespace SchoolTycoon
         int SelectedBlueprint = 0;
         int Rotation = 0;
         Point[] BuilderRelPoints;
+        static ResourceManager Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
         public Blueprint[,] Blueprints = new Blueprint[,]
         {
+            #region Classroom (Small)
             {
-                new Blueprint("Classroom (Small)",
+                new Blueprint("ClassroomSmallName",
+                              "ClassroomSmallDescription",
+                              1000,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 0 } }),
-                new Blueprint("Classroom (Small)",
+                new Blueprint("ClassroomSmallName",
+                              "ClassroomSmallDescription",
+                              1000,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 1 } }),
-                new Blueprint("Classroom (Small)",
+                new Blueprint("ClassroomSmallName",
+                              "ClassroomSmallDescription",
+                              1000,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 2 } }),
-                new Blueprint("Classroom (Small)",
+                new Blueprint("ClassroomSmallName",
+                              "ClassroomSmallDescription",
+                              1000,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 3 }, new short[] { 5, 3 } }),
             },
+            #endregion
+
+            #region Classroom (Medium)
             {
-                new Blueprint("Classroom (Medium)",
+                new Blueprint("ClassroomMediumName",
+                              "ClassroomMediumDescription",
+                              1500,
                               new Point[] { new Point(0, 0), new Point(0, 1) },
                               new short[][] { new short[] { 5, 4 }, new short[] { 5, 8 } }),
-                new Blueprint("Classroom (Medium)",
+                new Blueprint("ClassroomMediumName",
+                              "ClassroomMediumDescription",
+                              1500,
                               new Point[] { new Point(0, 0), new Point(-1, 0) },
                               new short[][] { new short[] { 5, 5 }, new short[] { 5, 9 } }),
-                new Blueprint("Classroom (Medium)",
+                new Blueprint("ClassroomMediumName",
+                              "ClassroomMediumDescription",
+                              1500,
                               new Point[] { new Point(0, 0), new Point(0, -1) },
                               new short[][] { new short[] { 5, 6 }, new short[] { 5, 10 } }),
-                new Blueprint("Classroom (Medium)",
+                new Blueprint("ClassroomMediumName",
+                              "ClassroomMediumDescription",
+                              1500,
                               new Point[] { new Point(0, 0), new Point(1, 0) },
                               new short[][] { new short[] { 5, 7 }, new short[] { 5, 11 } }),
             },
+            #endregion
         };
         public struct Blueprint
         {
-            public string Name;
+            public string NameResource;
+            public string DescriptionResource;
+            public int Price;
             public Point[] RelPoints;
             public short[][] TileData;
 
-            public Blueprint(string name, Point[] relpoints, short[][] tiledata )
+            public Blueprint(string NameResource, string DescriptionResource, int Price, Point[] RelPoints, short[][] TileData )
             {
-                Name = name;
-                RelPoints = relpoints;
-                TileData = tiledata;
+                this.NameResource = NameResource;
+                this.DescriptionResource = DescriptionResource;
+                this.Price = Price;
+                this.RelPoints = RelPoints;
+                this.TileData = TileData;
             }
         }
         public void PrepareBlueprint()
@@ -229,6 +257,10 @@ namespace SchoolTycoon
                 Tile.Tag = new short[] { TileData[0], TileData[1] };
                 Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile.GetThumbnailImage(32, 32, null, IntPtr.Zero);
             }
+
+            BlueprintName.Text = "< " + Language.GetString(Plan.NameResource) + " >";
+            BlueprintDescription.Text = Language.GetString(Plan.DescriptionResource);
+            BlueprintPrice.Text = Language.GetString("ClassroomBuilderCosts") + ": €" + Plan.Price +",-";
         }
 
 

@@ -49,6 +49,16 @@
     <Compile Include="Blocks.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Languages\English.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>English.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Languages\Nederlands.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Nederlands.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +70,14 @@
     <Compile Include="People.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="Languages\English.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>English.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Nederlands.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Nederlands.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,13 +103,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="graphics\people.png">
+    <Content Include="Graphics\people.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="graphics\sprites.png">
+    <Content Include="Graphics\sprites.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="graphics\tileset.png">
+    <Content Include="Graphics\tileset.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

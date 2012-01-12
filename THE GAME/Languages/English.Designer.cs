@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchoolTycoon.Properties {
+namespace SchoolTycoon.Languages {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace SchoolTycoon.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class English {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal English() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SchoolTycoon.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolTycoon.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchoolTycoon.Languages.English", typeof(English).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,31 +60,48 @@ namespace SchoolTycoon.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap next {
+        /// <summary>
+        ///   Looks up a localized string similar to Costs.
+        /// </summary>
+        internal static string ClassroomBuilderCosts {
             get {
-                object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomBuilderCosts", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap previous {
+        /// <summary>
+        ///   Looks up a localized string similar to An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called &apos;islands&apos;, to be put together for a more pleasant learning environment..
+        /// </summary>
+        internal static string ClassroomMediumDescription {
             get {
-                object obj = ResourceManager.GetObject("previous", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomMediumDescription", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap rotateleft {
+        /// <summary>
+        ///   Looks up a localized string similar to Classroom (Medium).
+        /// </summary>
+        internal static string ClassroomMediumName {
             get {
-                object obj = ResourceManager.GetObject("rotateleft", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomMediumName", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap rotateright {
+        /// <summary>
+        ///   Looks up a localized string similar to A compact classroom that can accommodate up to 24 pupils. There is just enough room for a blackboard and some cupboards. Can be used for all subjects, but not very suitable for group activities..
+        /// </summary>
+        internal static string ClassroomSmallDescription {
             get {
-                object obj = ResourceManager.GetObject("rotateright", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ClassroomSmallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classroom (Small).
+        /// </summary>
+        internal static string ClassroomSmallName {
+            get {
+                return ResourceManager.GetString("ClassroomSmallName", resourceCulture);
             }
         }
     }
