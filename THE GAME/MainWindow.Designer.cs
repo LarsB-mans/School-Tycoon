@@ -44,13 +44,16 @@
             this.standardTab = new System.Windows.Forms.TabPage();
             this.advanceDayButton = new System.Windows.Forms.Button();
             this.classroomBuilderTab = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.BuilderBlueprint = new System.Windows.Forms.TableLayoutPanel();
             this.CBcancelButton = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -179,7 +182,6 @@
             // 
             // standardTab
             // 
-            this.standardTab.Controls.Add(this.listView1);
             this.standardTab.Controls.Add(this.advanceDayButton);
             this.standardTab.Location = new System.Drawing.Point(4, 22);
             this.standardTab.Name = "standardTab";
@@ -197,11 +199,15 @@
             this.advanceDayButton.TabIndex = 0;
             this.advanceDayButton.Text = "Advance Day";
             this.advanceDayButton.UseVisualStyleBackColor = true;
-            this.advanceDayButton.Click += new System.EventHandler(this.advanceDayButton_Click);
             // 
             // classroomBuilderTab
             // 
             this.classroomBuilderTab.BackColor = System.Drawing.Color.White;
+            this.classroomBuilderTab.Controls.Add(this.button5);
+            this.classroomBuilderTab.Controls.Add(this.button4);
+            this.classroomBuilderTab.Controls.Add(this.button3);
+            this.classroomBuilderTab.Controls.Add(this.button2);
+            this.classroomBuilderTab.Controls.Add(this.BuilderBlueprint);
             this.classroomBuilderTab.Controls.Add(this.CBcancelButton);
             this.classroomBuilderTab.Location = new System.Drawing.Point(4, 22);
             this.classroomBuilderTab.Name = "classroomBuilderTab";
@@ -209,6 +215,78 @@
             this.classroomBuilderTab.Size = new System.Drawing.Size(242, 342);
             this.classroomBuilderTab.TabIndex = 1;
             this.classroomBuilderTab.Text = "ClassroomBuilder";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(205, 6);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(31, 23);
+            this.button5.TabIndex = 6;
+            this.button5.Tag = new sbyte[] {
+        ((sbyte)(1)),
+        ((sbyte)(-1))};
+            this.button5.Text = "N>";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.BlueprintButtons_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(7, 6);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(31, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Tag = new sbyte[] {
+        ((sbyte)(1)),
+        ((sbyte)(-1))};
+            this.button4.Text = "<N";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.BlueprintButtons_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(204, 138);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(31, 23);
+            this.button3.TabIndex = 4;
+            this.button3.Tag = new sbyte[] {
+        ((sbyte)(0)),
+        ((sbyte)(1))};
+            this.button3.Text = "R>";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.BlueprintButtons_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(7, 138);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(31, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Tag = new sbyte[] {
+        ((sbyte)(0)),
+        ((sbyte)(-1))};
+            this.button2.Text = "<R";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.BlueprintButtons_Click);
+            // 
+            // BuilderBlueprint
+            // 
+            this.BuilderBlueprint.ColumnCount = 5;
+            this.BuilderBlueprint.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.Location = new System.Drawing.Point(41, 3);
+            this.BuilderBlueprint.Margin = new System.Windows.Forms.Padding(0);
+            this.BuilderBlueprint.Name = "BuilderBlueprint";
+            this.BuilderBlueprint.RowCount = 5;
+            this.BuilderBlueprint.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.BuilderBlueprint.Size = new System.Drawing.Size(160, 160);
+            this.BuilderBlueprint.TabIndex = 1;
             // 
             // CBcancelButton
             // 
@@ -243,22 +321,6 @@
             // openFileDialog
             // 
             this.openFileDialog.Filter = "School Tycoon save files|*.sts";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(7, 4);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(227, 284);
-            this.listView1.SmallImageList = this.imageList1;
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
             // 
             // MainWindow
             // 
@@ -309,8 +371,11 @@
         private System.Windows.Forms.TabPage classroomBuilderTab;
         private System.Windows.Forms.Button advanceDayButton;
         private System.Windows.Forms.Button CBcancelButton;
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.TableLayoutPanel BuilderBlueprint;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
 
 
     }

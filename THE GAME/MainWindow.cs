@@ -18,11 +18,6 @@ namespace SchoolTycoon
         public static int columncount;
         public static int tileSetNumber = 0;
 
-
-        int Flag = -1;
-        StreamWriter streamwriter;
-
-
         List<Person> Persons;
         List<Point> SpriteLocationData = new List<Point>();
 
@@ -30,10 +25,11 @@ namespace SchoolTycoon
 
         public MainWindow()
         {
-            MakeBlockTypes();
+            //MakeBlockTypes();
             loadPeopleGraphics();
             LoadSprites();
             InitializeComponent();
+            PrepareBlueprint();
 
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
             tabControl1.Region = new Region(new Rectangle(standardTab.Left, standardTab.Top, standardTab.Width, standardTab.Height));
@@ -212,7 +208,7 @@ namespace SchoolTycoon
             theGrid.RowCount = rowcount + 1;
             for (int i = 0; i < rowcount; i++)
                 theGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
-            
+
             theGrid.ColumnStyles.Clear();
             theGrid.ColumnCount = columncount + 1;
             for (int i = 0; i < columncount; i++)
@@ -249,28 +245,59 @@ namespace SchoolTycoon
                     changeTile.Show(Cursor.Position);
                     break;
                 case Sidebars.ClassroomBuilder:
+                    if (BuilderRelPoints == null)
+                        break;
+
                     clearSprites();
                     bool CanBuild = true;
 
-                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
-                        CanBuild = false;
-
-                    TileData = getTileData(selectedTile.Column + 1, selectedTile.Row);
-                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
-                        CanBuild = false;
-
-                    TileData = getTileData(selectedTile.Column, selectedTile.Row + 1);
-                    if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
-                        CanBuild = false;
-
+                    foreach (Point RelPoint in BuilderRelPoints)
+                    {
+                        if (selectedTile.Column + RelPoint.X >= columncount || selectedTile.Column + RelPoint.X < 0 || selectedTile.Row + RelPoint.Y >= rowcount || selectedTile.Row + RelPoint.Y < 0)
+                        {
+                            CanBuild = false;
+                            continue;
+                        }
+                        TileData = getTileData(selectedTile.Column + RelPoint.X, selectedTile.Row + RelPoint.Y);
+                        if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
+                            CanBuild = false;
+                    }
                     Sprite sprite = CanBuild ? Sprite.BlueprintBlue : Sprite.BlueprintRed;
-                    setSprite(selectedTile.Column, selectedTile.Row, sprite);
-                    setSprite(selectedTile.Column + 1, selectedTile.Row, sprite);
-                    setSprite(selectedTile.Column, selectedTile.Row + 1, sprite);
+                    foreach (Point RelPoint in BuilderRelPoints)
+                    {
+                        if (selectedTile.Column + RelPoint.X >= columncount || selectedTile.Column + RelPoint.X < 0 || selectedTile.Row + RelPoint.Y >= rowcount || selectedTile.Row + RelPoint.Y < 0)
+                            continue;
+
+                        setSprite(selectedTile.Column + RelPoint.X, selectedTile.Row + RelPoint.Y, sprite);
+                    }
                     break;
                 default:
                     break;
             }
+        }
+        private void BlueprintButtons_Click(object sender, EventArgs e)
+        {
+            sbyte[] ButtonData = (sbyte[])((Button)sender).Tag;
+            switch (ButtonData[0])
+            {
+                case 0:
+                    Rotation += ButtonData[1];
+                    if (Rotation == -1)
+                        Rotation = 3;
+                    if (Rotation == 4)
+                        Rotation = 0;
+                    break;
+                case 1:
+                    int BlueprintCount = Blueprints.GetLength(0);
+                    SelectedBlueprint += ButtonData[1];
+                    if (SelectedBlueprint == -1)
+                        SelectedBlueprint = BlueprintCount - 1;
+                    if (SelectedBlueprint == BlueprintCount)
+                        SelectedBlueprint = 0;
+                    break;
+            }
+            clearSprites();
+            MakeBlueprint(SelectedBlueprint, Rotation);
         }
 
         private void changeTile_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -341,7 +368,7 @@ namespace SchoolTycoon
                 if (BlockTypes[tiledata[0]][tiledata[1]].Walled)
                 {
                     tilevalue = GetEnclosureValue(new Point(column + 1, row));
-                    changeTileImage(column +  1, row, tiledata[0], tilevalue);
+                    changeTileImage(column + 1, row, tiledata[0], tilevalue);
                 }
             }
 
@@ -410,52 +437,7 @@ namespace SchoolTycoon
         private void classroomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = classroomBuilderTab;
-        }
-
-        private void advanceDayButton_Click(object sender, EventArgs e)
-        {
-            int LocationX = 5;
-            int LocationY = 5;
-
-            if (Flag == -1)
-            {
-                SaveFileDialog savetxt = new SaveFileDialog();
-
-                if (savetxt.ShowDialog() != DialogResult.OK)
-                    return;
-
-                imageList1.Images.AddStrip(Image.FromFile("graphics\\stripje.png"));
-
-                for (int x = 0; x < 47; x++)
-                    listView1.Items.Add("", x);
-
-                streamwriter = new StreamWriter(savetxt.FileName);
-                streamwriter.Write("byte[] Possibilities = new byte[] { ");
-                Flag = 0;
-            }
-            else
-            {
-                streamwriter.Write(listView1.SelectedIndices[0] + ", ");
-
-                streamwriter.Flush();
-                
-                Point[] RelativePointTable = new Point[] { new Point(-1, -1),
-                                                           new Point(0, -1),
-                                                           new Point(1, -1),
-                                                           new Point(-1, 0),
-                                                           new Point(1, 0),
-                                                           new Point(-1, 1),
-                                                           new Point(0, 1),
-                                                           new Point(1, 1) };
-
-                Flag++;
-
-                for (int x = 0; x < 8; x++)
-                    if (((1 << x) & Flag) != 0)
-                        changeTileImage(LocationX + RelativePointTable[x].X, LocationY + RelativePointTable[x].Y, 0, 0);
-                    else
-                        changeTileImage(LocationX + RelativePointTable[x].X, LocationY + RelativePointTable[x].Y, 3, 0);
-            }
+            MakeBlueprint(SelectedBlueprint, Rotation);
         }
     }
 }
