@@ -120,6 +120,12 @@
   <data name="ClassroomBuilderCosts" xml:space="preserve">
     <value>Costs</value>
   </data>
+  <data name="ClassroomLargeDescription" xml:space="preserve">
+    <value>An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called 'islands', to be put together for a more pleasant learning environment. This class also accomodates an extra ''lab'' in which they can work on scientific assignments.</value>
+  </data>
+  <data name="ClassroomLargeName" xml:space="preserve">
+    <value>Classroom (Large)</value>
+  </data>
   <data name="ClassroomMediumDescription" xml:space="preserve">
     <value>An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called 'islands', to be put together for a more pleasant learning environment.</value>
   </data>

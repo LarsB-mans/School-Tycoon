@@ -485,5 +485,10 @@ namespace SchoolTycoon
 
             switchToStandardTab(null, null);
         }
+
+        private void buildToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

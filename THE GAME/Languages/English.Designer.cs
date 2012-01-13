@@ -70,6 +70,24 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called &apos;islands&apos;, to be put together for a more pleasant learning environment. This class also accomodates an extra &apos;&apos;lab&apos;&apos; in which they can work on scientific assignments..
+        /// </summary>
+        internal static string ClassroomLargeDescription {
+            get {
+                return ResourceManager.GetString("ClassroomLargeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classroom (Large).
+        /// </summary>
+        internal static string ClassroomLargeName {
+            get {
+                return ResourceManager.GetString("ClassroomLargeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called &apos;islands&apos;, to be put together for a more pleasant learning environment..
         /// </summary>
         internal static string ClassroomMediumDescription {

@@ -70,7 +70,25 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een verlengd klaslokaal met plek voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde &apos;eilandjes&apos;, voor een aangenamere leeromgeving..
+        ///   Looks up a localized string similar to Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde &apos;eilandjes&apos;, voor een aangenamere leeromgeving. Dit klaslokaal bevat ook een lab waar studenten pratica kunnen uitvoeren..
+        /// </summary>
+        internal static string ClassroomLargeDescription {
+            get {
+                return ResourceManager.GetString("ClassroomLargeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klaslokaal (Groot).
+        /// </summary>
+        internal static string ClassroomLargeName {
+            get {
+                return ResourceManager.GetString("ClassroomLargeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde &apos;eilandjes&apos;, voor een aangenamere leeromgeving..
         /// </summary>
         internal static string ClassroomMediumDescription {
             get {

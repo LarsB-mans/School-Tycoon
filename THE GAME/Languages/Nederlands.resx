@@ -120,8 +120,14 @@
   <data name="ClassroomBuilderCosts" xml:space="preserve">
     <value>Kosten</value>
   </data>
+  <data name="ClassroomLargeDescription" xml:space="preserve">
+    <value>Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde 'eilandjes', voor een aangenamere leeromgeving. Dit klaslokaal bevat ook een lab waar studenten pratica kunnen uitvoeren.</value>
+  </data>
+  <data name="ClassroomLargeName" xml:space="preserve">
+    <value>Klaslokaal (Groot)</value>
+  </data>
   <data name="ClassroomMediumDescription" xml:space="preserve">
-    <value>Een verlengd klaslokaal met plek voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde 'eilandjes', voor een aangenamere leeromgeving.</value>
+    <value>Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde 'eilandjes', voor een aangenamere leeromgeving.</value>
   </data>
   <data name="ClassroomMediumName" xml:space="preserve">
     <value>Klaslokaal (Medium)</value>

@@ -79,8 +79,17 @@ namespace SchoolTycoon
                               Block("Classroom (Medium)", 1, 9, false, false, false),   // 9
                               Block("Classroom (Medium)", 1, 10, false, false, false),  // 10
                               Block("Classroom (Medium)", 1, 11, false, false, false),  // 11
+                              Block("Classroom (Large)", 1, 12, false, false, false),    // 12
+                              Block("Classroom (Large)", 1, 13, false, false, false),    // 13
+                              Block("Classroom (Large)", 1, 14, false, false, false),    // 14
+                              Block("Classroom (Large)", 1, 15, false, false, false),    // 15
+                              Block("Classroom (Large)", 1, 16, false, false, false),   // 16
+                              Block("Classroom (Large)", 1, 17, false, false, false),   // 17
+                              Block("Classroom (Large)", 1, 18, false, false, false),   // 18
+                              Block("Classroom (Large)", 1, 19, false, false, false),   // 19 
             }
             #endregion  
+
         };
         public struct BlockType
         {
@@ -168,7 +177,7 @@ namespace SchoolTycoon
                               "ClassroomSmallDescription",
                               1000,
                               new Point[] { new Point(0, 0) },
-                              new short[][] { new short[] { 5, 3 }, new short[] { 5, 3 } }),
+                              new short[][] { new short[] { 5, 3 } }),
             },
             #endregion
 
@@ -195,6 +204,39 @@ namespace SchoolTycoon
                               new Point[] { new Point(0, 0), new Point(1, 0) },
                               new short[][] { new short[] { 5, 7 }, new short[] { 5, 11 } }),
             },
+            #endregion
+            #region Classroom (Large)
+            {
+                new Blueprint("ClassroomLargeName",
+                              "ClassroomLargeDescription",
+                              2000,
+                              new Point[] { new Point(0, 0), new Point(1, 0), new Point(0, 1) },
+                              new short[][] { new short[] { 5, 12 }, new short[] { 5, 16 }, new short[] { 5, 8 } }),
+                              new Blueprint("ClassroomLargeName",
+                              "ClassroomLargeDescription",
+                              2000,
+                              new Point[] { new Point(0, 0), new Point( 0, 1), new Point(-1,0) },
+                              new short[][] { new short[] { 5, 13 }, new short[] { 5, 17 }, new short[] { 5, 9 }  }),
+                              new Blueprint("ClassroomLargeName",
+                              "ClassroomLargeDescription",
+                              2000,
+                              new Point[] { new Point(0, 0), new Point(-1, 0), new Point(0, -1) },
+                              new short[][] { new short[] { 5, 14 }, new short[] { 5, 18 }, new short[] { 5, 10 }  }),
+                              new Blueprint("ClassroomLargeName",
+                              "ClassroomLargeDescription",
+                              2000,
+                              new Point[] { new Point(0, 0), new Point(0, -1), new Point(1, 0) },
+                              new short[][] { new short[] { 5, 15 }, new short[] { 5, 19 }, new short[] { 5, 11 }  }),
+
+
+
+        },
+                              
+
+           
+    
+                                
+
             #endregion
         };
         public struct Blueprint
