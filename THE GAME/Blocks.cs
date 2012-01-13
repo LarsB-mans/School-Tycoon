@@ -13,7 +13,7 @@ namespace SchoolTycoon
     {
         public static Bitmap tileSet = new Bitmap("graphics\\tileset.png");
         BlockType[][] BlockTypes = new BlockType[][] {
-            new BlockType[] { Block("Blueprint", 2, 1, true, true, false) },        // 0
+            new BlockType[] { Block("Empty", 2, 1, true, true, false) },            // 0
             new BlockType[] { Block("Grass", 0, 0, false, true, false) },           // 1
             new BlockType[] { Block("Dirt", 1, 0, false, true, false) },            // 2
             new BlockType[] { Block("Stone path", 2, 0, true, true, false) },       // 3
@@ -64,7 +64,8 @@ namespace SchoolTycoon
                               Block("Floor path", 3, 43, true, false, true), 
                               Block("Floor path", 3, 44, true, false, true), 
                               Block("Floor path", 3, 45, true, false, true), 
-                              Block("Floor path", 3, 46, true, false, true) },
+                              Block("Floor path", 3, 46, true, false, true),
+            },
 #endregion
             #region new BlockType[] { Block("Classroom", 0, 4, false, false, false) },      // 5
             new BlockType[] { Block("Classroom (Small)", 0, 4, false, false, false),    // 0
@@ -75,20 +76,25 @@ namespace SchoolTycoon
                               Block("Classroom (Medium)", 1, 5, false, false, false),   // 5
                               Block("Classroom (Medium)", 1, 6, false, false, false),   // 6
                               Block("Classroom (Medium)", 1, 7, false, false, false),   // 7
-                              Block("Classroom (Medium)", 1, 8, false, false, false),   // 8
-                              Block("Classroom (Medium)", 1, 9, false, false, false),   // 9
-                              Block("Classroom (Medium)", 1, 10, false, false, false),  // 10
-                              Block("Classroom (Medium)", 1, 11, false, false, false),  // 11
-                              Block("Classroom (Large)", 1, 12, false, false, false),    // 12
-                              Block("Classroom (Large)", 1, 13, false, false, false),    // 13
-                              Block("Classroom (Large)", 1, 14, false, false, false),    // 14
-                              Block("Classroom (Large)", 1, 15, false, false, false),    // 15
-                              Block("Classroom (Large)", 1, 16, false, false, false),   // 16
-                              Block("Classroom (Large)", 1, 17, false, false, false),   // 17
-                              Block("Classroom (Large)", 1, 18, false, false, false),   // 18
-                              Block("Classroom (Large)", 1, 19, false, false, false),   // 19 
-            }
+                              Block("Classroom (Medium)", 0, 8, false, false, false),   // 8
+                              Block("Classroom (Medium)", 0, 9, false, false, false),   // 9
+                              Block("Classroom (Medium)", 0, 10, false, false, false),  // 10
+                              Block("Classroom (Medium)", 0, 11, false, false, false),  // 11
+                              Block("Classroom (Large)", 2, 4, false, false, false),    // 12
+                              Block("Classroom (Large)", 2, 5, false, false, false),    // 13
+                              Block("Classroom (Large)", 2, 6, false, false, false),    // 14
+                              Block("Classroom (Large)", 2, 7, false, false, false),    // 15
+                              Block("Classroom (Large)", 1, 8, false, false, false),    // 16
+                              Block("Classroom (Large)", 1, 9, false, false, false),    // 17
+                              Block("Classroom (Large)", 1, 10, false, false, false),   // 18
+                              Block("Classroom (Large)", 1, 11, false, false, false),   // 19 
+            },
             #endregion  
+            #region new BlockType[] { Block("Blueprint", 2, 2, false, true, false) },       // 6
+            new BlockType[] { Block("Blueprint (Outside)", 2, 2, false, true, false),   // 0
+                              Block("Blueprint (Inside)", 2, 2, false, false, false),   // 1
+            },
+            #endregion
 
         };
         public struct BlockType
@@ -153,7 +159,6 @@ namespace SchoolTycoon
         int SelectedBlueprint = 0;
         int Rotation = 0;
         Point[] BuilderRelPoints;
-        static ResourceManager Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
         public Blueprint[,] Blueprints = new Blueprint[,]
         {
             #region Classroom (Small)
@@ -161,21 +166,25 @@ namespace SchoolTycoon
                 new Blueprint("ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
+                              30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 0 } }),
                 new Blueprint("ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
+                              30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 1 } }),
                 new Blueprint("ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
+                              30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 2 } }),
                 new Blueprint("ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
+                              30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 3 } }),
             },
@@ -186,47 +195,56 @@ namespace SchoolTycoon
                 new Blueprint("ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
+                              60,
                               new Point[] { new Point(0, 0), new Point(0, 1) },
                               new short[][] { new short[] { 5, 4 }, new short[] { 5, 8 } }),
                 new Blueprint("ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
+                              60,
                               new Point[] { new Point(0, 0), new Point(-1, 0) },
                               new short[][] { new short[] { 5, 5 }, new short[] { 5, 9 } }),
                 new Blueprint("ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
+                              60,
                               new Point[] { new Point(0, 0), new Point(0, -1) },
                               new short[][] { new short[] { 5, 6 }, new short[] { 5, 10 } }),
                 new Blueprint("ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
+                              60,
                               new Point[] { new Point(0, 0), new Point(1, 0) },
                               new short[][] { new short[] { 5, 7 }, new short[] { 5, 11 } }),
             },
             #endregion
+
             #region Classroom (Large)
             {
                 new Blueprint("ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
+                              90,
                               new Point[] { new Point(0, 0), new Point(1, 0), new Point(0, 1) },
                               new short[][] { new short[] { 5, 12 }, new short[] { 5, 16 }, new short[] { 5, 8 } }),
-                              new Blueprint("ClassroomLargeName",
+                new Blueprint("ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
-                              new Point[] { new Point(0, 0), new Point( 0, 1), new Point(-1,0) },
-                              new short[][] { new short[] { 5, 13 }, new short[] { 5, 17 }, new short[] { 5, 9 }  }),
-                              new Blueprint("ClassroomLargeName",
+                              90,
+                              new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1,0) },
+                              new short[][] { new short[] { 5, 13 }, new short[] { 5, 17 }, new short[] { 5, 9 } }),
+                new Blueprint("ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
+                              90,
                               new Point[] { new Point(0, 0), new Point(-1, 0), new Point(0, -1) },
-                              new short[][] { new short[] { 5, 14 }, new short[] { 5, 18 }, new short[] { 5, 10 }  }),
-                              new Blueprint("ClassroomLargeName",
+                              new short[][] { new short[] { 5, 14 }, new short[] { 5, 18 }, new short[] { 5, 10 } }),
+                new Blueprint("ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
+                              90,
                               new Point[] { new Point(0, 0), new Point(0, -1), new Point(1, 0) },
-                              new short[][] { new short[] { 5, 15 }, new short[] { 5, 19 }, new short[] { 5, 11 }  }),
+                              new short[][] { new short[] { 5, 15 }, new short[] { 5, 19 }, new short[] { 5, 11 } }),
 
 
 
@@ -244,14 +262,16 @@ namespace SchoolTycoon
             public string NameResource;
             public string DescriptionResource;
             public int Price;
+            public int DaysToBuild;
             public Point[] RelPoints;
             public short[][] TileData;
 
-            public Blueprint(string NameResource, string DescriptionResource, int Price, Point[] RelPoints, short[][] TileData )
+            public Blueprint(string NameResource, string DescriptionResource, int Price, int DaysToBuild, Point[] RelPoints, short[][] TileData )
             {
                 this.NameResource = NameResource;
                 this.DescriptionResource = DescriptionResource;
                 this.Price = Price;
+                this.DaysToBuild = DaysToBuild;
                 this.RelPoints = RelPoints;
                 this.TileData = TileData;
             }
@@ -302,7 +322,56 @@ namespace SchoolTycoon
 
             BlueprintName.Text = "< " + Language.GetString(Plan.NameResource) + " >";
             BlueprintDescription.Text = Language.GetString(Plan.DescriptionResource);
-            BlueprintPrice.Text = Language.GetString("ClassroomBuilderCosts") + ": €" + Plan.Price +",-";
+            
+            BlueprintPrice.Text = String.Format(Language.GetString("ClassroomBuilderCosts"), Plan.Price.ToString("N0", Culture.NumberFormat));
+            if (Money >= Plan.Price)
+            {
+                BlueprintPrice.ForeColor = Color.Black;
+                //CBbuildButton.Enabled = true;
+            }
+            else
+            {
+                BlueprintPrice.ForeColor = Color.Red;
+                //CBbuildButton.Enabled = false;
+            }
+
+            BlueprintBuildTime.Text = String.Format(Language.GetString("ClassroomBuilderTime"), Plan.DaysToBuild);
+        }
+        private void CBbuildButton_Click(object sender, EventArgs e)
+        {
+            Blueprint Plan = Blueprints[SelectedBlueprint, Rotation];
+
+            Point RelPoint;
+            int BlockCount = Plan.RelPoints.Count();
+            short[] TileData = { 0, 0 };
+
+            Money -= Plan.Price;
+            UpdateStatusWindow();
+
+            for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
+            {
+                RelPoint = Plan.RelPoints[BlockNumber];
+                TileData = Plan.TileData[BlockNumber];
+                PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(BuildLocation.X + RelPoint.X, BuildLocation.Y + RelPoint.Y);
+                Tile.Tag = new short[] { TileData[0], TileData[1] };
+
+                // Place blueprint:
+                if (BlockTypes[TileData[0]][TileData[1]].Outside)
+                    Tile.BackgroundImage = BlockTypes[6][0].Tile;
+                else
+                    Tile.BackgroundImage = BlockTypes[6][1].Tile;
+
+                // Immediately place the blocks:
+                // Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
+            }
+
+            ExitClassroomBuilder(null, null);
+        }
+        private void ExitClassroomBuilder(object sender, EventArgs e)
+        {
+            clearSprites();
+            CBbuildButton.Enabled = false;
+            tabControl1.SelectedTab = standardTab;
         }
 
 

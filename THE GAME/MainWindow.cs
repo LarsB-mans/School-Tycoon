@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
@@ -15,6 +16,11 @@ namespace SchoolTycoon
 {
     public partial class MainWindow : Form
     {
+        public uint DayNumber = 0;
+        public byte[] MonthDays = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        DateTime Date = new DateTime(1, 1, 1);
+        public int Money = 0;
+
         public static TableLayoutPanelCellPosition selectedTile;
         public static int rowcount;
         public static int columncount;
@@ -23,6 +29,9 @@ namespace SchoolTycoon
         List<Person> Persons;
         List<Point> SpriteLocationData = new List<Point>();
         Point BuildLocation;
+
+        public static ResourceManager Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
+        public CultureInfo Culture = CultureInfo.GetCultureInfo("en");
 
         public enum Sidebars { Main, ClassroomBuilder };
 
@@ -38,19 +47,21 @@ namespace SchoolTycoon
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
             tabControl1.Region = new Region(new Rectangle(standardTab.Left, standardTab.Top, standardTab.Width, standardTab.Height));
 
-            lockGame(true);
-            fillDebugMenu();
+            LockGame(true);
+            FillDebugMenu();
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lockGame(true);
+            LockGame(true);
 
-            rowcount = 16;
-            columncount = 16;
+            rowcount = 32;
+            columncount = 32;
             InitializeGrid(columncount, rowcount);
 
-            #region generate an empty grid
+            Money = 1500;
+
             toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Maximum = rowcount * columncount;
             Refresh();
             for (int i = 0; i < rowcount; i++)
@@ -59,7 +70,7 @@ namespace SchoolTycoon
                 {
                     PictureBox box = new PictureBox();
                     box.Margin = new Padding(0);
-                    box.Click += new EventHandler(box_Click);
+                    box.Click += new EventHandler(ClickTile);
                     box.Tag = new short[] { 0, 0 };
                     theGrid.Controls.Add(box);
                     toolStripProgressBar1.Value++;
@@ -67,13 +78,16 @@ namespace SchoolTycoon
                 theGrid.Controls.Add(new Control());        // add empty control so the tableLayoutPanel does not mess up
             }
 
+            toolStripProgressBar1.Visible = false;
+            toolStripProgressBar1.Value = 0;
+
             for (int i = 0; i < rowcount; i++)              // fill tilemap with grass
                 for (int j = 0; j < columncount; j++)
                     changeTileImage(j, i, 1, 0);
-            #endregion
 
             InitializePeople();
-            lockGame(false);
+            UpdateStatusWindow();
+            LockGame(false);
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -211,12 +225,19 @@ namespace SchoolTycoon
             theGrid.RowStyles.Clear();
             theGrid.RowCount = rowcount + 1;
             for (int i = 0; i < rowcount; i++)
-                theGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+                theGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 16));
+            theGrid.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
             theGrid.ColumnStyles.Clear();
             theGrid.ColumnCount = columncount + 1;
             for (int i = 0; i < columncount; i++)
-                theGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
+                theGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16));
+            theGrid.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            if (theGrid.HorizontalScroll.Visible)
+                StatusPanel.Top = 322 - 17;
+            else
+                StatusPanel.Top = 322;
         }
         public void InitializePeople()
         {
@@ -224,22 +245,24 @@ namespace SchoolTycoon
             Persons.Add(new Person(Gender.Male, Type.Pupil, 100));
         }
 
-        private void lockGame(bool lockstatus)
+        private void LockGame(bool lockstatus)
         {
             lockstatus = !lockstatus;
             saveToolStripMenuItem.Enabled = lockstatus;
             splitContainer1.Enabled = lockstatus;
         }
-        private void fillDebugMenu()
+        private void FillDebugMenu()
         {
+            changeTile.Items.Add(BlockTypes[0][0].Name, BlockTypes[0][0].Tile);
+
             int blockCount = BlockTypes.Count();
             for (int i = 0; i < BlockTypes.Count(); i++)
             {
-                changeTile.Items.Add(i.ToString());
+                changeTile.Items.Add(BlockTypes[i][0].Name, BlockTypes[i][0].Tile);
                 changeTile.Items[changeTile.Items.Count - 1].Tag = i;
             }
         }
-        private void box_Click(object sender, EventArgs e)
+        private void ClickTile(object sender, EventArgs e)
         {
             selectedTile = theGrid.GetPositionFromControl(((Control)sender));
             short[] TileData = getTileData(selectedTile.Column, selectedTile.Row);
@@ -251,6 +274,8 @@ namespace SchoolTycoon
                 case Sidebars.ClassroomBuilder:
                     if (BuilderRelPoints == null)
                         break;
+                    //if (Blueprints[SelectedBlueprint, Rotation].Price > Money)
+                    //    break;
 
                     clearSprites();
                     bool CanBuild = true;
@@ -306,9 +331,8 @@ namespace SchoolTycoon
             MakeBlueprint(SelectedBlueprint, Rotation);
         }
 
-        private void changeTile_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void DebugTileChange(object sender, ToolStripItemClickedEventArgs e)
         {
-            string filename = e.ClickedItem.Text;
             int column = selectedTile.Column;
             int row = selectedTile.Row;
             short tiletype = Convert.ToInt16(e.ClickedItem.Tag);
@@ -322,6 +346,10 @@ namespace SchoolTycoon
                     FixWalls(column, row);
                     break;
             }
+
+            changeTile.Items[0].Text = BlockTypes[tiletype][0].Name;
+            changeTile.Items[0].Image = BlockTypes[tiletype][0].Tile;
+            changeTile.Items[0].Tag = tiletype;
         }
         private void FixWalls(int column, int row)
         {
@@ -435,60 +463,94 @@ namespace SchoolTycoon
             return (short[])tile.Tag;
         }
 
-        private void switchToStandardTab(object sender, EventArgs e)
-        {
-            clearSprites();
-            CBbuildButton.Enabled = false;
-            tabControl1.SelectedTab = standardTab;
-        }
-        private void classroomToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenClassroomBuilder(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = classroomBuilderTab;
             MakeBlueprint(SelectedBlueprint, Rotation);
         }
-        private void LanguageToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChangeLanguage(object sender, EventArgs e)
         {
             englishToolStripMenuItem.Checked = false;
             nederlandsToolStripMenuItem.Checked = false;
 
             switch ((string)((ToolStripMenuItem)sender).Tag)
             {
-                case "EN":
+                default:
+                case "en":
                     englishToolStripMenuItem.Checked = true;
                     Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
                     break;
-                case "NL":
+                case "nl":
                     nederlandsToolStripMenuItem.Checked = true;
                     Language = new ResourceManager("SchoolTycoon.Languages.Nederlands", Assembly.GetExecutingAssembly());
                     break;
             }
 
+            Culture = CultureInfo.GetCultureInfo((string)((ToolStripMenuItem)sender).Tag);
+
             MakeBlueprint(SelectedBlueprint, Rotation);
+            UpdateStatusWindow();
         }
-
-        private void CBbuildButton_Click(object sender, EventArgs e)
+        private string NumberSuffix(int Number, bool SuffixOnly)
         {
-            Blueprint Plan = Blueprints[SelectedBlueprint, Rotation];
+            string ReturnString;
 
-            Point RelPoint;
-            int BlockCount = Plan.RelPoints.Count();
-            short[] TileData = { 0, 0 };
-
-            for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
+            switch (Number % 100)
             {
-                RelPoint = Plan.RelPoints[BlockNumber];
-                TileData = Plan.TileData[BlockNumber];
-                PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(BuildLocation.X + RelPoint.X, BuildLocation.Y + RelPoint.Y);
-                Tile.Tag = new short[] { TileData[0], TileData[1] };
-                Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
+                case 11:
+                case 12:
+                case 13:
+                    ReturnString = "th";
+                    break;
+                default:
+                    switch (Number % 10)
+                    {
+                        case 1:
+                            ReturnString = "st";
+                            break;
+                        case 2:
+                            ReturnString = "nd";
+                            break;
+                        case 3:
+                            ReturnString = "rd";
+                            break;
+                        default:
+                            ReturnString = "th";
+                            break;
+                    }
+                    break;
             }
 
-            switchToStandardTab(null, null);
+            if (!SuffixOnly)
+                ReturnString = Number + ReturnString;
+            return ReturnString;
         }
 
-        private void buildToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateStatusWindow()
         {
+            MoneyCount.Text = "€" + Math.Abs(Money).ToString("N0", Culture.NumberFormat);
+            if (Money >= 0)
+            {
+                MoneyCount.Font = new Font(MoneyCount.Font, FontStyle.Regular);
+                MoneyCount.ForeColor = Color.Black;
+            }
+            else
+            {
+                MoneyCount.Font = new Font(MoneyCount.Font, FontStyle.Bold);
+                MoneyCount.ForeColor = Color.Red;
+                MoneyCount.Text = "−" + MoneyCount.Text;
+            }
 
+            PupilCount.Text = 0.ToString("N0", Culture.NumberFormat);
+            TeacherCount.Text = 0.ToString("N0", Culture.NumberFormat);
+
+            CurrentDate.Text = String.Format(Language.GetString("DateFormat"), Culture.DateTimeFormat.GetMonthName(Date.Month), Date.Day, NumberSuffix(Date.Day, true), Date.Year);
+        }
+        private void advanceDayButton_Click(object sender, EventArgs e)
+        {
+            Date = Date.AddDays(1);
+            Money += 500;
+            UpdateStatusWindow();
         }
     }
 }

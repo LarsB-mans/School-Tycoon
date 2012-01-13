@@ -61,7 +61,7 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Costs.
+        ///   Looks up a localized string similar to Costs: €{0}.
         /// </summary>
         internal static string ClassroomBuilderCosts {
             get {
@@ -70,7 +70,16 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called &apos;islands&apos;, to be put together for a more pleasant learning environment. This class also accomodates an extra &apos;&apos;lab&apos;&apos; in which they can work on scientific assignments..
+        ///   Looks up a localized string similar to Building time: {0} days.
+        /// </summary>
+        internal static string ClassroomBuilderTime {
+            get {
+                return ResourceManager.GetString("ClassroomBuilderTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A vast classroom with ample space for roughly 48 pupils. In addition to a dedicated group activity area, there is a technology corner that can be used as a laboratory or computer facility..
         /// </summary>
         internal static string ClassroomLargeDescription {
             get {
@@ -120,6 +129,15 @@ namespace SchoolTycoon.Languages {
         internal static string ClassroomSmallName {
             get {
                 return ResourceManager.GetString("ClassroomSmallName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1}{2}, year {3}.
+        /// </summary>
+        internal static string DateFormat {
+            get {
+                return ResourceManager.GetString("DateFormat", resourceCulture);
             }
         }
     }

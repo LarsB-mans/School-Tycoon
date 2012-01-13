@@ -61,7 +61,7 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kosten.
+        ///   Looks up a localized string similar to Kosten: €{0}.
         /// </summary>
         internal static string ClassroomBuilderCosts {
             get {
@@ -70,7 +70,16 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde &apos;eilandjes&apos;, voor een aangenamere leeromgeving. Dit klaslokaal bevat ook een lab waar studenten pratica kunnen uitvoeren..
+        ///   Looks up a localized string similar to Bouwtijd: {0} dagen.
+        /// </summary>
+        internal static string ClassroomBuilderTime {
+            get {
+                return ResourceManager.GetString("ClassroomBuilderTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een enorm klaslokaal met ruime plek voor ongeveer 48 leerlingen. Naast een toegeweid gebied voor groepactiviteiten is er een technologische hoek dat kan dienen als laboratorium of computerruimte..
         /// </summary>
         internal static string ClassroomLargeDescription {
             get {
@@ -120,6 +129,15 @@ namespace SchoolTycoon.Languages {
         internal static string ClassroomSmallName {
             get {
                 return ResourceManager.GetString("ClassroomSmallName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {1} {0}, {3}e jaar.
+        /// </summary>
+        internal static string DateFormat {
+            get {
+                return ResourceManager.GetString("DateFormat", resourceCulture);
             }
         }
     }

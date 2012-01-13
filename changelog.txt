@@ -1,0 +1,8 @@
+GeertL | 13-01-2012 | 23:37
+- Added status window (don't move it!).
+- Added money.
+- Added date changing.
+- Added building time to classroom builder.
+- Made the debug menu user-friendly (paradox).
+- Changed description for Classroom (Large).
+- Some general tweaks.

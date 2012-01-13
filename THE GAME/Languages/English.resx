@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClassroomBuilderCosts" xml:space="preserve">
-    <value>Costs</value>
+    <value>Costs: €{0}</value>
+  </data>
+  <data name="ClassroomBuilderTime" xml:space="preserve">
+    <value>Building time: {0} days</value>
   </data>
   <data name="ClassroomLargeDescription" xml:space="preserve">
-    <value>An elongated classroom with room for 36 pupils. The extra space in the back allows for groups of 4 tables, so-called 'islands', to be put together for a more pleasant learning environment. This class also accomodates an extra ''lab'' in which they can work on scientific assignments.</value>
+    <value>A vast classroom with ample space for roughly 48 pupils. In addition to a dedicated group activity area, there is a technology corner that can be used as a laboratory or computer facility.</value>
   </data>
   <data name="ClassroomLargeName" xml:space="preserve">
     <value>Classroom (Large)</value>
@@ -137,5 +140,9 @@
   </data>
   <data name="ClassroomSmallName" xml:space="preserve">
     <value>Classroom (Small)</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{0} {1}{2}, year {3}</value>
+    <comment>{0} = Month Name, {1} = Day Number, {2} = Day Number Suffix, {3} = Year Number</comment>
   </data>
 </root>

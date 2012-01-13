@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClassroomBuilderCosts" xml:space="preserve">
-    <value>Kosten</value>
+    <value>Kosten: €{0}</value>
+  </data>
+  <data name="ClassroomBuilderTime" xml:space="preserve">
+    <value>Bouwtijd: {0} dagen</value>
   </data>
   <data name="ClassroomLargeDescription" xml:space="preserve">
-    <value>Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde 'eilandjes', voor een aangenamere leeromgeving. Dit klaslokaal bevat ook een lab waar studenten pratica kunnen uitvoeren.</value>
+    <value>Een enorm klaslokaal met ruime plek voor ongeveer 48 leerlingen. Naast een toegeweid gebied voor groepactiviteiten is er een technologische hoek dat kan dienen als laboratorium of computerruimte.</value>
   </data>
   <data name="ClassroomLargeName" xml:space="preserve">
     <value>Klaslokaal (Groot)</value>
@@ -137,5 +140,9 @@
   </data>
   <data name="ClassroomSmallName" xml:space="preserve">
     <value>Klaslokaal (Klein)</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1} {0}, {3}e jaar</value>
+    <comment>{0} = Month Name, {1} = Day Number, {2} = Day Number Suffix, {3} = Year Number</comment>
   </data>
 </root>

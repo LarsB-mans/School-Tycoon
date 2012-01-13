@@ -1,0 +1,1 @@
+School Tycoon will rob you of all your money.
