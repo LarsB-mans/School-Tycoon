@@ -376,13 +376,88 @@ namespace SchoolTycoon
 
 
 
+        public enum RoomType
+        {
+            ClassroomSmall,
+            ClassroomMedium,
+            ClassroomLarge,
+        }
+        public struct Blackboard
+        {
+            public string NameResource;
+            public string DescriptionResource;
+            public int Price;
+            public int Quality;
+            public int WritingRoom;
+
+            public Blackboard(string NameResource, string DescriptionResource, int Price, int WritingRoom)
+            {
+                this.NameResource = NameResource;
+                this.DescriptionResource = DescriptionResource;
+                this.Price = Price;
+                this.Quality = 100;
+                this.WritingRoom = WritingRoom;
+            }
+        }
+        #region Blackboard[] Blackboards = new Blackboard[] {
+        Blackboard[] Blackboards = new Blackboard[] {
+            new Blackboard("NoBlackboardName", "NoBlackboardDescription", 0, 0),
+            new Blackboard("RockSlateName", "RockSlateDescription", 50, 10), 
+            new Blackboard("ChalkboardName", "ChalkboardDescription", 150, 40),
+            new Blackboard("WhiteboardName", "WhiteboardDescription", 200, 40),
+            new Blackboard("DoubleChalkboardName", "DoubleChalkboardDescription", 300, 80),
+            new Blackboard("DoubleWhiteboardName", "DoubleWhiteboardDescription", 400, 80),
+            new Blackboard("InteractiveWhiteboardName", "InteractiveWhiteboardDescription", 1000, 100),
+        };
+        #endregion
+        public struct Classroom
+        {
+            public RoomType RoomType;
+            public Blackboard Blackboard;
+            public short ChairsMax;
+            public short Chairs;
+            public short DesksMax;
+            public short Desks;
+            public short ComputersMax;
+            public short Computers;
+            public short IslandSize;
+            public bool IslandsPossible;
+            public Point[] Locations;
+
+            public Classroom(RoomType RoomType, short ChairsMax, short DesksMax, short ComputersMax, bool IslandsPossible, Point[] Locations)
+            {
+                this.RoomType = RoomType;
+                this.Blackboard = new Blackboard("NoBlackboardName", "NoBlackboardDescription", 0, 0);
+                this.ChairsMax = ChairsMax;
+                this.Chairs = 0;
+                this.DesksMax = DesksMax;
+                this.Desks = 0;
+                this.ComputersMax = ComputersMax;
+                this.Computers = 0;
+                this.IslandSize = 4;
+                this.IslandsPossible = IslandsPossible;
+                this.Locations = Locations;
+            }
+        }
+
+
+        public struct Event
+        {
+            DateTime DateTime;
+            List<int> Data;
+            List<string> Text;
+            Point Location;
+        }
+
+
+
         public Bitmap spriteSet = new Bitmap("graphics\\sprites.png");
         List<Image> Sprites = new List<Image>();
 
         public enum Sprite
         {
             BlueprintBlue,
-            BlueprintRed
+            BlueprintRed,
         }
 
         public void LoadSprites()
