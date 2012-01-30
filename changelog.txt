@@ -1,3 +1,8 @@
+GeertL | 30-01-2012 | 15:06
+- Added items.
+- Implemented building.
+- Some things I forgot.
+
 GeertL | 13-01-2012 | 23:37
 - Added status window (don't move it!).
 - Added money.

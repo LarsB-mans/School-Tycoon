@@ -360,12 +360,28 @@ namespace SchoolTycoon
                     Tile.BackgroundImage = BlockTypes[6][0].Tile;
                 else
                     Tile.BackgroundImage = BlockTypes[6][1].Tile;
-
-                // Immediately place the blocks:
-                // Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
             }
+            TimeLine.Add(new Event(Date.AddDays(Plan.DaysToBuild), EventType.Build, new int[] { SelectedBlueprint, Rotation }, BuildLocation, "Construction of \"" + Language.GetString(Plan.NameResource) + "\" finishes.", "Construction of \"" + Language.GetString(Plan.NameResource) + "\" has finished."));
 
             ExitClassroomBuilder(null, null);
+        }
+        private void BuildClassroom(int[] Data, Point Location)
+        {
+            Blueprint Plan = Blueprints[Data[0], Data[1]];
+
+            Point RelPoint;
+            int BlockCount = Plan.RelPoints.Count();
+            short[] TileData = { 0, 0 };
+
+            for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
+            {
+                RelPoint = Plan.RelPoints[BlockNumber];
+                TileData = Plan.TileData[BlockNumber];
+                PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(Location.X + RelPoint.X, Location.Y + RelPoint.Y);
+                Tile.Tag = new short[] { TileData[0], TileData[1] };
+
+                Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
+            }
         }
         private void ExitClassroomBuilder(object sender, EventArgs e)
         {
@@ -441,13 +457,35 @@ namespace SchoolTycoon
         }
 
 
+        public enum EventType
+        {
+            Build,
+        }
+        /*
+         * Build:
+         * [0] = Selected Blueprint
+         * [1] = Rotation
+        */
         public struct Event
         {
-            DateTime DateTime;
-            List<int> Data;
-            List<string> Text;
-            Point Location;
+            public DateTime DateTime;
+            public EventType EventType;
+            public int[] Data;
+            public Point Location;
+            public string BeforeText;
+            public string AfterText;
+
+            public Event(DateTime DateTime, EventType EventType, int[] Data, Point Location, string BeforeText, string AfterText)
+            {
+                this.DateTime = DateTime;
+                this.EventType = EventType;
+                this.Data = Data;
+                this.Location = Location;
+                this.BeforeText = BeforeText;
+                this.AfterText = AfterText;
+            }
         }
+        List<Event> TimeLine = new List<Event>();
 
 
 

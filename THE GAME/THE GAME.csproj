@@ -103,6 +103,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Graphics\items.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\people.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

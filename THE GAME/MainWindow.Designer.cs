@@ -43,6 +43,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeTile = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.theGrid = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.standardTab = new System.Windows.Forms.TabPage();
             this.OpenCBbutton = new System.Windows.Forms.Button();
@@ -59,6 +60,9 @@
             this.RotateBlueprintLeft = new System.Windows.Forms.Button();
             this.BuilderBlueprint = new System.Windows.Forms.TableLayoutPanel();
             this.CBcancelButton = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -71,7 +75,6 @@
             this.CurrentDate = new System.Windows.Forms.Label();
             this.MoneyCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.theGrid = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -80,6 +83,7 @@
             this.tabControl1.SuspendLayout();
             this.standardTab.SuspendLayout();
             this.classroomBuilderTab.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.StatusPanel.SuspendLayout();
             this.SuspendLayout();
@@ -103,27 +107,27 @@
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -132,13 +136,13 @@
             this.buildToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.classroomToolStripMenuItem});
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.buildToolStripMenuItem.Text = "Build";
             // 
             // classroomToolStripMenuItem
             // 
             this.classroomToolStripMenuItem.Name = "classroomToolStripMenuItem";
-            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.classroomToolStripMenuItem.Text = "Classroom";
             this.classroomToolStripMenuItem.Click += new System.EventHandler(this.OpenClassroomBuilder);
             // 
@@ -147,7 +151,7 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // languageToolStripMenuItem
@@ -156,7 +160,7 @@
             this.englishToolStripMenuItem,
             this.nederlandsToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -164,7 +168,7 @@
             this.englishToolStripMenuItem.Checked = true;
             this.englishToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.englishToolStripMenuItem.Tag = "en";
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -172,7 +176,7 @@
             // nederlandsToolStripMenuItem
             // 
             this.nederlandsToolStripMenuItem.Name = "nederlandsToolStripMenuItem";
-            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.nederlandsToolStripMenuItem.Tag = "nl";
             this.nederlandsToolStripMenuItem.Text = "Nederlands";
             this.nederlandsToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -210,10 +214,26 @@
             this.splitContainer1.SplitterDistance = 534;
             this.splitContainer1.TabIndex = 1;
             // 
+            // theGrid
+            // 
+            this.theGrid.AutoScroll = true;
+            this.theGrid.AutoSize = true;
+            this.theGrid.ColumnCount = 1;
+            this.theGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.theGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.theGrid.Location = new System.Drawing.Point(0, 0);
+            this.theGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.theGrid.Name = "theGrid";
+            this.theGrid.RowCount = 1;
+            this.theGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.theGrid.Size = new System.Drawing.Size(534, 368);
+            this.theGrid.TabIndex = 9;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.standardTab);
             this.tabControl1.Controls.Add(this.classroomBuilderTab);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -418,6 +438,34 @@
             this.CBcancelButton.UseVisualStyleBackColor = true;
             this.CBcancelButton.Click += new System.EventHandler(this.ExitClassroomBuilder);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.listView1);
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(242, 342);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Inventory";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(0, 130);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(242, 212);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(6, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 118);
+            this.panel1.TabIndex = 0;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -541,21 +589,6 @@
             this.label1.Text = "Money:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // theGrid
-            // 
-            this.theGrid.AutoScroll = true;
-            this.theGrid.AutoSize = true;
-            this.theGrid.ColumnCount = 1;
-            this.theGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.theGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.theGrid.Location = new System.Drawing.Point(0, 0);
-            this.theGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.theGrid.Name = "theGrid";
-            this.theGrid.RowCount = 1;
-            this.theGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.theGrid.Size = new System.Drawing.Size(534, 368);
-            this.theGrid.TabIndex = 9;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -582,6 +615,7 @@
             this.standardTab.PerformLayout();
             this.classroomBuilderTab.ResumeLayout(false);
             this.classroomBuilderTab.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.StatusPanel.ResumeLayout(false);
@@ -636,6 +670,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button OpenCBbutton;
         public System.Windows.Forms.TableLayoutPanel theGrid;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView listView1;
 
 
     }

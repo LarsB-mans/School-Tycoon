@@ -54,8 +54,8 @@ namespace SchoolTycoon
         {
             LockGame(true);
 
-            rowcount = 32;
-            columncount = 32;
+            rowcount = 16;
+            columncount = 16;
             InitializeGrid(columncount, rowcount);
 
             Money = 1500;
@@ -549,8 +549,29 @@ namespace SchoolTycoon
         private void advanceDayButton_Click(object sender, EventArgs e)
         {
             Date = Date.AddDays(1);
+            DayNumber++;
             Money += 500;
             UpdateStatusWindow();
+
+            List<Event> RemovedEvents = new List<Event>();
+            foreach (Event Event in TimeLine)
+            {
+                if (Event.DateTime == Date)
+                {
+                    switch (Event.EventType)
+                    {
+                        case EventType.Build:
+                            BuildClassroom(Event.Data, Event.Location);
+                            break;
+                        default:
+                            break;
+                    }
+                    RemovedEvents.Add(Event);
+                }
+            }
+
+            foreach (Event RemoveEvent in RemovedEvents)
+                TimeLine.Remove(RemoveEvent);
         }
     }
 }
