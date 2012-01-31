@@ -363,7 +363,7 @@ namespace SchoolTycoon
             }
             TimeLine.Add(new Event(Date.AddDays(Plan.DaysToBuild), EventType.Build, new int[] { SelectedBlueprint, Rotation }, BuildLocation, "Construction of \"" + Language.GetString(Plan.NameResource) + "\" finishes.", "Construction of \"" + Language.GetString(Plan.NameResource) + "\" has finished."));
 
-            ExitClassroomBuilder(null, null);
+            ExitToMainScreen(null, null);
         }
         private void BuildClassroom(int[] Data, Point Location)
         {
@@ -383,12 +383,6 @@ namespace SchoolTycoon
                 Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
             }
         }
-        private void ExitClassroomBuilder(object sender, EventArgs e)
-        {
-            clearSprites();
-            CBbuildButton.Enabled = false;
-            tabControl1.SelectedTab = standardTab;
-        }
 
 
 
@@ -398,38 +392,37 @@ namespace SchoolTycoon
             ClassroomMedium,
             ClassroomLarge,
         }
-        public struct Blackboard
+        public struct ShopItem
         {
             public string NameResource;
             public string DescriptionResource;
             public int Price;
             public int Quality;
-            public int WritingRoom;
+            public int Data;
 
-            public Blackboard(string NameResource, string DescriptionResource, int Price, int WritingRoom)
+            public ShopItem(string NameResource, string DescriptionResource, int Price, int Data)
             {
                 this.NameResource = NameResource;
                 this.DescriptionResource = DescriptionResource;
                 this.Price = Price;
                 this.Quality = 100;
-                this.WritingRoom = WritingRoom;
+                this.Data = Data;
             }
         }
-        #region Blackboard[] Blackboards = new Blackboard[] {
-        Blackboard[] Blackboards = new Blackboard[] {
-            new Blackboard("NoBlackboardName", "NoBlackboardDescription", 0, 0),
-            new Blackboard("RockSlateName", "RockSlateDescription", 50, 10), 
-            new Blackboard("ChalkboardName", "ChalkboardDescription", 150, 40),
-            new Blackboard("WhiteboardName", "WhiteboardDescription", 200, 40),
-            new Blackboard("DoubleChalkboardName", "DoubleChalkboardDescription", 300, 80),
-            new Blackboard("DoubleWhiteboardName", "DoubleWhiteboardDescription", 400, 80),
-            new Blackboard("InteractiveWhiteboardName", "InteractiveWhiteboardDescription", 1000, 100),
+        #region ShopItem[] ShopItems = new ShopItem[]...
+        ShopItem[] ShopItems = new ShopItem[] {
+            new ShopItem("RockSlateName", "RockSlateDescription", 50, 10), 
+            new ShopItem("ChalkboardName", "ChalkboardDescription", 150, 40),
+            new ShopItem("WhiteboardName", "WhiteboardDescription", 200, 40),
+            new ShopItem("DoubleChalkboardName", "DoubleChalkboardDescription", 300, 80),
+            new ShopItem("DoubleWhiteboardName", "DoubleWhiteboardDescription", 400, 80),
+            new ShopItem("InteractiveWhiteboardName", "InteractiveWhiteboardDescription", 1000, 100),
         };
         #endregion
         public struct Classroom
         {
             public RoomType RoomType;
-            public Blackboard Blackboard;
+            public ShopItem Blackboard;
             public short ChairsMax;
             public short Chairs;
             public short DesksMax;
@@ -443,7 +436,7 @@ namespace SchoolTycoon
             public Classroom(RoomType RoomType, short ChairsMax, short DesksMax, short ComputersMax, bool IslandsPossible, Point[] Locations)
             {
                 this.RoomType = RoomType;
-                this.Blackboard = new Blackboard("NoBlackboardName", "NoBlackboardDescription", 0, 0);
+                this.Blackboard = new ShopItem("NoBlackboardName", "NoBlackboardDescription", 0, 0);
                 this.ChairsMax = ChairsMax;
                 this.Chairs = 0;
                 this.DesksMax = DesksMax;

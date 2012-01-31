@@ -61,6 +61,24 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A must-have for any classroom. In fact, it wouldn&apos;t even be a classroom without one of these; it would be just a room. The meager writing space leaves something to be desired..
+        /// </summary>
+        internal static string ChalkboardDescription {
+            get {
+                return ResourceManager.GetString("ChalkboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chalkboard.
+        /// </summary>
+        internal static string ChalkboardName {
+            get {
+                return ResourceManager.GetString("ChalkboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Costs: €{0}.
         /// </summary>
         internal static string ClassroomBuilderCosts {
@@ -138,6 +156,98 @@ namespace SchoolTycoon.Languages {
         internal static string DateFormat {
             get {
                 return ResourceManager.GetString("DateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A chalkboard that you can fold open for extra writing space. This lets you re-use images for another lesson and write down walls of text..
+        /// </summary>
+        internal static string DoubleChalkboardDescription {
+            get {
+                return ResourceManager.GetString("DoubleChalkboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double Chalkboard.
+        /// </summary>
+        internal static string DoubleChalkboardName {
+            get {
+                return ResourceManager.GetString("DoubleChalkboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A super-long whiteboard with ample writing space. It can be folded to provide additional room, or to cover up embarrasingly bad diagrams..
+        /// </summary>
+        internal static string DoubleWhiteboardDescription {
+            get {
+                return ResourceManager.GetString("DoubleWhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double Whiteboard.
+        /// </summary>
+        internal static string DoubleWhiteboardName {
+            get {
+                return ResourceManager.GetString("DoubleWhiteboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A shockingly useful giant touch screen hooked up to a computer, to be used for displaying web pages and images, or playing this game..
+        /// </summary>
+        internal static string InteractiveWhiteboardDescription {
+            get {
+                return ResourceManager.GetString("InteractiveWhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interactive Whiteboard.
+        /// </summary>
+        internal static string InteractiveWhiteboardName {
+            get {
+                return ResourceManager.GetString("InteractiveWhiteboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s a rock. You chisel stuff on it. Not much else to say.
+        ///
+        ///By the way, it doesn&apos;t come with a chisel..
+        /// </summary>
+        internal static string RockSlateDescription {
+            get {
+                return ResourceManager.GetString("RockSlateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rock Slate.
+        /// </summary>
+        internal static string RockSlateName {
+            get {
+                return ResourceManager.GetString("RockSlateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Like a chalkboard, except it uses ink instead of chalk. Perfect for colourful graphs, tables and pictures of dinosaurs, but you can&apos;t fit many of them on it..
+        /// </summary>
+        internal static string WhiteboardDescription {
+            get {
+                return ResourceManager.GetString("WhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whiteboard.
+        /// </summary>
+        internal static string WhiteboardName {
+            get {
+                return ResourceManager.GetString("WhiteboardName", resourceCulture);
             }
         }
     }

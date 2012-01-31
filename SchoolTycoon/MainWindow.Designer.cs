@@ -46,6 +46,7 @@
             this.theGrid = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.standardTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.OpenCBbutton = new System.Windows.Forms.Button();
             this.advanceDayButton = new System.Windows.Forms.Button();
             this.classroomBuilderTab = new System.Windows.Forms.TabPage();
@@ -61,8 +62,22 @@
             this.BuilderBlueprint = new System.Windows.Forms.TableLayoutPanel();
             this.CBcancelButton = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.InventoryViewer = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.ShopItemList = new System.Windows.Forms.ListView();
+            this.ItemLargeIcons = new System.Windows.Forms.ImageList(this.components);
+            this.ItemSmallIcons = new System.Windows.Forms.ImageList(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -84,6 +99,11 @@
             this.standardTab.SuspendLayout();
             this.classroomBuilderTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.StatusPanel.SuspendLayout();
             this.SuspendLayout();
@@ -107,27 +127,27 @@
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -136,13 +156,13 @@
             this.buildToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.classroomToolStripMenuItem});
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.buildToolStripMenuItem.Text = "Build";
             // 
             // classroomToolStripMenuItem
             // 
             this.classroomToolStripMenuItem.Name = "classroomToolStripMenuItem";
-            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.classroomToolStripMenuItem.Text = "Classroom";
             this.classroomToolStripMenuItem.Click += new System.EventHandler(this.OpenClassroomBuilder);
             // 
@@ -151,7 +171,7 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // languageToolStripMenuItem
@@ -160,7 +180,7 @@
             this.englishToolStripMenuItem,
             this.nederlandsToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -168,7 +188,7 @@
             this.englishToolStripMenuItem.Checked = true;
             this.englishToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.englishToolStripMenuItem.Tag = "en";
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -176,7 +196,7 @@
             // nederlandsToolStripMenuItem
             // 
             this.nederlandsToolStripMenuItem.Name = "nederlandsToolStripMenuItem";
-            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.nederlandsToolStripMenuItem.Tag = "nl";
             this.nederlandsToolStripMenuItem.Text = "Nederlands";
             this.nederlandsToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -234,6 +254,7 @@
             this.tabControl1.Controls.Add(this.standardTab);
             this.tabControl1.Controls.Add(this.classroomBuilderTab);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -248,6 +269,7 @@
             // 
             this.standardTab.BackColor = System.Drawing.Color.White;
             this.standardTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.standardTab.Controls.Add(this.button1);
             this.standardTab.Controls.Add(this.OpenCBbutton);
             this.standardTab.Controls.Add(this.advanceDayButton);
             this.standardTab.Location = new System.Drawing.Point(4, 22);
@@ -256,6 +278,17 @@
             this.standardTab.Size = new System.Drawing.Size(242, 342);
             this.standardTab.TabIndex = 0;
             this.standardTab.Text = "Standard";
+            // 
+            // button1
+            // 
+            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.Location = new System.Drawing.Point(74, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(65, 36);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Shop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.OpenShop);
             // 
             // OpenCBbutton
             // 
@@ -300,7 +333,7 @@
             this.classroomBuilderTab.Padding = new System.Windows.Forms.Padding(3);
             this.classroomBuilderTab.Size = new System.Drawing.Size(242, 342);
             this.classroomBuilderTab.TabIndex = 1;
-            this.classroomBuilderTab.Text = "ClassroomBuilder";
+            this.classroomBuilderTab.Text = "Builder";
             // 
             // BlueprintBuildTime
             // 
@@ -436,11 +469,11 @@
             this.CBcancelButton.TabIndex = 5;
             this.CBcancelButton.Text = "Cancel";
             this.CBcancelButton.UseVisualStyleBackColor = true;
-            this.CBcancelButton.Click += new System.EventHandler(this.ExitClassroomBuilder);
+            this.CBcancelButton.Click += new System.EventHandler(this.ExitToMainScreen);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.listView1);
+            this.tabPage1.Controls.Add(this.InventoryViewer);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -450,21 +483,162 @@
             this.tabPage1.Text = "Inventory";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // InventoryViewer
             // 
-            this.listView1.Location = new System.Drawing.Point(0, 130);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(242, 212);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.InventoryViewer.Location = new System.Drawing.Point(0, 130);
+            this.InventoryViewer.Name = "InventoryViewer";
+            this.InventoryViewer.Size = new System.Drawing.Size(242, 170);
+            this.InventoryViewer.TabIndex = 1;
+            this.InventoryViewer.UseCompatibleStateImageBehavior = false;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 118);
             this.panel1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.ShopItemList);
+            this.tabPage2.Controls.Add(this.panel2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(242, 342);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "Shop";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(120, 304);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(119, 35);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.ExitToMainScreen);
+            // 
+            // ShopItemList
+            // 
+            this.ShopItemList.HideSelection = false;
+            this.ShopItemList.LargeImageList = this.ItemLargeIcons;
+            this.ShopItemList.Location = new System.Drawing.Point(0, 138);
+            this.ShopItemList.MultiSelect = false;
+            this.ShopItemList.Name = "ShopItemList";
+            this.ShopItemList.Size = new System.Drawing.Size(242, 164);
+            this.ShopItemList.SmallImageList = this.ItemSmallIcons;
+            this.ShopItemList.TabIndex = 2;
+            this.ShopItemList.UseCompatibleStateImageBehavior = false;
+            this.ShopItemList.View = System.Windows.Forms.View.List;
+            this.ShopItemList.SelectedIndexChanged += new System.EventHandler(this.ShopItemList_SelectedIndexChanged);
+            // 
+            // ItemLargeIcons
+            // 
+            this.ItemLargeIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.ItemLargeIcons.ImageSize = new System.Drawing.Size(64, 64);
+            this.ItemLargeIcons.TransparentColor = System.Drawing.Color.Fuchsia;
+            // 
+            // ItemSmallIcons
+            // 
+            this.ItemSmallIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.ItemSmallIcons.ImageSize = new System.Drawing.Size(16, 16);
+            this.ItemSmallIcons.TransparentColor = System.Drawing.Color.Fuchsia;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Location = new System.Drawing.Point(6, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(230, 126);
+            this.panel2.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(6, 109);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "0";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(3, 96);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(69, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "You have:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 83);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "€0";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(3, 70);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Price:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(75, 21);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 95);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Item Description";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(72, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 18);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Item Name";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
             // 
             // statusStrip1
             // 
@@ -616,6 +790,12 @@
             this.classroomBuilderTab.ResumeLayout(false);
             this.classroomBuilderTab.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.StatusPanel.ResumeLayout(false);
@@ -672,7 +852,22 @@
         public System.Windows.Forms.TableLayoutPanel theGrid;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView InventoryViewer;
+        private System.Windows.Forms.ImageList ItemLargeIcons;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView ShopItemList;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ImageList ItemSmallIcons;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button2;
 
 
     }

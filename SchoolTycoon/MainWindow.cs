@@ -30,6 +30,8 @@ namespace SchoolTycoon
         List<Point> SpriteLocationData = new List<Point>();
         Point BuildLocation;
 
+        List<short[]> Inventory = new List<short[]>();
+
         public static ResourceManager Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
         public CultureInfo Culture = CultureInfo.GetCultureInfo("en");
 
@@ -42,6 +44,13 @@ namespace SchoolTycoon
 
             InitializeComponent();
 
+            Image ItemIcons = Image.FromFile("Graphics\\items.png");
+            ItemLargeIcons.Images.AddStrip(ItemIcons);
+            ItemSmallIcons.Images.AddStrip(ItemIcons.GetThumbnailImage(ItemIcons.Width / 4, ItemIcons.Height / 4, null, IntPtr.Zero));
+            for (int ItemNumber = 0; ItemNumber < ShopItems.Count(); ItemNumber++)
+            {
+                ShopItemList.Items.Add(Language.GetString(ShopItems[ItemNumber].NameResource), ItemNumber);
+            }
             PrepareBlueprint();
 
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
@@ -468,6 +477,18 @@ namespace SchoolTycoon
             tabControl1.SelectedTab = classroomBuilderTab;
             MakeBlueprint(SelectedBlueprint, Rotation);
         }
+        private void OpenShop(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage2;
+            ShopItemList_SelectedIndexChanged(null, null);
+        }
+        private void ExitToMainScreen(object sender, EventArgs e)
+        {
+            clearSprites();
+            CBbuildButton.Enabled = false;
+            tabControl1.SelectedTab = standardTab;
+        }
+
         private void ChangeLanguage(object sender, EventArgs e)
         {
             englishToolStripMenuItem.Checked = false;
@@ -572,6 +593,25 @@ namespace SchoolTycoon
 
             foreach (Event RemoveEvent in RemovedEvents)
                 TimeLine.Remove(RemoveEvent);
+        }
+
+        private void ShopItemList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ShopItemList.SelectedItems.Count == 0)
+                return;
+
+            label2.Text = Language.GetString(ShopItems[ShopItemList.SelectedIndices[0]].NameResource);
+            label4.Text = Language.GetString(ShopItems[ShopItemList.SelectedIndices[0]].DescriptionResource);
+            label7.Text = "€" + ShopItems[ShopItemList.SelectedIndices[0]].Price;
+            if (Money >= ShopItems[ShopItemList.SelectedIndices[0]].Price)
+            {
+                label7.ForeColor = Color.Black;
+            }
+            else
+            {
+                label7.ForeColor = Color.Red;
+            }
+            pictureBox2.Image = ItemLargeIcons.Images[ShopItemList.SelectedItems[0].ImageIndex].GetThumbnailImage(64, 64, null, IntPtr.Zero);
         }
     }
 }

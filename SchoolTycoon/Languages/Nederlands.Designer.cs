@@ -61,6 +61,24 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een vereiste voor ieder klaslokaal. Eigenlijk zou het niet eens een klaslokaal zijn zonder een van deze, maar gewoon een kamer. De armzalige schrijfruimte laat te wensen over..
+        /// </summary>
+        internal static string ChalkboardDescription {
+            get {
+                return ResourceManager.GetString("ChalkboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Krijtbord.
+        /// </summary>
+        internal static string ChalkboardName {
+            get {
+                return ResourceManager.GetString("ChalkboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kosten: €{0}.
         /// </summary>
         internal static string ClassroomBuilderCosts {
@@ -138,6 +156,98 @@ namespace SchoolTycoon.Languages {
         internal static string DateFormat {
             get {
                 return ResourceManager.GetString("DateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A krijtbord dat je open kunt klappen voor extra schrijfruimte. Hierdoor kun je afbeeldingen tijdens een andere les opnieuw gebruiken, of het bord volkladderen met tekst..
+        /// </summary>
+        internal static string DoubleChalkboardDescription {
+            get {
+                return ResourceManager.GetString("DoubleChalkboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dubbel Krijtbord.
+        /// </summary>
+        internal static string DoubleChalkboardName {
+            get {
+                return ResourceManager.GetString("DoubleChalkboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een superlang witbord met schrijfruimte in overvloed. Hij kan opengeklapt worden om extra ruimte te kunnen gebruiken, of beschamend lelijke diagrammen te verbergen..
+        /// </summary>
+        internal static string DoubleWhiteboardDescription {
+            get {
+                return ResourceManager.GetString("DoubleWhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dubbel Witbord.
+        /// </summary>
+        internal static string DoubleWhiteboardName {
+            get {
+                return ResourceManager.GetString("DoubleWhiteboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een schokkend handig enorm aanraakscherm verbonden met een computer, te gebruiken om webpaginas en afbeeldingen te tonen, of dit spel te spelen..
+        /// </summary>
+        internal static string InteractiveWhiteboardDescription {
+            get {
+                return ResourceManager.GetString("InteractiveWhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interactief Witbord.
+        /// </summary>
+        internal static string InteractiveWhiteboardName {
+            get {
+                return ResourceManager.GetString("InteractiveWhiteboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit is een steen. Je beitelt er dingen op. Valt niet veel meer over te zeggen.
+        ///
+        ///Beitel niet inbegrepen..
+        /// </summary>
+        internal static string RockSlateDescription {
+            get {
+                return ResourceManager.GetString("RockSlateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leisteen.
+        /// </summary>
+        internal static string RockSlateName {
+            get {
+                return ResourceManager.GetString("RockSlateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net een krijtbord, maar dan met inkt in plaats van krijt. Perfect voor kleurrijke grafieken, tabellen en plaatjes van dinosaurussen, maar er passen er niet veel van op..
+        /// </summary>
+        internal static string WhiteboardDescription {
+            get {
+                return ResourceManager.GetString("WhiteboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witbord.
+        /// </summary>
+        internal static string WhiteboardName {
+            get {
+                return ResourceManager.GetString("WhiteboardName", resourceCulture);
             }
         }
     }

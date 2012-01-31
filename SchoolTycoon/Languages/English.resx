@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChalkboardDescription" xml:space="preserve">
+    <value>A must-have for any classroom. In fact, it wouldn't even be a classroom without one of these; it would be just a room. The meager writing space leaves something to be desired.</value>
+  </data>
+  <data name="ChalkboardName" xml:space="preserve">
+    <value>Chalkboard</value>
+  </data>
   <data name="ClassroomBuilderCosts" xml:space="preserve">
     <value>Costs: €{0}</value>
   </data>
@@ -144,5 +150,37 @@
   <data name="DateFormat" xml:space="preserve">
     <value>{0} {1}{2}, year {3}</value>
     <comment>{0} = Month Name, {1} = Day Number, {2} = Day Number Suffix, {3} = Year Number</comment>
+  </data>
+  <data name="DoubleChalkboardDescription" xml:space="preserve">
+    <value>A chalkboard that you can fold open for extra writing space. This lets you re-use images for another lesson and write down walls of text.</value>
+  </data>
+  <data name="DoubleChalkboardName" xml:space="preserve">
+    <value>Double Chalkboard</value>
+  </data>
+  <data name="DoubleWhiteboardDescription" xml:space="preserve">
+    <value>A super-long whiteboard with ample writing space. It can be folded to provide additional room, or to cover up embarrasingly bad diagrams.</value>
+  </data>
+  <data name="DoubleWhiteboardName" xml:space="preserve">
+    <value>Double Whiteboard</value>
+  </data>
+  <data name="InteractiveWhiteboardDescription" xml:space="preserve">
+    <value>A shockingly useful giant touch screen hooked up to a computer, to be used for displaying web pages and images, or playing this game.</value>
+  </data>
+  <data name="InteractiveWhiteboardName" xml:space="preserve">
+    <value>Interactive Whiteboard</value>
+  </data>
+  <data name="RockSlateDescription" xml:space="preserve">
+    <value>It's a rock. You chisel stuff on it. Not much else to say.
+
+By the way, it doesn't come with a chisel.</value>
+  </data>
+  <data name="RockSlateName" xml:space="preserve">
+    <value>Rock Slate</value>
+  </data>
+  <data name="WhiteboardDescription" xml:space="preserve">
+    <value>Like a chalkboard, except it uses ink instead of chalk. Perfect for colourful graphs, tables and pictures of dinosaurs, but you can't fit many of them on it.</value>
+  </data>
+  <data name="WhiteboardName" xml:space="preserve">
+    <value>Whiteboard</value>
   </data>
 </root>

@@ -1,3 +1,6 @@
+GeertL | 31-01-2012 | 22:27
+- Built a basic graphical interface for the shop.
+
 GeertL | 30-01-2012 | 15:06
 - Added items.
 - Implemented building.

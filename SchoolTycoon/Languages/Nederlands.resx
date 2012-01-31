@@ -117,19 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="changeTile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 17</value>
-  </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>241, 20</value>
-  </metadata>
-  <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>355, 25</value>
-  </metadata>
-  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>484, 25</value>
-  </metadata>
+  <data name="ChalkboardDescription" xml:space="preserve">
+    <value>Een vereiste voor ieder klaslokaal. Eigenlijk zou het niet eens een klaslokaal zijn zonder een van deze, maar gewoon een kamer. De armzalige schrijfruimte laat te wensen over.</value>
+  </data>
+  <data name="ChalkboardName" xml:space="preserve">
+    <value>Krijtbord</value>
+  </data>
+  <data name="ClassroomBuilderCosts" xml:space="preserve">
+    <value>Kosten: €{0}</value>
+  </data>
+  <data name="ClassroomBuilderTime" xml:space="preserve">
+    <value>Bouwtijd: {0} dagen</value>
+  </data>
+  <data name="ClassroomLargeDescription" xml:space="preserve">
+    <value>Een enorm klaslokaal met ruime plek voor ongeveer 48 leerlingen. Naast een toegeweid gebied voor groepactiviteiten is er een technologische hoek dat kan dienen als laboratorium of computerruimte.</value>
+  </data>
+  <data name="ClassroomLargeName" xml:space="preserve">
+    <value>Klaslokaal (Groot)</value>
+  </data>
+  <data name="ClassroomMediumDescription" xml:space="preserve">
+    <value>Een verlengd klaslokaal met plaats voor 36 leerlingen. De extra ruimte achterin biedt mogelijkheden groepen te vormen van 4 tafels, zogenaamde 'eilandjes', voor een aangenamere leeromgeving.</value>
+  </data>
+  <data name="ClassroomMediumName" xml:space="preserve">
+    <value>Klaslokaal (Medium)</value>
+  </data>
+  <data name="ClassroomSmallDescription" xml:space="preserve">
+    <value>Een compact klaslokaal dat plaatsen biedt voor 24 leerlingen. Er is net genoeg ruimte voor een schoolbord en wat kasten. Kan voor alle vakken gebruikt worden, maar is niet erg geschikt voor groepsactiviteiten.</value>
+  </data>
+  <data name="ClassroomSmallName" xml:space="preserve">
+    <value>Klaslokaal (Klein)</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1} {0}, {3}e jaar</value>
+    <comment>{0} = Month Name, {1} = Day Number, {2} = Day Number Suffix, {3} = Year Number</comment>
+  </data>
+  <data name="DoubleChalkboardDescription" xml:space="preserve">
+    <value>A krijtbord dat je open kunt klappen voor extra schrijfruimte. Hierdoor kun je afbeeldingen tijdens een andere les opnieuw gebruiken, of het bord volkladderen met tekst.</value>
+  </data>
+  <data name="DoubleChalkboardName" xml:space="preserve">
+    <value>Dubbel Krijtbord</value>
+  </data>
+  <data name="DoubleWhiteboardDescription" xml:space="preserve">
+    <value>Een superlang witbord met schrijfruimte in overvloed. Hij kan opengeklapt worden om extra ruimte te kunnen gebruiken, of beschamend lelijke diagrammen te verbergen.</value>
+  </data>
+  <data name="DoubleWhiteboardName" xml:space="preserve">
+    <value>Dubbel Witbord</value>
+  </data>
+  <data name="InteractiveWhiteboardDescription" xml:space="preserve">
+    <value>Een schokkend handig enorm aanraakscherm verbonden met een computer, te gebruiken om webpaginas en afbeeldingen te tonen, of dit spel te spelen.</value>
+  </data>
+  <data name="InteractiveWhiteboardName" xml:space="preserve">
+    <value>Interactief Witbord</value>
+  </data>
+  <data name="RockSlateDescription" xml:space="preserve">
+    <value>Dit is een steen. Je beitelt er dingen op. Valt niet veel meer over te zeggen.
+
+Beitel niet inbegrepen.</value>
+  </data>
+  <data name="RockSlateName" xml:space="preserve">
+    <value>Leisteen</value>
+  </data>
+  <data name="WhiteboardDescription" xml:space="preserve">
+    <value>Net een krijtbord, maar dan met inkt in plaats van krijt. Perfect voor kleurrijke grafieken, tabellen en plaatjes van dinosaurussen, maar er passen er niet veel van op.</value>
+  </data>
+  <data name="WhiteboardName" xml:space="preserve">
+    <value>Witbord</value>
+  </data>
 </root>
