@@ -46,6 +46,9 @@
             this.theGrid = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.standardTab = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.OpenCBbutton = new System.Windows.Forms.Button();
             this.advanceDayButton = new System.Windows.Forms.Button();
@@ -62,14 +65,23 @@
             this.BuilderBlueprint = new System.Windows.Forms.TableLayoutPanel();
             this.CBcancelButton = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.InventoryViewer = new System.Windows.Forms.ListView();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.InventoryViewer = new System.Windows.Forms.ListView();
+            this.ItemSmallIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.ShopItemList = new System.Windows.Forms.ListView();
             this.ItemLargeIcons = new System.Windows.Forms.ImageList(this.components);
-            this.ItemSmallIcons = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -90,6 +102,8 @@
             this.CurrentDate = new System.Windows.Forms.Label();
             this.MoneyCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -102,6 +116,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -269,6 +284,9 @@
             // 
             this.standardTab.BackColor = System.Drawing.Color.White;
             this.standardTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.standardTab.Controls.Add(this.button4);
+            this.standardTab.Controls.Add(this.label10);
+            this.standardTab.Controls.Add(this.progressBar1);
             this.standardTab.Controls.Add(this.button1);
             this.standardTab.Controls.Add(this.OpenCBbutton);
             this.standardTab.Controls.Add(this.advanceDayButton);
@@ -279,10 +297,39 @@
             this.standardTab.TabIndex = 0;
             this.standardTab.Text = "Standard";
             // 
+            // button4
+            // 
+            this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button4.Location = new System.Drawing.Point(74, 2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(65, 36);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Inventory";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.OpenInventory);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 45);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(103, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Average Happiness:";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(7, 61);
+            this.progressBar1.Maximum = 1000;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(226, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 3;
+            // 
             // button1
             // 
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(74, 2);
+            this.button1.Location = new System.Drawing.Point(145, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 36);
             this.button1.TabIndex = 2;
@@ -473,8 +520,11 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.InventoryViewer);
+            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.button6);
+            this.tabPage1.Controls.Add(this.button5);
             this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.InventoryViewer);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -483,34 +533,114 @@
             this.tabPage1.Text = "Inventory";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // InventoryViewer
+            // button6
             // 
-            this.InventoryViewer.Location = new System.Drawing.Point(0, 130);
-            this.InventoryViewer.Name = "InventoryViewer";
-            this.InventoryViewer.Size = new System.Drawing.Size(242, 170);
-            this.InventoryViewer.TabIndex = 1;
-            this.InventoryViewer.UseCompatibleStateImageBehavior = false;
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(1, 304);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(119, 35);
+            this.button6.TabIndex = 8;
+            this.button6.Text = "Use";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(120, 304);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(119, 35);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Close";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.ExitToMainScreen);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 118);
-            this.panel1.TabIndex = 0;
+            this.panel1.Size = new System.Drawing.Size(230, 126);
+            this.panel1.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 83);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "0";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(3, 70);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(69, 13);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "You have:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(75, 21);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(150, 95);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Item Description";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(72, 3);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(89, 18);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "Item Name";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            // 
+            // InventoryViewer
+            // 
+            this.InventoryViewer.HideSelection = false;
+            this.InventoryViewer.LargeImageList = this.ItemSmallIcons;
+            this.InventoryViewer.Location = new System.Drawing.Point(0, 138);
+            this.InventoryViewer.MultiSelect = false;
+            this.InventoryViewer.Name = "InventoryViewer";
+            this.InventoryViewer.Size = new System.Drawing.Size(242, 164);
+            this.InventoryViewer.SmallImageList = this.ItemSmallIcons;
+            this.InventoryViewer.TabIndex = 1;
+            this.InventoryViewer.UseCompatibleStateImageBehavior = false;
+            this.InventoryViewer.View = System.Windows.Forms.View.List;
+            this.InventoryViewer.SelectedIndexChanged += new System.EventHandler(this.InventoryViewer_SelectedIndexChanged);
+            // 
+            // ItemSmallIcons
+            // 
+            this.ItemSmallIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.ItemSmallIcons.ImageSize = new System.Drawing.Size(16, 16);
+            this.ItemSmallIcons.TransparentColor = System.Drawing.Color.Fuchsia;
             // 
             // tabPage2
             // 
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.numericUpDown1);
+            this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.ShopItemList);
             this.tabPage2.Controls.Add(this.panel2);
@@ -521,6 +651,39 @@
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Shop";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(-2, 326);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "€0";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(2, 306);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(40, 304);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(79, 35);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Buy";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.BuyItem);
             // 
             // button2
             // 
@@ -551,12 +714,6 @@
             this.ItemLargeIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.ItemLargeIcons.ImageSize = new System.Drawing.Size(64, 64);
             this.ItemLargeIcons.TransparentColor = System.Drawing.Color.Fuchsia;
-            // 
-            // ItemSmallIcons
-            // 
-            this.ItemSmallIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.ItemSmallIcons.ImageSize = new System.Drawing.Size(16, 16);
-            this.ItemSmallIcons.TransparentColor = System.Drawing.Color.Fuchsia;
             // 
             // panel2
             // 
@@ -763,6 +920,26 @@
             this.label1.Text = "Money:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(3, 96);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "In use:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(6, 109);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(66, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "0";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -791,8 +968,10 @@
             this.classroomBuilderTab.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -851,10 +1030,8 @@
         private System.Windows.Forms.Button OpenCBbutton;
         public System.Windows.Forms.TableLayoutPanel theGrid;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView InventoryViewer;
         private System.Windows.Forms.ImageList ItemLargeIcons;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ListView ShopItemList;
         private System.Windows.Forms.Panel panel2;
@@ -868,6 +1045,22 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label14;
 
 
     }

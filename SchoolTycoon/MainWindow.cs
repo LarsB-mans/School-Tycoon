@@ -228,6 +228,53 @@ namespace SchoolTycoon
             lockGame(false);*/
         }
 
+        private void advanceDayButton_Click(object sender, EventArgs e)
+        {
+            Date = Date.AddDays(1);
+            DayNumber++;
+            Money += 500;
+            UpdateStatusWindow();
+
+            List<Event> RemovedEvents = new List<Event>();
+            foreach (Event Event in TimeLine)
+            {
+                if (Event.DateTime == Date)
+                {
+                    switch (Event.EventType)
+                    {
+                        case EventType.Build:
+                            BuildClassroom(Event.Data, Event.Location);
+                            break;
+                        default:
+                            break;
+                    }
+                    RemovedEvents.Add(Event);
+                }
+            }
+
+            foreach (Event RemoveEvent in RemovedEvents)
+                TimeLine.Remove(RemoveEvent);
+
+            //
+            for (int PersonNumber = 0; PersonNumber < Persons.Count; PersonNumber++)
+            {
+                Person Person = Persons[PersonNumber];
+
+                Person.Happiness += 1;
+
+                Persons[PersonNumber] = Person;
+            }
+            //
+
+            int AverageHappiness = 0;
+            foreach (Person Person in Persons)
+                AverageHappiness += Person.Happiness;
+            AverageHappiness = AverageHappiness / Persons.Count + 500;
+            progressBar1.Value = AverageHappiness > progressBar1.Maximum ? progressBar1.Maximum : AverageHappiness;
+            label10.Text = "Average Happiness: " + progressBar1.Value * 100 / progressBar1.Maximum + "%";
+
+        }
+
         public void InitializeGrid(int columncount, int rowcount)
         {
             theGrid.Controls.Clear();
@@ -251,7 +298,8 @@ namespace SchoolTycoon
         public void InitializePeople()
         {
             Persons = new List<Person>();
-            Persons.Add(new Person(Gender.Male, Type.Pupil, 100));
+            for (int x = 0; x < 99; x++)
+                Persons.Add(new Person(Gender.Male, Type.Pupil, 100));
         }
 
         private void LockGame(bool lockstatus)
@@ -474,13 +522,30 @@ namespace SchoolTycoon
 
         private void OpenClassroomBuilder(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = classroomBuilderTab;
             MakeBlueprint(SelectedBlueprint, Rotation);
+            tabControl1.SelectedTab = classroomBuilderTab;
+        }
+        private void OpenInventory(object sender, EventArgs e)
+        {
+            InventoryViewer.Items.Clear();
+            for (int ItemNumber = 0; ItemNumber < Inventory.Count; ItemNumber++)
+            {
+                InventoryViewer.Items.Add(Inventory[ItemNumber][1] + "x " + Language.GetString(ShopItems[Inventory[ItemNumber][0]].NameResource), Inventory[ItemNumber][0]);
+            }
+
+            pictureBox1.Visible = false;
+            label16.Visible = false;
+            label15.Visible = false;
+            label12.Visible = false;
+            label11.Visible = false;
+            label14.Visible = false;
+            label17.Visible = false;
+
+            tabControl1.SelectedTab = tabPage1;
         }
         private void OpenShop(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPage2;
-            ShopItemList_SelectedIndexChanged(null, null);
         }
         private void ExitToMainScreen(object sender, EventArgs e)
         {
@@ -567,33 +632,6 @@ namespace SchoolTycoon
 
             CurrentDate.Text = String.Format(Language.GetString("DateFormat"), Culture.DateTimeFormat.GetMonthName(Date.Month), Date.Day, NumberSuffix(Date.Day, true), Date.Year);
         }
-        private void advanceDayButton_Click(object sender, EventArgs e)
-        {
-            Date = Date.AddDays(1);
-            DayNumber++;
-            Money += 500;
-            UpdateStatusWindow();
-
-            List<Event> RemovedEvents = new List<Event>();
-            foreach (Event Event in TimeLine)
-            {
-                if (Event.DateTime == Date)
-                {
-                    switch (Event.EventType)
-                    {
-                        case EventType.Build:
-                            BuildClassroom(Event.Data, Event.Location);
-                            break;
-                        default:
-                            break;
-                    }
-                    RemovedEvents.Add(Event);
-                }
-            }
-
-            foreach (Event RemoveEvent in RemovedEvents)
-                TimeLine.Remove(RemoveEvent);
-        }
 
         private void ShopItemList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -603,6 +641,15 @@ namespace SchoolTycoon
             label2.Text = Language.GetString(ShopItems[ShopItemList.SelectedIndices[0]].NameResource);
             label4.Text = Language.GetString(ShopItems[ShopItemList.SelectedIndices[0]].DescriptionResource);
             label7.Text = "€" + ShopItems[ShopItemList.SelectedIndices[0]].Price;
+
+            ItemToFind = ShopItemList.SelectedIndices[0];
+            int InventoryIndex = Inventory.FindIndex(FindItem);
+
+            if (InventoryIndex == -1)
+                label9.Text = "0";
+            else
+                label9.Text = Inventory[InventoryIndex][1].ToString();
+
             if (Money >= ShopItems[ShopItemList.SelectedIndices[0]].Price)
             {
                 label7.ForeColor = Color.Black;
@@ -612,6 +659,59 @@ namespace SchoolTycoon
                 label7.ForeColor = Color.Red;
             }
             pictureBox2.Image = ItemLargeIcons.Images[ShopItemList.SelectedItems[0].ImageIndex].GetThumbnailImage(64, 64, null, IntPtr.Zero);
+
+            numericUpDown1.Value = 1;
+            numericUpDown1_ValueChanged(null, null);
+        }
+        private void BuyItem(object sender, EventArgs e)
+        {
+            if (ShopItemList.SelectedItems.Count == 0)
+                return;
+
+            Money -= ShopItems[ShopItemList.SelectedIndices[0]].Price * (int)numericUpDown1.Value;
+
+            ItemToFind = ShopItemList.SelectedIndices[0];
+            int InventoryIndex = Inventory.FindIndex(FindItem);
+
+            if (InventoryIndex == -1)
+                Inventory.Add(new short[] { (short)ItemToFind, (short)numericUpDown1.Value });
+            else
+                Inventory[InventoryIndex][1] += (short)numericUpDown1.Value;
+
+            ShopItemList_SelectedIndexChanged(null, null);
+            UpdateStatusWindow();
+        }
+        int ItemToFind = 0;
+        private bool FindItem(short[] Item)
+        {
+            return Item[0] == ItemToFind;
+        }
+        private void InventoryViewer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (InventoryViewer.SelectedItems.Count == 0)
+                return;
+
+            label16.Text = Language.GetString(ShopItems[Inventory[InventoryViewer.SelectedIndices[0]][0]].NameResource);
+            label15.Text = Language.GetString(ShopItems[Inventory[InventoryViewer.SelectedIndices[0]][0]].DescriptionResource);
+            label11.Text = Inventory[InventoryViewer.SelectedIndices[0]][1].ToString();
+            pictureBox1.Image = ItemLargeIcons.Images[InventoryViewer.SelectedItems[0].ImageIndex].GetThumbnailImage(64, 64, null, IntPtr.Zero);
+
+            pictureBox1.Visible = true;
+            label16.Visible = true;
+            label15.Visible = true;
+            label12.Visible = true;
+            label11.Visible = true;
+            label14.Visible = true;
+            label17.Visible = true;
+        }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int Price = ShopItems[ShopItemList.SelectedIndices[0]].Price * (int)numericUpDown1.Value;
+            label13.Text = "€" + Price;
+            if (Money >= Price)
+                label13.ForeColor = Color.Black;
+            else
+                label13.ForeColor = Color.Red;
         }
     }
 }

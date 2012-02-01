@@ -1,3 +1,7 @@
+GeertL | 01-02-2012 | 22:53
+- Finished the shop.
+- Built an inventory.
+
 GeertL | 31-01-2012 | 22:27
 - Built a basic graphical interface for the shop.
 
