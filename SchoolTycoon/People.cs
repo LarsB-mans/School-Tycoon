@@ -16,18 +16,22 @@ namespace SchoolTycoon
 
         public enum Gender : byte { Male, Female };
         public enum Type : byte { Pupil, Teacher };
+        public enum Subject : byte { English, Maths, Physics, Chemistry, History, Biology, Economics, ForeignLanguages, Geography };
 
+        public int AmountOfClasses;
         public struct Person
         {
             public Gender Gender;
             public Type Type;
             public int Happiness;
+            public int Class;
 
-            public Person(Gender gender, Type type, int happiness)
+            public Person(Gender Gender, Type Type, int Class)
             {
-                Gender = gender;
-                Type = type;
-                Happiness = happiness;
+                this.Gender = Gender;
+                this.Type = Type;
+                this.Happiness = Random.Next(1000);
+                this.Class = Class;
             }
         }
 

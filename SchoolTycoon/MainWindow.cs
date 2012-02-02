@@ -26,6 +26,7 @@ namespace SchoolTycoon
         public static int columncount;
         public static int tileSetNumber = 0;
 
+        static Random Random = new Random();
         List<Person> Persons;
         List<Point> SpriteLocationData = new List<Point>();
         Point BuildLocation;
@@ -297,9 +298,17 @@ namespace SchoolTycoon
         }
         public void InitializePeople()
         {
+            AmountOfClasses = 6;
+
             Persons = new List<Person>();
-            for (int x = 0; x < 99; x++)
-                Persons.Add(new Person(Gender.Male, Type.Pupil, 100));
+            for (int x = 0; x < AmountOfClasses; x++)
+            {
+                int ClassSize = Random.Next(20, 24);
+                for (int y = 0; y < ClassSize; y++)
+                    Persons.Add(new Person((Gender)Random.Next(1), Type.Pupil, x));
+            }
+            for (int x = 0; x < 9; x++)
+                Persons.Add(new Person((Gender)Random.Next(1), Type.Teacher, x));
         }
 
         private void LockGame(bool lockstatus)
@@ -545,6 +554,7 @@ namespace SchoolTycoon
         }
         private void OpenShop(object sender, EventArgs e)
         {
+            ShopItemList.Items[0].Selected = true;
             tabControl1.SelectedTab = tabPage2;
         }
         private void ExitToMainScreen(object sender, EventArgs e)

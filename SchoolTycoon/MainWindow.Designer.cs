@@ -68,6 +68,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -102,8 +104,9 @@
             this.CurrentDate = new System.Windows.Forms.Label();
             this.MoneyCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ClassList = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -121,6 +124,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.StatusPanel.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -142,27 +146,27 @@
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -171,13 +175,13 @@
             this.buildToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.classroomToolStripMenuItem});
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.buildToolStripMenuItem.Text = "Build";
             // 
             // classroomToolStripMenuItem
             // 
             this.classroomToolStripMenuItem.Name = "classroomToolStripMenuItem";
-            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.classroomToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.classroomToolStripMenuItem.Text = "Classroom";
             this.classroomToolStripMenuItem.Click += new System.EventHandler(this.OpenClassroomBuilder);
             // 
@@ -186,7 +190,7 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // languageToolStripMenuItem
@@ -195,7 +199,7 @@
             this.englishToolStripMenuItem,
             this.nederlandsToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -203,7 +207,7 @@
             this.englishToolStripMenuItem.Checked = true;
             this.englishToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.englishToolStripMenuItem.Tag = "en";
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -211,7 +215,7 @@
             // nederlandsToolStripMenuItem
             // 
             this.nederlandsToolStripMenuItem.Name = "nederlandsToolStripMenuItem";
-            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.nederlandsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.nederlandsToolStripMenuItem.Tag = "nl";
             this.nederlandsToolStripMenuItem.Text = "Nederlands";
             this.nederlandsToolStripMenuItem.Click += new System.EventHandler(this.ChangeLanguage);
@@ -270,6 +274,7 @@
             this.tabControl1.Controls.Add(this.classroomBuilderTab);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -568,6 +573,26 @@
             this.panel1.Size = new System.Drawing.Size(230, 126);
             this.panel1.TabIndex = 2;
             // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(6, 109);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(66, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "0";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(3, 96);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "In use:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -665,6 +690,16 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(2, 306);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(35, 20);
             this.numericUpDown1.TabIndex = 8;
@@ -920,25 +955,35 @@
             this.label1.Text = "Money:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // label14
+            // tabPage3
             // 
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 96);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(69, 13);
-            this.label14.TabIndex = 15;
-            this.label14.Text = "In use:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabPage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Controls.Add(this.ClassList);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(242, 342);
+            this.tabPage3.TabIndex = 4;
+            this.tabPage3.Text = "SchoolView";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label17
+            // ClassList
             // 
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 109);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(66, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "0";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ClassList.FormattingEnabled = true;
+            this.ClassList.Location = new System.Drawing.Point(43, 2);
+            this.ClassList.Name = "ClassList";
+            this.ClassList.Size = new System.Drawing.Size(195, 21);
+            this.ClassList.TabIndex = 0;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(2, 5);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(35, 13);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Class:";
             // 
             // MainWindow
             // 
@@ -979,6 +1024,8 @@
             this.statusStrip1.PerformLayout();
             this.StatusPanel.ResumeLayout(false);
             this.StatusPanel.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1061,6 +1108,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox ClassList;
 
 
     }
