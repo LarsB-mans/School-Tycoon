@@ -723,5 +723,20 @@ namespace SchoolTycoon
             else
                 label13.ForeColor = Color.Red;
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage3;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            int Hours = 34 - ((int)numericUpDown2.Value + (int)numericUpDown3.Value + (int)numericUpDown4.Value + (int)numericUpDown5.Value + (int)numericUpDown6.Value);
+            label25.Text = "" + Hours;
+            if (Hours >= 1)
+                label25.ForeColor = Color.Black;
+            else
+                label25.ForeColor = Color.Red;
+        }
     }
 }

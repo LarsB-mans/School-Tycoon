@@ -1,3 +1,7 @@
+LarsB-Mans| 07-02-2012 | 19:32
+- Schedulemaker/schoolview interface 
+- Class hours
+
 GeertL | 02-02-2012 | 13:20
 - Behind-the-scenes improvements.
 
