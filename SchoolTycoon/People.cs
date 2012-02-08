@@ -14,25 +14,67 @@ namespace SchoolTycoon
         };
         public Bitmap peopleSet = new Bitmap("graphics\\people.png");
 
-        public enum Gender : byte { Male, Female };
-        public enum Type : byte { Pupil, Teacher };
-        public enum Subject : byte { English, Maths, Physics, Chemistry, History, Biology, Economics, ForeignLanguages, Geography };
+        List<Pupil> Pupils;
+        List<Teacher> Teachers;
 
+        public enum Gender : byte { Male, Female };
+        public enum Subject : byte { Biology, Chemistry, Economics, Geography, History, Language, Maths, Physics };
+        
         public int AmountOfClasses;
-        public struct Person
+        public struct Pupil
         {
+            public string FirstName;
+            public string LastName;
             public Gender Gender;
-            public Type Type;
             public int Happiness;
             public int Class;
 
-            public Person(Gender Gender, Type Type, int Class)
+            public Pupil(Gender Gender, int Class)
             {
+                this.FirstName = "Herp";
+                this.LastName = "Derp";
                 this.Gender = Gender;
-                this.Type = Type;
                 this.Happiness = Random.Next(1000);
                 this.Class = Class;
             }
+        }
+        public struct Teacher
+        {
+            public string FirstName;
+            public string LastName;
+            public Gender Gender;
+            public Subject[] Subjects;
+            public int Salary;
+            public int Happiness;
+
+            public Teacher(Gender Gender, Subject[] Subjects, int Salary)
+            {
+                this.FirstName = "Herp";
+                this.LastName = "Derp";
+                this.Gender = Gender;
+                this.Subjects = Subjects;
+                this.Salary = Salary;
+                this.Happiness = Random.Next(1000);
+            }
+        }
+
+        public void InitializePeople()
+        {
+            AmountOfClasses = 6;
+
+            Pupils = new List<Pupil>();
+            for (int x = 0; x < AmountOfClasses; x++)
+            {
+                int ClassSize = Random.Next(20, 24);
+                for (int y = 0; y < ClassSize; y++)
+                    Pupils.Add(new Pupil((Gender)Random.Next(1), x));
+            }
+            for (int x = 0; x < 9; x++)
+                Pupils.Add(new Pupil((Gender)Random.Next(1), x));
+
+            Teachers = new List<Teacher>();
+            for (int x = 0; x < 8; x++)
+                Teachers.Add(new Teacher((Gender)Random.Next(1), new Subject[] { (Subject)x, }, 10));
         }
 
         public void loadPeopleGraphics()

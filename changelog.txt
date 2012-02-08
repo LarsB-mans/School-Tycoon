@@ -1,4 +1,8 @@
-LarsB-Mans| 07-02-2012 | 19:32
+GeertL | 08-02-2012 | 23:03
+- Half-finished pupil/teacher backbone programming
+- Polishing the schedule maker
+
+LarsB-Mans | 07-02-2012 | 19:32
 - Schedulemaker/schoolview interface 
 - Class hours
 

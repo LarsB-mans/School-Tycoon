@@ -27,7 +27,6 @@ namespace SchoolTycoon
         public static int tileSetNumber = 0;
 
         static Random Random = new Random();
-        List<Person> Persons;
         List<Point> SpriteLocationData = new List<Point>();
         Point BuildLocation;
 
@@ -257,20 +256,20 @@ namespace SchoolTycoon
                 TimeLine.Remove(RemoveEvent);
 
             //
-            for (int PersonNumber = 0; PersonNumber < Persons.Count; PersonNumber++)
+            for (int PersonNumber = 0; PersonNumber < Pupils.Count; PersonNumber++)
             {
-                Person Person = Persons[PersonNumber];
+                Pupil Person = Pupils[PersonNumber];
 
                 Person.Happiness += 1;
 
-                Persons[PersonNumber] = Person;
+                Pupils[PersonNumber] = Person;
             }
             //
 
             int AverageHappiness = 0;
-            foreach (Person Person in Persons)
+            foreach (Pupil Person in Pupils)
                 AverageHappiness += Person.Happiness;
-            AverageHappiness = AverageHappiness / Persons.Count + 500;
+            AverageHappiness = AverageHappiness / Pupils.Count + 500;
             progressBar1.Value = AverageHappiness > progressBar1.Maximum ? progressBar1.Maximum : AverageHappiness;
             label10.Text = "Average Happiness: " + progressBar1.Value * 100 / progressBar1.Maximum + "%";
 
@@ -295,20 +294,6 @@ namespace SchoolTycoon
                 StatusPanel.Top = 322 - 17;
             else
                 StatusPanel.Top = 322;
-        }
-        public void InitializePeople()
-        {
-            AmountOfClasses = 6;
-
-            Persons = new List<Person>();
-            for (int x = 0; x < AmountOfClasses; x++)
-            {
-                int ClassSize = Random.Next(20, 24);
-                for (int y = 0; y < ClassSize; y++)
-                    Persons.Add(new Person((Gender)Random.Next(1), Type.Pupil, x));
-            }
-            for (int x = 0; x < 9; x++)
-                Persons.Add(new Person((Gender)Random.Next(1), Type.Teacher, x));
         }
 
         private void LockGame(bool lockstatus)
@@ -557,6 +542,10 @@ namespace SchoolTycoon
             ShopItemList.Items[0].Selected = true;
             tabControl1.SelectedTab = tabPage2;
         }
+        private void OpenSchedule(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage3;
+        }
         private void ExitToMainScreen(object sender, EventArgs e)
         {
             clearSprites();
@@ -724,19 +713,14 @@ namespace SchoolTycoon
                 label13.ForeColor = Color.Red;
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void ChangeHours(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPage3;
-        }
-
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-            int Hours = 34 - ((int)numericUpDown2.Value + (int)numericUpDown3.Value + (int)numericUpDown4.Value + (int)numericUpDown5.Value + (int)numericUpDown6.Value);
-            label25.Text = "" + Hours;
-            if (Hours >= 1)
-                label25.ForeColor = Color.Black;
-            else
-                label25.ForeColor = Color.Red;
+            //int Hours = 34 - ((int)numericUpDown2.Value + (int)numericUpDown3.Value + (int)numericUpDown4.Value + (int)numericUpDown5.Value + (int)numericUpDown6.Value);
+            label25.Text = "Total hours: " + (numericUpDown2.Value + numericUpDown3.Value + numericUpDown4.Value + numericUpDown5.Value + numericUpDown6.Value + numericUpDown7.Value + numericUpDown8.Value + numericUpDown9.Value);
+            //if (Hours >= 1)
+            //    label25.ForeColor = Color.Black;
+            //else
+            //    label25.ForeColor = Color.Red;
         }
     }
 }
