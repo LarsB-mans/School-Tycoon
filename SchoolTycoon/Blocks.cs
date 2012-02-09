@@ -286,7 +286,7 @@ namespace SchoolTycoon
                 BuilderBlueprint.Controls.Add(box);
             }
 
-            BuilderBlueprint.Left = (classroomBuilderTab.Width - BuilderBlueprint.Width) / 2;
+            BuilderBlueprint.Left = (BuilderTab.Width - BuilderBlueprint.Width) / 2;
         }
         public void MakeBlueprint(int BlueprintNumber, int Rotation)
         {

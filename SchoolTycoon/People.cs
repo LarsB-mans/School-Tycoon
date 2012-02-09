@@ -8,18 +8,16 @@ namespace SchoolTycoon
 {
     public partial class MainWindow
     {
-        public Bitmap[][] PeopleGFX = new Bitmap[][] {
-            new Bitmap[2],      // Pupil
-            new Bitmap[2],      // Teacher
-        };
-        public Bitmap peopleSet = new Bitmap("graphics\\people.png");
-
         List<Pupil> Pupils;
         List<Teacher> Teachers;
 
         public enum Gender : byte { Male, Female };
         public enum Subject : byte { Biology, Chemistry, Economics, Geography, History, Language, Maths, Physics };
-        
+
+        static string[] FirstNamesMale = new string[] { "Herp", "Herpo", "Herpley", "Herper", "Herpus", };
+        static string[] FirstNamesFemale = new string[] { "Herp", "Herpa", "Herpina", "Herpette", "Hercy" };
+        static string[] LastNames = new string[] { "Derp", "Derpus", "Derpsley", "Derpington", "Derpson", "Derper", "Derpelburg", "Dercy", };
+
         public int AmountOfClasses;
         public struct Pupil
         {
@@ -31,8 +29,11 @@ namespace SchoolTycoon
 
             public Pupil(Gender Gender, int Class)
             {
-                this.FirstName = "Herp";
-                this.LastName = "Derp";
+                if (Gender == Gender.Male)
+                    this.FirstName = FirstNamesMale[Random.Next(FirstNamesMale.Count())];
+                else
+                    this.FirstName = FirstNamesFemale[Random.Next(FirstNamesFemale.Count())];
+                this.LastName = LastNames[Random.Next(LastNames.Count())];
                 this.Gender = Gender;
                 this.Happiness = Random.Next(1000);
                 this.Class = Class;
@@ -49,8 +50,11 @@ namespace SchoolTycoon
 
             public Teacher(Gender Gender, Subject[] Subjects, int Salary)
             {
-                this.FirstName = "Herp";
-                this.LastName = "Derp";
+                if (Gender == Gender.Male)
+                    this.FirstName = FirstNamesMale[Random.Next(FirstNamesMale.Count())];
+                else
+                    this.FirstName = FirstNamesFemale[Random.Next(FirstNamesFemale.Count())];
+                this.LastName = LastNames[Random.Next(LastNames.Count())];
                 this.Gender = Gender;
                 this.Subjects = Subjects;
                 this.Salary = Salary;
@@ -67,31 +71,36 @@ namespace SchoolTycoon
             {
                 int ClassSize = Random.Next(20, 24);
                 for (int y = 0; y < ClassSize; y++)
-                    Pupils.Add(new Pupil((Gender)Random.Next(1), x));
+                    Pupils.Add(new Pupil((Gender)Random.Next(2), x));
             }
-            for (int x = 0; x < 9; x++)
-                Pupils.Add(new Pupil((Gender)Random.Next(1), x));
 
             Teachers = new List<Teacher>();
             for (int x = 0; x < 8; x++)
                 Teachers.Add(new Teacher((Gender)Random.Next(1), new Subject[] { (Subject)x, }, 10));
         }
 
-        public void loadPeopleGraphics()
+        public void ShowPupilInfo(object sender, EventArgs e)
         {
-            peopleSet.MakeTransparent(Color.Fuchsia);
-
-            int personTypeCount = PeopleGFX.Count();
-            int personSubTypeCount;
-            short personType;
-            short personSubType;
-
-            for (personType = 0; personType < personTypeCount; personType++)
+            if (treeView1.SelectedNode.Level == 0)
             {
-                personSubTypeCount = PeopleGFX[personType].Count();
-                for (personSubType = 0; personSubType < personSubTypeCount; personSubType++)
-                    PeopleGFX[personType][personSubType] = peopleSet.Clone(new Rectangle(personSubType * 16, personType * 16, 16, 16), System.Drawing.Imaging.PixelFormat.Undefined);
+                HidePupilInfo();
+                return;
             }
+
+            Pupil Pupil = Pupils[(int)treeView1.SelectedNode.Tag];
+
+            pictureBox3.Image = PeopleLargeIcons.Images[(int)Pupil.Gender + 1];
+            label37.Text = Pupil.FirstName + " " + Pupil.LastName;
+
+            pictureBox3.Visible = true;
+            label37.Visible = true;
+            label36.Visible = true;
+        }
+        public void HidePupilInfo()
+        {
+            pictureBox3.Visible = false;
+            label37.Visible = false;
+            label36.Visible = false;
         }
     }
 }

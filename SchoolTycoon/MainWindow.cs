@@ -39,7 +39,6 @@ namespace SchoolTycoon
 
         public MainWindow()
         {
-            loadPeopleGraphics();
             LoadSprites();
 
             InitializeComponent();
@@ -51,6 +50,11 @@ namespace SchoolTycoon
             {
                 ShopItemList.Items.Add(Language.GetString(ShopItems[ItemNumber].NameResource), ItemNumber);
             }
+
+            Image PeopleIcons = Image.FromFile("Graphics\\people.png");
+            PeopleLargeIcons.Images.AddStrip(PeopleIcons);
+            PeopleSmallIcons.Images.AddStrip(PeopleIcons.GetThumbnailImage(PeopleIcons.Width / 4, PeopleIcons.Height / 4, null, IntPtr.Zero));
+
             PrepareBlueprint();
 
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
@@ -228,9 +232,9 @@ namespace SchoolTycoon
             lockGame(false);*/
         }
 
-        private void advanceDayButton_Click(object sender, EventArgs e)
+        private void advanceWeekButton_Click(object sender, EventArgs e)
         {
-            Date = Date.AddDays(1);
+            Date = Date.AddDays(7);
             DayNumber++;
             Money += 500;
             UpdateStatusWindow();
@@ -238,7 +242,7 @@ namespace SchoolTycoon
             List<Event> RemovedEvents = new List<Event>();
             foreach (Event Event in TimeLine)
             {
-                if (Event.DateTime == Date)
+                if (Event.DateTime >= Date)
                 {
                     switch (Event.EventType)
                     {
@@ -317,12 +321,12 @@ namespace SchoolTycoon
         {
             selectedTile = theGrid.GetPositionFromControl(((Control)sender));
             short[] TileData = getTileData(selectedTile.Column, selectedTile.Row);
-            switch ((Sidebars)tabControl1.SelectedIndex)
+            switch (tabControl1.SelectedTab.Name)
             {
-                case Sidebars.Main:
+                case "DebugMenu":
                     changeTile.Show(Cursor.Position);
                     break;
-                case Sidebars.ClassroomBuilder:
+                case "BuilderTab":
                     if (BuilderRelPoints == null)
                         break;
                     //if (Blueprints[SelectedBlueprint, Rotation].Price > Money)
@@ -517,7 +521,7 @@ namespace SchoolTycoon
         private void OpenClassroomBuilder(object sender, EventArgs e)
         {
             MakeBlueprint(SelectedBlueprint, Rotation);
-            tabControl1.SelectedTab = classroomBuilderTab;
+            tabControl1.SelectedTab = BuilderTab;
         }
         private void OpenInventory(object sender, EventArgs e)
         {
@@ -544,7 +548,80 @@ namespace SchoolTycoon
         }
         private void OpenSchedule(object sender, EventArgs e)
         {
+            #region Fill Teacher comboboxes
+            comboBox9.Items.Clear();
+            comboBox9.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Biology))
+                    comboBox9.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox1.Items.Clear();
+            comboBox1.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Chemistry))
+                    comboBox1.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox3.Items.Clear();
+            comboBox3.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Economics))
+                    comboBox3.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox4.Items.Clear();
+            comboBox4.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Geography))
+                    comboBox4.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox5.Items.Clear();
+            comboBox5.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.History))
+                    comboBox5.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox6.Items.Clear();
+            comboBox6.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Language))
+                    comboBox6.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox7.Items.Clear();
+            comboBox7.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Maths))
+                    comboBox7.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+
+            comboBox8.Items.Clear();
+            comboBox8.Items.Add("None");
+            foreach (Teacher Teacher in Teachers)
+                if (Teacher.Subjects.Contains(Subject.Physics))
+                    comboBox8.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            #endregion
+
             tabControl1.SelectedTab = tabPage3;
+        }
+        private void OpenPupils(object sender, EventArgs e)
+        {
+            TreeNode[] PupilList = new TreeNode[AmountOfClasses];
+            for (int ClassNumber = 0; ClassNumber < AmountOfClasses; ClassNumber++)
+                PupilList[ClassNumber] = new TreeNode("Class " + (ClassNumber + 1));
+
+            int PupilID = 0;
+            foreach (Pupil Pupil in Pupils)
+            {
+                TreeNode PupilNode = new TreeNode(Pupil.FirstName + " " + Pupil.LastName, (int)Pupil.Gender + 1, (int)Pupil.Gender + 1);
+                PupilNode.Tag = PupilID++;
+                PupilList[Pupil.Class].Nodes.Add(PupilNode);
+            }
+
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.AddRange(PupilList);
+
+            tabControl1.SelectedTab = tabPage4;
+        }
+        private void OpenDebugMenu(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = DebugMenu;
         }
         private void ExitToMainScreen(object sender, EventArgs e)
         {
@@ -660,7 +737,7 @@ namespace SchoolTycoon
             pictureBox2.Image = ItemLargeIcons.Images[ShopItemList.SelectedItems[0].ImageIndex].GetThumbnailImage(64, 64, null, IntPtr.Zero);
 
             numericUpDown1.Value = 1;
-            numericUpDown1_ValueChanged(null, null);
+            ShopItemCountChanged(null, null);
         }
         private void BuyItem(object sender, EventArgs e)
         {
@@ -703,7 +780,7 @@ namespace SchoolTycoon
             label14.Visible = true;
             label17.Visible = true;
         }
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void ShopItemCountChanged(object sender, EventArgs e)
         {
             int Price = ShopItems[ShopItemList.SelectedIndices[0]].Price * (int)numericUpDown1.Value;
             label13.Text = "€" + Price;
