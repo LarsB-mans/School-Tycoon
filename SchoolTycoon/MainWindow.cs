@@ -35,8 +35,6 @@ namespace SchoolTycoon
         public static ResourceManager Language = new ResourceManager("SchoolTycoon.Languages.English", Assembly.GetExecutingAssembly());
         public CultureInfo Culture = CultureInfo.GetCultureInfo("en");
 
-        public enum Sidebars { Main, ClassroomBuilder };
-
         public MainWindow()
         {
             LoadSprites();
@@ -58,7 +56,7 @@ namespace SchoolTycoon
             PrepareBlueprint();
 
             tabControl1.ItemSize = new Size(0, 0);  // hide tab selection from the sidebar
-            tabControl1.Region = new Region(new Rectangle(standardTab.Left, standardTab.Top, standardTab.Width, standardTab.Height));
+            tabControl1.Region = new Region(new Rectangle(StandardTab.Left, StandardTab.Top, StandardTab.Width, StandardTab.Height));
 
             LockGame(true);
             FillDebugMenu();
@@ -239,6 +237,8 @@ namespace SchoolTycoon
             Money += 500;
             UpdateStatusWindow();
 
+            CheckBuildClassrooms();
+
             List<Event> RemovedEvents = new List<Event>();
             foreach (Event Event in TimeLine)
             {
@@ -246,16 +246,12 @@ namespace SchoolTycoon
                 {
                     switch (Event.EventType)
                     {
-                        case EventType.Build:
-                            BuildClassroom(Event.Data, Event.Location);
-                            break;
                         default:
                             break;
                     }
                     RemovedEvents.Add(Event);
                 }
             }
-
             foreach (Event RemoveEvent in RemovedEvents)
                 TimeLine.Remove(RemoveEvent);
 
@@ -277,6 +273,21 @@ namespace SchoolTycoon
             progressBar1.Value = AverageHappiness > progressBar1.Maximum ? progressBar1.Maximum : AverageHappiness;
             label10.Text = "Average Happiness: " + progressBar1.Value * 100 / progressBar1.Maximum + "%";
 
+        }
+        private void CheckBuildClassrooms()
+        {
+            Classroom Classroom;
+            for (int ClassroomNumber = 0; ClassroomNumber < Classrooms.Count; ClassroomNumber++)
+            {
+                Classroom = Classrooms[ClassroomNumber];
+
+                Classroom.DaysToBuild -= 7;
+                if (Classroom.DaysToBuild <= 0)
+                    for (int LocationNumber = 0; LocationNumber < Classroom.Locations.Count(); LocationNumber++)
+                        changeTileImage(Classroom.Locations[LocationNumber].X, Classroom.Locations[LocationNumber].Y, Classroom.TileData[LocationNumber][0], Classroom.TileData[LocationNumber][1]);
+
+                Classrooms[ClassroomNumber] = Classroom;
+            }
         }
 
         public void InitializeGrid(int columncount, int rowcount)
@@ -320,9 +331,16 @@ namespace SchoolTycoon
         private void ClickTile(object sender, EventArgs e)
         {
             selectedTile = theGrid.GetPositionFromControl(((Control)sender));
+            Point TileLocation = new Point(selectedTile.Column, selectedTile.Row);
             short[] TileData = getTileData(selectedTile.Column, selectedTile.Row);
             switch (tabControl1.SelectedTab.Name)
             {
+                case "StandardTab":
+                    for (int ClassroomNumber = 0; ClassroomNumber < Classrooms.Count; ClassroomNumber++)
+                        foreach (Point Location in Classrooms[ClassroomNumber].Locations)
+                            if (Location == TileLocation)
+                                OpenClassroom(ClassroomNumber);
+                    break;
                 case "DebugMenu":
                     changeTile.Show(Cursor.Position);
                     break;
@@ -521,6 +539,7 @@ namespace SchoolTycoon
         private void OpenClassroomBuilder(object sender, EventArgs e)
         {
             MakeBlueprint(SelectedBlueprint, Rotation);
+            numericUpDown10.Value = 0;
             tabControl1.SelectedTab = BuilderTab;
         }
         private void OpenInventory(object sender, EventArgs e)
@@ -598,6 +617,10 @@ namespace SchoolTycoon
                     comboBox8.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
             #endregion
 
+            comboBox10.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox10.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+
             tabControl1.SelectedTab = tabPage3;
         }
         private void OpenPupils(object sender, EventArgs e)
@@ -623,11 +646,27 @@ namespace SchoolTycoon
         {
             tabControl1.SelectedTab = DebugMenu;
         }
+        private void OpenClassroom(int ClassroomValue)
+        {
+            Point Location = Classrooms[ClassroomValue].Locations[0];
+
+            for (int y = 0; y < 5; y++)
+                for (int x = 0; x < 5; x++)
+                {
+                    PictureBox PreviewTile = (PictureBox)tableLayoutPanel1.GetControlFromPosition(x, y);
+
+                    if (Location.X + x - 2 < 0 || Location.Y + y - 2 < 0)
+                        PreviewTile.Image = BlockTypes[0][0].Tile;
+                    else
+                        PreviewTile.Image = ((PictureBox)theGrid.GetControlFromPosition(Location.X + x - 2, Location.Y + y - 2)).BackgroundImage;
+                }
+            tabControl1.SelectedTab = tabPage5;
+        }
         private void ExitToMainScreen(object sender, EventArgs e)
         {
             clearSprites();
             CBbuildButton.Enabled = false;
-            tabControl1.SelectedTab = standardTab;
+            tabControl1.SelectedTab = StandardTab;
         }
 
         private void ChangeLanguage(object sender, EventArgs e)

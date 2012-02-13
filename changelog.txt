@@ -1,3 +1,7 @@
+GeertL | 13-02-2012 | 23:07
+- Basic classroom viewer.
+- Various behind-the-scenes tweaks.
+
 GeertL | 09-02-2012 | 13:18
 - Pupil viewer created.
 - Icons.

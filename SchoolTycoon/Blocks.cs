@@ -163,25 +163,29 @@ namespace SchoolTycoon
         {
             #region Classroom (Small)
             {
-                new Blueprint("ClassroomSmallName",
+                new Blueprint(RoomType.ClassroomSmall,
+                              "ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
                               30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 0 } }),
-                new Blueprint("ClassroomSmallName",
+                new Blueprint(RoomType.ClassroomSmall,
+                              "ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
                               30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 1 } }),
-                new Blueprint("ClassroomSmallName",
+                new Blueprint(RoomType.ClassroomSmall,
+                              "ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
                               30,
                               new Point[] { new Point(0, 0) },
                               new short[][] { new short[] { 5, 2 } }),
-                new Blueprint("ClassroomSmallName",
+                new Blueprint(RoomType.ClassroomSmall,
+                              "ClassroomSmallName",
                               "ClassroomSmallDescription",
                               1000,
                               30,
@@ -192,25 +196,29 @@ namespace SchoolTycoon
 
             #region Classroom (Medium)
             {
-                new Blueprint("ClassroomMediumName",
+                new Blueprint(RoomType.ClassroomMedium,
+                              "ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
                               60,
                               new Point[] { new Point(0, 0), new Point(0, 1) },
                               new short[][] { new short[] { 5, 4 }, new short[] { 5, 8 } }),
-                new Blueprint("ClassroomMediumName",
+                new Blueprint(RoomType.ClassroomMedium,
+                              "ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
                               60,
                               new Point[] { new Point(0, 0), new Point(-1, 0) },
                               new short[][] { new short[] { 5, 5 }, new short[] { 5, 9 } }),
-                new Blueprint("ClassroomMediumName",
+                new Blueprint(RoomType.ClassroomMedium,
+                              "ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
                               60,
                               new Point[] { new Point(0, 0), new Point(0, -1) },
                               new short[][] { new short[] { 5, 6 }, new short[] { 5, 10 } }),
-                new Blueprint("ClassroomMediumName",
+                new Blueprint(RoomType.ClassroomMedium,
+                              "ClassroomMediumName",
                               "ClassroomMediumDescription",
                               1500,
                               60,
@@ -221,44 +229,40 @@ namespace SchoolTycoon
 
             #region Classroom (Large)
             {
-                new Blueprint("ClassroomLargeName",
+                new Blueprint(RoomType.ClassroomLarge,
+                              "ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
                               90,
                               new Point[] { new Point(0, 0), new Point(1, 0), new Point(0, 1) },
                               new short[][] { new short[] { 5, 12 }, new short[] { 5, 16 }, new short[] { 5, 8 } }),
-                new Blueprint("ClassroomLargeName",
+                new Blueprint(RoomType.ClassroomLarge,
+                              "ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
                               90,
                               new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1,0) },
                               new short[][] { new short[] { 5, 13 }, new short[] { 5, 17 }, new short[] { 5, 9 } }),
-                new Blueprint("ClassroomLargeName",
+                new Blueprint(RoomType.ClassroomLarge,
+                              "ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
                               90,
                               new Point[] { new Point(0, 0), new Point(-1, 0), new Point(0, -1) },
                               new short[][] { new short[] { 5, 14 }, new short[] { 5, 18 }, new short[] { 5, 10 } }),
-                new Blueprint("ClassroomLargeName",
+                new Blueprint(RoomType.ClassroomLarge,
+                              "ClassroomLargeName",
                               "ClassroomLargeDescription",
                               2000,
                               90,
                               new Point[] { new Point(0, 0), new Point(0, -1), new Point(1, 0) },
                               new short[][] { new short[] { 5, 15 }, new short[] { 5, 19 }, new short[] { 5, 11 } }),
-
-
-
-        },
-                              
-
-           
-    
-                                
-
+            },
             #endregion
         };
         public struct Blueprint
         {
+            public RoomType RoomType;
             public string NameResource;
             public string DescriptionResource;
             public int Price;
@@ -266,8 +270,9 @@ namespace SchoolTycoon
             public Point[] RelPoints;
             public short[][] TileData;
 
-            public Blueprint(string NameResource, string DescriptionResource, int Price, int DaysToBuild, Point[] RelPoints, short[][] TileData )
+            public Blueprint(RoomType RoomType, string NameResource, string DescriptionResource, int Price, int DaysToBuild, Point[] RelPoints, short[][] TileData )
             {
+                this.RoomType = RoomType;
                 this.NameResource = NameResource;
                 this.DescriptionResource = DescriptionResource;
                 this.Price = Price;
@@ -361,28 +366,48 @@ namespace SchoolTycoon
                 else
                     Tile.BackgroundImage = BlockTypes[6][1].Tile;
             }
-            TimeLine.Add(new Event(Date.AddDays(Plan.DaysToBuild), EventType.Build, new int[] { SelectedBlueprint, Rotation }, BuildLocation, "Construction of \"" + Language.GetString(Plan.NameResource) + "\" finishes.", "Construction of \"" + Language.GetString(Plan.NameResource) + "\" has finished."));
+
+            Point[] BuildPoints = (Point[])Plan.RelPoints.Clone();
+            for (int RelPointNumber = 0; RelPointNumber < BuildPoints.Count(); RelPointNumber++)
+            {
+                BuildPoints[RelPointNumber].X += BuildLocation.X;
+                BuildPoints[RelPointNumber].Y += BuildLocation.Y;
+            }
+            switch (Plan.RoomType)
+            {
+                case RoomType.ClassroomSmall:
+                    Classrooms.Add(new Classroom(RoomType.ClassroomSmall, (short)numericUpDown10.Value, 30, 24, 24, 0, false, BuildPoints, Plan.TileData));
+                    break;
+                case RoomType.ClassroomMedium:
+                    Classrooms.Add(new Classroom(RoomType.ClassroomMedium, (short)numericUpDown10.Value, 60, 36, 36, 0, true, BuildPoints, Plan.TileData));
+                    break;
+                case RoomType.ClassroomLarge:
+                    Classrooms.Add(new Classroom(RoomType.ClassroomLarge, (short)numericUpDown10.Value, 90, 48, 48, 16, true, BuildPoints, Plan.TileData));
+                    break;
+            }
+
+            TimeLine.Add(new Event(Date.AddDays(Plan.DaysToBuild), EventType.Build, new int[] { }, BuildLocation, "Construction of \"" + Language.GetString(Plan.NameResource) + "\" finishes.", "Construction of \"" + Language.GetString(Plan.NameResource) + "\" has finished."));
 
             ExitToMainScreen(null, null);
         }
-        private void BuildClassroom(int[] Data, Point Location)
-        {
-            Blueprint Plan = Blueprints[Data[0], Data[1]];
+        //private void BuildClassroom(int[] Data, Point Location)
+        //{
+        //    Blueprint Plan = Blueprints[Data[0], Data[1]];
 
-            Point RelPoint;
-            int BlockCount = Plan.RelPoints.Count();
-            short[] TileData = { 0, 0 };
+        //    Point RelPoint;
+        //    int BlockCount = Plan.RelPoints.Count();
+        //    short[] TileData = { 0, 0 };
 
-            for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
-            {
-                RelPoint = Plan.RelPoints[BlockNumber];
-                TileData = Plan.TileData[BlockNumber];
-                PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(Location.X + RelPoint.X, Location.Y + RelPoint.Y);
-                Tile.Tag = new short[] { TileData[0], TileData[1] };
+        //    for (int BlockNumber = 0; BlockNumber < BlockCount; BlockNumber++)
+        //    {
+        //        RelPoint = Plan.RelPoints[BlockNumber];
+        //        TileData = Plan.TileData[BlockNumber];
+        //        PictureBox Tile = (PictureBox)theGrid.GetControlFromPosition(Location.X + RelPoint.X, Location.Y + RelPoint.Y);
+        //        Tile.Tag = new short[] { TileData[0], TileData[1] };
 
-                Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
-            }
-        }
+        //        Tile.BackgroundImage = BlockTypes[TileData[0]][TileData[1]].Tile;
+        //    }
+        //}
 
 
 
@@ -423,6 +448,8 @@ namespace SchoolTycoon
         {
             public RoomType RoomType;
             public ShopItem Blackboard;
+            public short Number;
+            public short DaysToBuild;
             public short ChairsMax;
             public short Chairs;
             public short DesksMax;
@@ -432,11 +459,14 @@ namespace SchoolTycoon
             public short IslandSize;
             public bool IslandsPossible;
             public Point[] Locations;
+            public short[][] TileData;
 
-            public Classroom(RoomType RoomType, short ChairsMax, short DesksMax, short ComputersMax, bool IslandsPossible, Point[] Locations)
+            public Classroom(RoomType RoomType, short Number, byte DaysToBuild, short ChairsMax, short DesksMax, short ComputersMax, bool IslandsPossible, Point[] Locations, short[][] TileData)
             {
                 this.RoomType = RoomType;
                 this.Blackboard = new ShopItem("NoBlackboardName", "NoBlackboardDescription", 0, 0);
+                this.Number = Number;
+                this.DaysToBuild = DaysToBuild;
                 this.ChairsMax = ChairsMax;
                 this.Chairs = 0;
                 this.DesksMax = DesksMax;
@@ -446,8 +476,10 @@ namespace SchoolTycoon
                 this.IslandSize = 4;
                 this.IslandsPossible = IslandsPossible;
                 this.Locations = Locations;
+                this.TileData = TileData;
             }
         }
+        List<Classroom> Classrooms = new List<Classroom>();
 
 
         public enum EventType
@@ -456,8 +488,7 @@ namespace SchoolTycoon
         }
         /*
          * Build:
-         * [0] = Selected Blueprint
-         * [1] = Rotation
+         * (no data)
         */
         public struct Event
         {
