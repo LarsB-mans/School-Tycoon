@@ -421,14 +421,16 @@ namespace SchoolTycoon
         {
             public string NameResource;
             public string DescriptionResource;
+            public short ItemID;
             public int Price;
             public int Quality;
             public int Data;
 
-            public ShopItem(string NameResource, string DescriptionResource, int Price, int Data)
+            public ShopItem(string NameResource, string DescriptionResource, short ItemID, int Price, int Data)
             {
                 this.NameResource = NameResource;
                 this.DescriptionResource = DescriptionResource;
+                this.ItemID = ItemID;
                 this.Price = Price;
                 this.Quality = 100;
                 this.Data = Data;
@@ -436,12 +438,12 @@ namespace SchoolTycoon
         }
         #region ShopItem[] ShopItems = new ShopItem[]...
         ShopItem[] ShopItems = new ShopItem[] {
-            new ShopItem("RockSlateName", "RockSlateDescription", 50, 10), 
-            new ShopItem("ChalkboardName", "ChalkboardDescription", 150, 40),
-            new ShopItem("WhiteboardName", "WhiteboardDescription", 200, 40),
-            new ShopItem("DoubleChalkboardName", "DoubleChalkboardDescription", 300, 80),
-            new ShopItem("DoubleWhiteboardName", "DoubleWhiteboardDescription", 400, 80),
-            new ShopItem("InteractiveWhiteboardName", "InteractiveWhiteboardDescription", 1000, 100),
+            new ShopItem("RockSlateName", "RockSlateDescription", 0, 50, -5), 
+            new ShopItem("ChalkboardName", "ChalkboardDescription", 1, 150, -2),
+            new ShopItem("WhiteboardName", "WhiteboardDescription", 2, 200, 1),
+            new ShopItem("DoubleChalkboardName", "DoubleChalkboardDescription", 3, 300, 0),
+            new ShopItem("DoubleWhiteboardName", "DoubleWhiteboardDescription", 4, 400, 2),
+            new ShopItem("InteractiveWhiteboardName", "InteractiveWhiteboardDescription", 5, 1000, 5),
         };
         #endregion
         public struct Classroom
@@ -464,7 +466,7 @@ namespace SchoolTycoon
             public Classroom(RoomType RoomType, short Number, byte DaysToBuild, short ChairsMax, short DesksMax, short ComputersMax, bool IslandsPossible, Point[] Locations, short[][] TileData)
             {
                 this.RoomType = RoomType;
-                this.Blackboard = new ShopItem("NoBlackboardName", "NoBlackboardDescription", 0, 0);
+                this.Blackboard = new ShopItem("NoBlackboardName", "NoBlackboardDescription", -1, 0, -10);
                 this.Number = Number;
                 this.DaysToBuild = DaysToBuild;
                 this.ChairsMax = ChairsMax;
@@ -518,7 +520,7 @@ namespace SchoolTycoon
 
         public enum Sprite
         {
-            BlueprintBlue,
+            BlueprintGreen,
             BlueprintRed,
         }
 

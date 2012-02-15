@@ -169,6 +169,12 @@
   <data name="InteractiveWhiteboardName" xml:space="preserve">
     <value>Interactive Whiteboard</value>
   </data>
+  <data name="NoBlackboardDescription" xml:space="preserve">
+    <value>There's no blackboard here. Consider buying one.</value>
+  </data>
+  <data name="NoBlackboardName" xml:space="preserve">
+    <value>No Blackboard</value>
+  </data>
   <data name="RockSlateDescription" xml:space="preserve">
     <value>It's a rock. You chisel stuff on it. Not much else to say.
 

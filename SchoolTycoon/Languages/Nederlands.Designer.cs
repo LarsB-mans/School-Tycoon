@@ -214,6 +214,24 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is hier geen schoolbord. Overweeg er eentje te kopen..
+        /// </summary>
+        internal static string NoBlackboardDescription {
+            get {
+                return ResourceManager.GetString("NoBlackboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen Schoolbord.
+        /// </summary>
+        internal static string NoBlackboardName {
+            get {
+                return ResourceManager.GetString("NoBlackboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dit is een steen. Je beitelt er dingen op. Valt niet veel meer over te zeggen.
         ///
         ///Beitel niet inbegrepen..

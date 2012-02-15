@@ -18,7 +18,7 @@ namespace SchoolTycoon
         static string[] FirstNamesFemale = new string[] { "Herp", "Herpa", "Herpina", "Herpette", "Hercy" };
         static string[] LastNames = new string[] { "Derp", "Derpus", "Derpsley", "Derpington", "Derpson", "Derper", "Derpelburg", "Dercy", };
 
-        public int AmountOfClasses;
+        public static int AmountOfClasses;
         public struct Pupil
         {
             public string FirstName;
@@ -26,6 +26,8 @@ namespace SchoolTycoon
             public Gender Gender;
             public int Happiness;
             public int Class;
+            public int Intelligence;
+            public int Motivation;
 
             public Pupil(Gender Gender, int Class)
             {
@@ -35,8 +37,10 @@ namespace SchoolTycoon
                     this.FirstName = FirstNamesFemale[Random.Next(FirstNamesFemale.Count())];
                 this.LastName = LastNames[Random.Next(LastNames.Count())];
                 this.Gender = Gender;
-                this.Happiness = Random.Next(1000);
+                this.Happiness = Random.Next(1001);
                 this.Class = Class;
+                this.Intelligence = Random.Next(11);
+                this.Motivation = Random.Next(11);
             }
         }
         public struct Teacher
@@ -47,6 +51,7 @@ namespace SchoolTycoon
             public Subject[] Subjects;
             public int Salary;
             public int Happiness;
+            public int FunFactor;
 
             public Teacher(Gender Gender, Subject[] Subjects, int Salary)
             {
@@ -59,12 +64,13 @@ namespace SchoolTycoon
                 this.Subjects = Subjects;
                 this.Salary = Salary;
                 this.Happiness = Random.Next(1000);
+                this.FunFactor = Random.Next(-5, 6);
             }
         }
 
         public void InitializePeople()
         {
-            AmountOfClasses = 6;
+            AmountOfClasses = 1;
 
             Pupils = new List<Pupil>();
             for (int x = 0; x < AmountOfClasses; x++)
@@ -76,7 +82,7 @@ namespace SchoolTycoon
 
             Teachers = new List<Teacher>();
             for (int x = 0; x < 8; x++)
-                Teachers.Add(new Teacher((Gender)Random.Next(1), new Subject[] { (Subject)x, }, 10));
+                Teachers.Add(new Teacher((Gender)Random.Next(2), new Subject[] { (Subject)x, (Subject)Random.Next(8) }, Random.Next(61)));
         }
 
         public void ShowPupilInfo(object sender, EventArgs e)
@@ -91,6 +97,7 @@ namespace SchoolTycoon
 
             pictureBox3.Image = PeopleLargeIcons.Images[(int)Pupil.Gender + 1];
             label37.Text = Pupil.FirstName + " " + Pupil.LastName;
+            label36.Text = "Happiness: " + Pupil.Happiness + "/1000\n\rIntelligence: " + Pupil.Intelligence + "/10\n\rMotivation: " + Pupil.Motivation + "/10";
 
             pictureBox3.Visible = true;
             label37.Visible = true;

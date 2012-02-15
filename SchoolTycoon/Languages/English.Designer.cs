@@ -214,6 +214,24 @@ namespace SchoolTycoon.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There&apos;s no blackboard here. Consider buying one..
+        /// </summary>
+        internal static string NoBlackboardDescription {
+            get {
+                return ResourceManager.GetString("NoBlackboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Blackboard.
+        /// </summary>
+        internal static string NoBlackboardName {
+            get {
+                return ResourceManager.GetString("NoBlackboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It&apos;s a rock. You chisel stuff on it. Not much else to say.
         ///
         ///By the way, it doesn&apos;t come with a chisel..

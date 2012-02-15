@@ -169,6 +169,12 @@
   <data name="InteractiveWhiteboardName" xml:space="preserve">
     <value>Interactief Witbord</value>
   </data>
+  <data name="NoBlackboardDescription" xml:space="preserve">
+    <value>Er is hier geen schoolbord. Overweeg er eentje te kopen.</value>
+  </data>
+  <data name="NoBlackboardName" xml:space="preserve">
+    <value>Geen Schoolbord</value>
+  </data>
   <data name="RockSlateDescription" xml:space="preserve">
     <value>Dit is een steen. Je beitelt er dingen op. Valt niet veel meer over te zeggen.
 

@@ -26,6 +26,10 @@ namespace SchoolTycoon
         public static int columncount;
         public static int tileSetNumber = 0;
 
+        short[,] Schedule = new short[8,3];
+        
+        int SelectedClassroomValue = 0;
+
         static Random Random = new Random();
         List<Point> SpriteLocationData = new List<Point>();
         Point BuildLocation;
@@ -69,6 +73,10 @@ namespace SchoolTycoon
             columncount = 16;
             InitializeGrid(columncount, rowcount);
 
+            for (int x = 0; x < 8; x++)
+                for (int y = 0; y < 3; y++)
+                    Schedule[x, y] = 0;
+
             Money = 1500;
 
             toolStripProgressBar1.Value = 0;
@@ -97,6 +105,12 @@ namespace SchoolTycoon
                     changeTileImage(j, i, 1, 0);
 
             InitializePeople();
+
+            int TotalSalary = 0;
+            foreach (Teacher Teacher in Teachers)
+                TotalSalary += Teacher.Salary;
+            label14.Text = "Income: 500\n\rExpenses: " + TotalSalary;
+
             UpdateStatusWindow();
             LockGame(false);
         }
@@ -232,6 +246,12 @@ namespace SchoolTycoon
 
         private void advanceWeekButton_Click(object sender, EventArgs e)
         {
+            if (Classrooms.Count == 0)
+            {
+                MessageBox.Show("You must create a schedule first!");
+                return;
+            }
+
             Date = Date.AddDays(7);
             DayNumber++;
             Money += 500;
@@ -256,20 +276,53 @@ namespace SchoolTycoon
                 TimeLine.Remove(RemoveEvent);
 
             //
+            int TotalScheduleHours = Schedule[0, 2] + Schedule[1, 2] + Schedule[2, 2] + Schedule[3, 2] + Schedule[4, 2] + Schedule[5, 2] + Schedule[6, 2] + Schedule[7, 2];
+
             for (int PersonNumber = 0; PersonNumber < Pupils.Count; PersonNumber++)
             {
                 Pupil Person = Pupils[PersonNumber];
 
-                Person.Happiness += 1;
+                if (TotalScheduleHours > 30)
+                    Person.Happiness -= (TotalScheduleHours - 30) * 2;
+                else
+                    Person.Happiness += 5;
+
+                for (int Subject = 0; Subject < 8; Subject++)
+                {
+                    Person.Happiness += Teachers[Schedule[Subject, 0]].FunFactor * Schedule[Subject, 2];
+                    switch (Classrooms[Schedule[Subject, 1]].RoomType)
+                    {
+                        case RoomType.ClassroomSmall:
+                            Person.Happiness += 0;
+                            break;
+                        case RoomType.ClassroomMedium:
+                            Person.Happiness += 2;
+                            break;
+                        case RoomType.ClassroomLarge:
+                            Person.Happiness += 5;
+                            break;
+                    }
+                    Person.Happiness += Classrooms[Schedule[Subject, 1]].Blackboard.Data * Schedule[Subject, 2];
+                }
+
+                Person.Happiness += Person.Intelligence + Person.Motivation * 9 / 10;
+
+                if (Person.Happiness > 1000)
+                    Person.Happiness = 1000;
+                if (Person.Happiness < 0)
+                    Person.Happiness = 0;
 
                 Pupils[PersonNumber] = Person;
             }
             //
 
+            foreach (Teacher Teacher in Teachers)
+                Money -= Teacher.Salary;
+
             int AverageHappiness = 0;
             foreach (Pupil Person in Pupils)
                 AverageHappiness += Person.Happiness;
-            AverageHappiness = AverageHappiness / Pupils.Count + 500;
+            AverageHappiness /= Pupils.Count;
             progressBar1.Value = AverageHappiness > progressBar1.Maximum ? progressBar1.Maximum : AverageHappiness;
             label10.Text = "Average Happiness: " + progressBar1.Value * 100 / progressBar1.Maximum + "%";
 
@@ -336,15 +389,28 @@ namespace SchoolTycoon
             switch (tabControl1.SelectedTab.Name)
             {
                 case "StandardTab":
+                case "ClassroomViewer":
+                    if (TileData[0] != 5)   // not a classroom
+                        break;
+
+                    SelectedClassroomValue = -1;
+
                     for (int ClassroomNumber = 0; ClassroomNumber < Classrooms.Count; ClassroomNumber++)
                         foreach (Point Location in Classrooms[ClassroomNumber].Locations)
                             if (Location == TileLocation)
-                                OpenClassroom(ClassroomNumber);
+                                SelectedClassroomValue = ClassroomNumber;
+
+                    if (SelectedClassroomValue == -1)
+                        MessageBox.Show("Selected classroom has no data!");
+                    else
+                        OpenClassroom(SelectedClassroomValue);
+
                     break;
                 case "DebugMenu":
                     changeTile.Show(Cursor.Position);
                     break;
                 case "BuilderTab":
+                    #region
                     if (BuilderRelPoints == null)
                         break;
                     //if (Blueprints[SelectedBlueprint, Rotation].Price > Money)
@@ -364,7 +430,7 @@ namespace SchoolTycoon
                         if (!BlockTypes[TileData[0]][TileData[1]].Buildable)
                             CanBuild = false;
                     }
-                    Sprite sprite = CanBuild ? Sprite.BlueprintBlue : Sprite.BlueprintRed;
+                    Sprite sprite = CanBuild ? Sprite.BlueprintGreen : Sprite.BlueprintRed;
                     foreach (Point RelPoint in BuilderRelPoints)
                     {
                         if (selectedTile.Column + RelPoint.X >= columncount || selectedTile.Column + RelPoint.X < 0 || selectedTile.Row + RelPoint.Y >= rowcount || selectedTile.Row + RelPoint.Y < 0)
@@ -374,6 +440,38 @@ namespace SchoolTycoon
                     }
                     BuildLocation = new Point(selectedTile.Column, selectedTile.Row);
                     CBbuildButton.Enabled = CanBuild;
+                    break;
+                    #endregion
+                case "InventoryTab":
+                    SelectedClassroomValue = -1;
+
+                    clearSprites();
+                    if (TileData[0] != 5)   // not a classroom
+                    {
+                        button6.Enabled = false;
+                        setSprite(selectedTile.Column, selectedTile.Row, Sprite.BlueprintRed);
+                        break;
+                    }
+
+                    button6.Enabled = InventoryViewer.SelectedItems.Count != 0;
+
+                    for (int ClassroomNumber = 0; ClassroomNumber < Classrooms.Count; ClassroomNumber++)
+                        foreach (Point Location in Classrooms[ClassroomNumber].Locations)
+                            if (Location == TileLocation)
+                                SelectedClassroomValue = ClassroomNumber;
+
+                    if (SelectedClassroomValue == -1)
+                    {
+                        button6.Enabled = false;
+                        setSprite(selectedTile.Column, selectedTile.Row, Sprite.BlueprintRed);
+                        MessageBox.Show("Selected classroom has no data!");
+                    }
+                    else
+                    {
+                        button6.Enabled = InventoryViewer.SelectedItems.Count != 0;
+                        setSprite(selectedTile.Column, selectedTile.Row, Sprite.BlueprintGreen);
+                    }
+
                     break;
                 default:
                     break;
@@ -544,21 +642,21 @@ namespace SchoolTycoon
         }
         private void OpenInventory(object sender, EventArgs e)
         {
+            clearSprites();
+            button6.Enabled = false;
+            SelectedClassroomValue = -1;
+
             InventoryViewer.Items.Clear();
             for (int ItemNumber = 0; ItemNumber < Inventory.Count; ItemNumber++)
-            {
                 InventoryViewer.Items.Add(Inventory[ItemNumber][1] + "x " + Language.GetString(ShopItems[Inventory[ItemNumber][0]].NameResource), Inventory[ItemNumber][0]);
-            }
 
             pictureBox1.Visible = false;
             label16.Visible = false;
             label15.Visible = false;
             label12.Visible = false;
             label11.Visible = false;
-            label14.Visible = false;
-            label17.Visible = false;
 
-            tabControl1.SelectedTab = tabPage1;
+            tabControl1.SelectedTab = InventoryTab;
         }
         private void OpenShop(object sender, EventArgs e)
         {
@@ -567,59 +665,116 @@ namespace SchoolTycoon
         }
         private void OpenSchedule(object sender, EventArgs e)
         {
+            if (Classrooms.Count == 0)
+            {
+                MessageBox.Show("You have no classrooms!");
+                return;
+            }
+
+            for (int ClassNumber = 0; ClassNumber < AmountOfClasses; ClassNumber++)
+                ClassList.Items.Add("Class " + ClassNumber);
+            ClassList.SelectedIndex = 0;
+
             #region Fill Teacher comboboxes
             comboBox9.Items.Clear();
-            comboBox9.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Biology))
                     comboBox9.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox9.SelectedIndex = Schedule[0, 0];
 
             comboBox1.Items.Clear();
-            comboBox1.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Chemistry))
                     comboBox1.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox1.SelectedIndex = Schedule[1, 0];
 
             comboBox3.Items.Clear();
-            comboBox3.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Economics))
                     comboBox3.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox3.SelectedIndex = Schedule[2, 0];
 
             comboBox4.Items.Clear();
-            comboBox4.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Geography))
                     comboBox4.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox4.SelectedIndex = Schedule[3, 0];
 
             comboBox5.Items.Clear();
-            comboBox5.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.History))
                     comboBox5.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox5.SelectedIndex = Schedule[4, 0];
 
             comboBox6.Items.Clear();
-            comboBox6.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Language))
                     comboBox6.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox6.SelectedIndex = Schedule[5, 0];
 
             comboBox7.Items.Clear();
-            comboBox7.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Maths))
                     comboBox7.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox7.SelectedIndex = Schedule[6, 0];
 
             comboBox8.Items.Clear();
-            comboBox8.Items.Add("None");
             foreach (Teacher Teacher in Teachers)
                 if (Teacher.Subjects.Contains(Subject.Physics))
                     comboBox8.Items.Add(Teacher.FirstName[0] + ". " + Teacher.LastName);
+            comboBox8.SelectedIndex = Schedule[7, 0];
             #endregion
 
+            #region Fill Classroom comboboxes
             comboBox10.Items.Clear();
             foreach (Classroom Classroom in Classrooms)
                 comboBox10.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox10.SelectedIndex = Schedule[0, 1];
+
+            comboBox2.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox2.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox2.SelectedIndex = Schedule[1, 1];
+
+            comboBox11.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox11.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox11.SelectedIndex = Schedule[2, 1];
+
+            comboBox12.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox12.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox12.SelectedIndex = Schedule[3, 1];
+
+            comboBox13.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox13.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox13.SelectedIndex = Schedule[4, 1];
+
+            comboBox14.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox14.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox14.SelectedIndex = Schedule[5, 1];
+            
+            comboBox15.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox15.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox15.SelectedIndex = Schedule[6, 1];
+
+            comboBox16.Items.Clear();
+            foreach (Classroom Classroom in Classrooms)
+                comboBox16.Items.Add(Classroom.Number.ToString().PadLeft(3, '0'));
+            comboBox16.SelectedIndex = Schedule[7, 1];
+            #endregion
+
+            numericUpDown2.Value = Schedule[0, 2];
+            numericUpDown3.Value = Schedule[0, 2];
+            numericUpDown4.Value = Schedule[0, 2];
+            numericUpDown5.Value = Schedule[0, 2];
+            numericUpDown6.Value = Schedule[0, 2];
+            numericUpDown7.Value = Schedule[0, 2];
+            numericUpDown8.Value = Schedule[0, 2];
+            numericUpDown9.Value = Schedule[0, 2];
 
             tabControl1.SelectedTab = tabPage3;
         }
@@ -648,7 +803,10 @@ namespace SchoolTycoon
         }
         private void OpenClassroom(int ClassroomValue)
         {
-            Point Location = Classrooms[ClassroomValue].Locations[0];
+            SelectedClassroomValue = ClassroomValue;
+            Classroom Classroom = Classrooms[ClassroomValue];
+
+            Point Location = Classroom.Locations[0];
 
             for (int y = 0; y < 5; y++)
                 for (int x = 0; x < 5; x++)
@@ -660,7 +818,25 @@ namespace SchoolTycoon
                     else
                         PreviewTile.Image = ((PictureBox)theGrid.GetControlFromPosition(Location.X + x - 2, Location.Y + y - 2)).BackgroundImage;
                 }
-            tabControl1.SelectedTab = tabPage5;
+
+            label34.Text = "Classroom " + Classroom.Number.ToString("D3");
+            numericUpDown11.Value = Classroom.Number;
+
+            if (Classroom.Blackboard.ItemID != -1)
+            {
+                pictureBox29.Image = ItemLargeIcons.Images[Classroom.Blackboard.ItemID];
+                button15.Enabled = true;
+            }
+            else
+            {
+                pictureBox29.Image = new Bitmap(64, 64);
+                button15.Enabled = false;
+            }
+
+            label42.Text = Language.GetString(Classroom.Blackboard.NameResource);
+            label41.Text = Language.GetString(Classroom.Blackboard.DescriptionResource);
+
+            tabControl1.SelectedTab = ClassroomViewer;
         }
         private void ExitToMainScreen(object sender, EventArgs e)
         {
@@ -757,7 +933,7 @@ namespace SchoolTycoon
             label4.Text = Language.GetString(ShopItems[ShopItemList.SelectedIndices[0]].DescriptionResource);
             label7.Text = "€" + ShopItems[ShopItemList.SelectedIndices[0]].Price;
 
-            ItemToFind = ShopItemList.SelectedIndices[0];
+            ItemToFind = (short)ShopItemList.SelectedIndices[0];
             int InventoryIndex = Inventory.FindIndex(FindItem);
 
             if (InventoryIndex == -1)
@@ -773,7 +949,10 @@ namespace SchoolTycoon
             {
                 label7.ForeColor = Color.Red;
             }
-            pictureBox2.Image = ItemLargeIcons.Images[ShopItemList.SelectedItems[0].ImageIndex].GetThumbnailImage(64, 64, null, IntPtr.Zero);
+            if (ShopItems[ShopItemList.SelectedIndices[0]].ItemID != -1)
+                pictureBox2.Image = ItemLargeIcons.Images[ShopItems[ShopItemList.SelectedIndices[0]].ItemID].GetThumbnailImage(64, 64, null, IntPtr.Zero);
+            else
+                pictureBox2.Image = new Bitmap(64, 64);
 
             numericUpDown1.Value = 1;
             ShopItemCountChanged(null, null);
@@ -785,18 +964,39 @@ namespace SchoolTycoon
 
             Money -= ShopItems[ShopItemList.SelectedIndices[0]].Price * (int)numericUpDown1.Value;
 
-            ItemToFind = ShopItemList.SelectedIndices[0];
+            AddItem((short)ShopItemList.SelectedIndices[0], (short)numericUpDown1.Value);
+
+            ShopItemList_SelectedIndexChanged(null, null);
+            UpdateStatusWindow();
+        }
+
+        private void AddItem(short ItemValue, short AddAmount)
+        {
+            ItemToFind = ItemValue;
             int InventoryIndex = Inventory.FindIndex(FindItem);
 
             if (InventoryIndex == -1)
                 Inventory.Add(new short[] { (short)ItemToFind, (short)numericUpDown1.Value });
             else
                 Inventory[InventoryIndex][1] += (short)numericUpDown1.Value;
-
-            ShopItemList_SelectedIndexChanged(null, null);
-            UpdateStatusWindow();
         }
-        int ItemToFind = 0;
+        private bool RemoveItem(short ItemValue, short RemoveAmount)
+        {
+            ItemToFind = ItemValue;
+            int InventoryIndex = Inventory.FindIndex(FindItem);
+
+            if (Inventory[InventoryIndex][1] == 1)
+            {
+                Inventory.RemoveAt(InventoryIndex);
+                return true;
+            }
+            else
+            {
+                Inventory[InventoryIndex][1]--;
+                return false;
+            }
+        }
+        short ItemToFind = 0;
         private bool FindItem(short[] Item)
         {
             return Item[0] == ItemToFind;
@@ -804,7 +1004,12 @@ namespace SchoolTycoon
         private void InventoryViewer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (InventoryViewer.SelectedItems.Count == 0)
+            {
+                button6.Enabled = false;
                 return;
+            }
+
+            button6.Enabled = SelectedClassroomValue != -1;
 
             label16.Text = Language.GetString(ShopItems[Inventory[InventoryViewer.SelectedIndices[0]][0]].NameResource);
             label15.Text = Language.GetString(ShopItems[Inventory[InventoryViewer.SelectedIndices[0]][0]].DescriptionResource);
@@ -816,8 +1021,6 @@ namespace SchoolTycoon
             label15.Visible = true;
             label12.Visible = true;
             label11.Visible = true;
-            label14.Visible = true;
-            label17.Visible = true;
         }
         private void ShopItemCountChanged(object sender, EventArgs e)
         {
@@ -831,12 +1034,74 @@ namespace SchoolTycoon
 
         private void ChangeHours(object sender, EventArgs e)
         {
-            //int Hours = 34 - ((int)numericUpDown2.Value + (int)numericUpDown3.Value + (int)numericUpDown4.Value + (int)numericUpDown5.Value + (int)numericUpDown6.Value);
             label25.Text = "Total hours: " + (numericUpDown2.Value + numericUpDown3.Value + numericUpDown4.Value + numericUpDown5.Value + numericUpDown6.Value + numericUpDown7.Value + numericUpDown8.Value + numericUpDown9.Value);
-            //if (Hours >= 1)
-            //    label25.ForeColor = Color.Black;
-            //else
-            //    label25.ForeColor = Color.Red;
+        }
+        private void ChangeClassroomNumber(object sender, EventArgs e)
+        {
+            label34.Text = "Classroom " + numericUpDown11.Value.ToString().PadLeft(3, '0');
+
+            Classroom Classroom = Classrooms[SelectedClassroomValue];
+            Classroom.Number = (short)numericUpDown11.Value;
+            Classrooms[SelectedClassroomValue] = Classroom;
+        }
+        private void TakeBlackboard(object sender, EventArgs e)
+        {
+            Classroom Classroom = Classrooms[SelectedClassroomValue];
+
+            AddItem(Classroom.Blackboard.ItemID, 1);
+            Classroom.Blackboard = new ShopItem("NoBlackboardName", "NoBlackboardDescription", -1, 0, -10);
+
+            Classrooms[SelectedClassroomValue] = Classroom;
+            OpenClassroom(SelectedClassroomValue);
+        }
+        private void UseItem(object sender, EventArgs e)
+        {
+            Classroom Classroom = Classrooms[SelectedClassroomValue];
+
+            if (Classroom.Blackboard.ItemID != -1)
+            {
+                MessageBox.Show("This classroom already has a blackboard. Remove it before adding a new one.");
+                return;
+            }
+
+            Classroom.Blackboard = ShopItems[Inventory[InventoryViewer.SelectedIndices[0]][0]];
+            Classrooms[SelectedClassroomValue] = Classroom;
+
+            RemoveItem(Inventory[InventoryViewer.SelectedIndices[0]][0], 1);
+
+            OpenInventory(null, null);
+        }
+
+        private void CreateSchedule(object sender, EventArgs e)
+        {
+            Schedule[0, 0] = (short)comboBox9.SelectedIndex;
+            Schedule[1, 0] = (short)comboBox1.SelectedIndex;
+            Schedule[2, 0] = (short)comboBox3.SelectedIndex;
+            Schedule[3, 0] = (short)comboBox4.SelectedIndex;
+            Schedule[4, 0] = (short)comboBox5.SelectedIndex;
+            Schedule[5, 0] = (short)comboBox6.SelectedIndex;
+            Schedule[6, 0] = (short)comboBox7.SelectedIndex;
+            Schedule[7, 0] = (short)comboBox8.SelectedIndex;
+
+            Schedule[0, 1] = (short)comboBox10.SelectedIndex;
+            Schedule[1, 1] = (short)comboBox2.SelectedIndex;
+            Schedule[2, 1] = (short)comboBox11.SelectedIndex;
+            Schedule[3, 1] = (short)comboBox12.SelectedIndex;
+            Schedule[4, 1] = (short)comboBox13.SelectedIndex;
+            Schedule[5, 1] = (short)comboBox14.SelectedIndex;
+            Schedule[6, 1] = (short)comboBox15.SelectedIndex;
+            Schedule[7, 1] = (short)comboBox16.SelectedIndex;
+
+            Schedule[0, 2] = (short)numericUpDown2.Value;
+            Schedule[1, 2] = (short)numericUpDown3.Value;
+            Schedule[2, 2] = (short)numericUpDown4.Value;
+            Schedule[3, 2] = (short)numericUpDown5.Value;
+            Schedule[4, 2] = (short)numericUpDown6.Value;
+            Schedule[5, 2] = (short)numericUpDown7.Value;
+            Schedule[6, 2] = (short)numericUpDown8.Value;
+            Schedule[7, 2] = (short)numericUpDown9.Value;
+
+            ExitToMainScreen(null, null);
         }
     }
 }

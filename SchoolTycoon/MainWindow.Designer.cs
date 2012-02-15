@@ -70,12 +70,10 @@
             this.RotateBlueprintLeft = new System.Windows.Forms.Button();
             this.BuilderBlueprint = new System.Windows.Forms.TableLayoutPanel();
             this.CBcancelButton = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.InventoryTab = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -148,7 +146,15 @@
             this.label36 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.ClassroomViewer = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button15 = new System.Windows.Forms.Button();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.pictureBox29 = new System.Windows.Forms.PictureBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.button14 = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
@@ -191,7 +197,7 @@
             this.MoneyCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.PeopleLargeIcons = new System.Windows.Forms.ImageList(this.components);
-            this.button14 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -201,7 +207,7 @@
             this.StandardTab.SuspendLayout();
             this.BuilderTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
-            this.tabPage1.SuspendLayout();
+            this.InventoryTab.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -220,7 +226,10 @@
             this.tabPage4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.tabPage5.SuspendLayout();
+            this.ClassroomViewer.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
@@ -397,11 +406,11 @@
             // 
             this.tabControl1.Controls.Add(this.StandardTab);
             this.tabControl1.Controls.Add(this.BuilderTab);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.InventoryTab);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.ClassroomViewer);
             this.tabControl1.Controls.Add(this.DebugMenu);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -417,6 +426,7 @@
             // 
             this.StandardTab.BackColor = System.Drawing.Color.White;
             this.StandardTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StandardTab.Controls.Add(this.label14);
             this.StandardTab.Controls.Add(this.button12);
             this.StandardTab.Controls.Add(this.button11);
             this.StandardTab.Controls.Add(this.button7);
@@ -440,7 +450,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(65, 36);
             this.button12.TabIndex = 8;
-            this.button12.Text = "Debug";
+            this.button12.Text = "Place Tiles";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.OpenDebugMenu);
             // 
@@ -710,20 +720,20 @@
             this.CBcancelButton.UseVisualStyleBackColor = true;
             this.CBcancelButton.Click += new System.EventHandler(this.ExitToMainScreen);
             // 
-            // tabPage1
+            // InventoryTab
             // 
-            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage1.Controls.Add(this.button6);
-            this.tabPage1.Controls.Add(this.button5);
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.InventoryViewer);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(242, 342);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Inventory";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.InventoryTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InventoryTab.Controls.Add(this.button6);
+            this.InventoryTab.Controls.Add(this.button5);
+            this.InventoryTab.Controls.Add(this.panel1);
+            this.InventoryTab.Controls.Add(this.InventoryViewer);
+            this.InventoryTab.Location = new System.Drawing.Point(4, 22);
+            this.InventoryTab.Name = "InventoryTab";
+            this.InventoryTab.Padding = new System.Windows.Forms.Padding(3);
+            this.InventoryTab.Size = new System.Drawing.Size(242, 342);
+            this.InventoryTab.TabIndex = 2;
+            this.InventoryTab.Text = "Inventory";
+            this.InventoryTab.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -734,6 +744,7 @@
             this.button6.TabIndex = 8;
             this.button6.Text = "Use";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.UseItem);
             // 
             // button5
             // 
@@ -748,8 +759,6 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label15);
@@ -759,26 +768,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 126);
             this.panel1.TabIndex = 2;
-            // 
-            // label17
-            // 
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 109);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(66, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "0";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label14
-            // 
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 96);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(69, 13);
-            this.label14.TabIndex = 15;
-            this.label14.Text = "In use:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label11
             // 
@@ -1437,6 +1426,7 @@
             this.numericUpDown9.Name = "numericUpDown9";
             this.numericUpDown9.Size = new System.Drawing.Size(34, 20);
             this.numericUpDown9.TabIndex = 17;
+            this.numericUpDown9.ValueChanged += new System.EventHandler(this.ChangeHours);
             // 
             // numericUpDown8
             // 
@@ -1444,6 +1434,7 @@
             this.numericUpDown8.Name = "numericUpDown8";
             this.numericUpDown8.Size = new System.Drawing.Size(34, 20);
             this.numericUpDown8.TabIndex = 16;
+            this.numericUpDown8.ValueChanged += new System.EventHandler(this.ChangeHours);
             // 
             // numericUpDown7
             // 
@@ -1451,6 +1442,7 @@
             this.numericUpDown7.Name = "numericUpDown7";
             this.numericUpDown7.Size = new System.Drawing.Size(34, 20);
             this.numericUpDown7.TabIndex = 15;
+            this.numericUpDown7.ValueChanged += new System.EventHandler(this.ChangeHours);
             // 
             // button9
             // 
@@ -1470,6 +1462,7 @@
             this.button8.TabIndex = 13;
             this.button8.Text = "Create Schedule";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.CreateSchedule);
             // 
             // label25
             // 
@@ -1531,14 +1524,10 @@
             // 
             // ClassList
             // 
+            this.ClassList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ClassList.FormattingEnabled = true;
             this.ClassList.Items.AddRange(new object[] {
-            "Class 1",
-            "Class 2",
-            "Class 3",
-            "Class 4",
-            "Class 5",
-            "Class 6"});
+            "Class 1"});
             this.ClassList.Location = new System.Drawing.Point(43, 2);
             this.ClassList.Name = "ClassList";
             this.ClassList.Size = new System.Drawing.Size(195, 21);
@@ -1623,19 +1612,103 @@
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
             // 
-            // tabPage5
+            // ClassroomViewer
             // 
-            this.tabPage5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage5.Controls.Add(this.button14);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(242, 342);
-            this.tabPage5.TabIndex = 6;
-            this.tabPage5.Text = "Classroom";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.ClassroomViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ClassroomViewer.Controls.Add(this.panel4);
+            this.ClassroomViewer.Controls.Add(this.label33);
+            this.ClassroomViewer.Controls.Add(this.numericUpDown11);
+            this.ClassroomViewer.Controls.Add(this.button14);
+            this.ClassroomViewer.Controls.Add(this.label34);
+            this.ClassroomViewer.Controls.Add(this.tableLayoutPanel1);
+            this.ClassroomViewer.Location = new System.Drawing.Point(4, 22);
+            this.ClassroomViewer.Name = "ClassroomViewer";
+            this.ClassroomViewer.Padding = new System.Windows.Forms.Padding(3);
+            this.ClassroomViewer.Size = new System.Drawing.Size(242, 342);
+            this.ClassroomViewer.TabIndex = 6;
+            this.ClassroomViewer.Text = "Classroom";
+            this.ClassroomViewer.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.button15);
+            this.panel4.Controls.Add(this.label41);
+            this.panel4.Controls.Add(this.label42);
+            this.panel4.Controls.Add(this.pictureBox29);
+            this.panel4.Location = new System.Drawing.Point(6, 89);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(230, 126);
+            this.panel4.TabIndex = 13;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(3, 74);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(64, 47);
+            this.button15.TabIndex = 10;
+            this.button15.Text = "Take";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.TakeBlackboard);
+            // 
+            // label41
+            // 
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(75, 21);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(150, 95);
+            this.label41.TabIndex = 9;
+            this.label41.Text = "Item Description";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(72, 3);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(89, 18);
+            this.label42.TabIndex = 8;
+            this.label42.Text = "Item Name";
+            // 
+            // pictureBox29
+            // 
+            this.pictureBox29.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox29.Name = "pictureBox29";
+            this.pictureBox29.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox29.TabIndex = 1;
+            this.pictureBox29.TabStop = false;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(92, 29);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(47, 13);
+            this.label33.TabIndex = 12;
+            this.label33.Text = "Number:";
+            // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Location = new System.Drawing.Point(145, 27);
+            this.numericUpDown11.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(38, 20);
+            this.numericUpDown11.TabIndex = 11;
+            this.numericUpDown11.ValueChanged += new System.EventHandler(this.ChangeClassroomNumber);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(1, 304);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(238, 35);
+            this.button14.TabIndex = 10;
+            this.button14.Text = "Close";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.ExitToMainScreen);
             // 
             // label34
             // 
@@ -1643,9 +1716,9 @@
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label34.Location = new System.Drawing.Point(88, 6);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(153, 18);
+            this.label34.Size = new System.Drawing.Size(123, 18);
             this.label34.TabIndex = 9;
-            this.label34.Text = "< Classroom 000 >";
+            this.label34.Text = "Classroom 000";
             // 
             // tableLayoutPanel1
             // 
@@ -2067,15 +2140,14 @@
             this.PeopleLargeIcons.ImageSize = new System.Drawing.Size(64, 64);
             this.PeopleLargeIcons.TransparentColor = System.Drawing.Color.Fuchsia;
             // 
-            // button14
+            // label14
             // 
-            this.button14.Location = new System.Drawing.Point(1, 304);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(238, 35);
-            this.button14.TabIndex = 10;
-            this.button14.Text = "Close";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.ExitToMainScreen);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 116);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 26);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Income: 0\r\nExpenses: 0";
             // 
             // MainWindow
             // 
@@ -2105,7 +2177,7 @@
             this.BuilderTab.ResumeLayout(false);
             this.BuilderTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
-            this.tabPage1.ResumeLayout(false);
+            this.InventoryTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -2128,8 +2200,12 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.ClassroomViewer.ResumeLayout(false);
+            this.ClassroomViewer.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
@@ -2211,7 +2287,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button OpenCBbutton;
         public System.Windows.Forms.TableLayoutPanel theGrid;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage InventoryTab;
         private System.Windows.Forms.ListView InventoryViewer;
         private System.Windows.Forms.ImageList ItemLargeIcons;
         private System.Windows.Forms.TabPage tabPage2;
@@ -2241,8 +2317,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ComboBox comboBox16;
@@ -2296,7 +2370,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.ImageList PeopleLargeIcons;
         private System.Windows.Forms.ImageList PeopleSmallIcons;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage ClassroomViewer;
         private System.Windows.Forms.TabPage DebugMenu;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
@@ -2330,6 +2404,14 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown numericUpDown11;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.PictureBox pictureBox29;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Label label14;
 
 
     }

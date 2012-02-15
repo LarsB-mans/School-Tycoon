@@ -1,3 +1,10 @@
+GeertL | 15-02-2012 | 23:10
+- Public release!
+- You can now add/remove blackboards to/from classrooms.
+- Display stats in the pupil viewer.
+- Happiness increases/decreases based on how you play.
+- Some other tweaks.
+
 GeertL | 13-02-2012 | 23:07
 - Basic classroom viewer.
 - Various behind-the-scenes tweaks.
